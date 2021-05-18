@@ -10,18 +10,18 @@
                         </v-card-title>    
                          </v-row>  
                     <v-row justify="center">         
-                    <v-col cols="12" xs="6" sm="6" md="6"  flat>
+                    <v-col  cols="12" xs="4" sm="4" md="4"  flat>
                          <v-card                   
                         class="mx-auto"                   
                         flat                                                             
                         >
                     <v-card-actions xs3 md4 class="justify-center">                        
                         <div class="text-center pb-4">
-                          <v-btn  rounded class="px-15 py-3 mt-5 " to="/">
+                          <!-- <v-btn  rounded class="px-15 py-3 mt-5 " to="/"> -->
                             <v-img src="../assets/choose-avatar.png">
                                 
                             </v-img>
-                          </v-btn>
+                          <!-- </v-btn> -->
                         </div>
                      </v-card-actions>
                     <!-- <div class="text-center pb-4">
