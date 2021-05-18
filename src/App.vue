@@ -1,26 +1,25 @@
 <template>
-  <v-app>    
-    <Navbar />  
+  <v-app>
+    <Sidebar />
 
     <v-main>
+      <FloatingNav />
       <router-view></router-view>
-    </v-main> 
+    </v-main>
   </v-app>
-
-  
 </template>
 
 <script>
-import Navbar from '@/components/Navbar'
-
+import Sidebar from "@/components/Sidebar";
+import FloatingNav from "@/components/FloatingNav";
 
 export default {
-  name: 'App',
-  components: { Navbar },
-  data(){
+  name: "App",
+  components: { Sidebar, FloatingNav },
+  data() {
     return {
       //
-    }
-  }
+    };
+  },
 };
 </script>
