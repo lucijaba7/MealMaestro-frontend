@@ -1,8 +1,8 @@
 <template>
-  <nav>    
+  <nav >    
     
-   <v-app-bar  class="toolbar"
-      
+   <v-app-bar  
+     
       app
       flat
       max-height="60px"
