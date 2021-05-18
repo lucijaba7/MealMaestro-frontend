@@ -18,6 +18,11 @@ const routes = [
     component: () => import('../views/Login.vue')
   },
   {
+    path: '/splashScreen',
+    name: 'SplashScreen',
+    component: () => import('../views/SplashScreen.vue')
+  },
+  {
     path: '/browse',
     name: 'Browse',
     component: () => import('../views/Browse.vue')
@@ -33,9 +38,9 @@ const routes = [
     component: () => import('../views/Recipes.vue')
   },
   {
-    path: '/grocheryList',
-    name: 'GrocheryList',
-    component: () => import('../views/GrocheryList.vue')
+    path: '/groceryList',
+    name: 'GroceryList',
+    component: () => import('../views/GroceryList.vue')
   }
 ]
 
