@@ -31,7 +31,7 @@ export default {
           route: "/recipes",
         },
         { icon: "mdi-fridge", text: "FRIDGE", route: "/fridge" },
-        { icon: "mdi-cart", text: "GROCHERY LIST", route: "/grocheryList" },
+        { icon: "mdi-cart", text: "GROCERY LIST", route: "/groceryList" },
         { icon: "mdi-feature-search", text: "BROWSE", route: "/browse" },
       ],
     };

@@ -1,9 +1,10 @@
 <template>
   <v-app>
-    <Sidebar />
+    <!-- <Sidebar /> -->
 
     <v-main>
       <FloatingNav />
+
       <router-view></router-view>
     </v-main>
   </v-app>
@@ -12,6 +13,7 @@
 <script>
 import Sidebar from "@/components/Sidebar";
 import FloatingNav from "@/components/FloatingNav";
+import AvatarPopup from "@/components/AvatarPopup";
 
 export default {
   name: "App",

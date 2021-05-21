@@ -10,6 +10,7 @@ export default new Vuetify({
                 primary: '#89C2B2', //plava
                 secondary: '#E05333',   //crvena    
                 accent: '#F8AC42',  //zuta
+                white: '#FFFEFB',
                 primaryText: '#445462',
                 secondaryText: '#6D7984',
             }

@@ -1,35 +1,18 @@
-@import "~vuetify/src/styles/styles.sass";
+@import url("https://fonts.googleapis.com/css2?family=Alegreya+Sans+SC&display=swap");
 
 $material-light: (
   "background": #fffefb,
+  "text": (
+    "primary": #445462,
+    "secondary": #6d7984,
+  ),
 );
-
-$base-color: #c6538c;
 
 $body-font-family: "Alegreya Sans SC", sans-serif;
-$font-size-root: 16px;
-$border-radius-root: 6px;
+$font-size-root: 20px;
+$headings-font-family: $body-font-family;
 
-$rounded: (
-  0: 0,
-  "sm": $border-radius-root / 2,
-  null: $border-radius-root,
-  "lg": $border-radius-root * 2,
-  "xl": $border-radius-root * 6,
-  "pill": 9999px,
-  "circle": 50%,
-);
-
-$grid-breakpoints: map-merge(
-  $grid-breakpoints,
-  (
-    xs: 0,
-    sm: 476px,
-    md: 900px,
-    lg: 1200px,
-    xl: 1300px,
-  )
-);
+$breadcrumbs-item-font-size: 25px;
 
 /*
 ako overrideam npr. h1 to je kao da sam overrideala display-4, h2 je za display-3, h3 za display-2, h4 za display-1, h5 za headline i h6 za title
