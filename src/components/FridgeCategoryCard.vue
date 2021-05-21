@@ -1,6 +1,6 @@
 <template>
   <v-card 
-    class="rounded-xl mr-5 mb-5"
+    class="rounded-xl"
   >
     <v-img
       @click="cat(category.name)"
