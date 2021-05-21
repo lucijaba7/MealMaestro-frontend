@@ -1,6 +1,6 @@
 <template>
 <div>
-  <!-- <v-navigation-drawer class="secondary" app fixed permanent expand-on-hover>
+  <v-navigation-drawer class="secondary" app fixed permanent expand-on-hover>
     <v-list nav>
       <v-list-item
         class="navigation-items"
@@ -17,7 +17,7 @@
         }}</v-list-item-title>
       </v-list-item>
     </v-list>
-  </v-navigation-drawer> -->
+  </v-navigation-drawer> 
 </div>
 </template>
 
@@ -33,7 +33,7 @@ export default {
           route: "/recipes",
         },
         { icon: "mdi-fridge", text: "FRIDGE", route: "/fridge" },
-        { icon: "mdi-cart", text: "GROCHERY LIST", route: "/grocheryList" },
+        { icon: "mdi-cart", text: "GROCERY LIST", route: "/groceryList" },
         { icon: "mdi-feature-search", text: "BROWSE", route: "/browse" },
       ],
     };

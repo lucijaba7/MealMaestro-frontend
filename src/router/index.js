@@ -1,6 +1,15 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+import SplashScreen from '../views/SplashScreen.vue'
+import Registration from '../views/Registration.vue'
+import Login from '../views/Login.vue'
 import Home from '../views/Home.vue'
+import GroceryList from '../views/GroceryList.vue'
+import Fridge from '../views/fridge/Fridge.vue'
+import FridgeOverview from '../views/fridge/FridgeOverview.vue'
+import FridgeCategory from '../views/fridge/FridgeCategory.vue'
+import Recipes from '../views/Recipes.vue'
+import Browse from '../views/Browse.vue'
 
 Vue.use(VueRouter)
 
@@ -13,46 +22,61 @@ const routes = [
     component: Home
   },
   {
+    path: '/registration',
+    name: 'Registration',
+    component: Registration
+  },
+  {
     path: '/login',
     name: 'Login',
-    component: () => import('../views/Login.vue')
+    component: Login
   },
   {
     path: '/splashScreen',
     name: 'SplashScreen',
-    component: () => import('../views/SplashScreen.vue')
+    component: SplashScreen
   },
   {
     path: '/browse',
     name: 'Browse',
-    component: () => import('../views/Browse.vue')
+    component: Browse
   },
   {
     path: '/fridge',
     name: 'Fridge',
-    component: () => import('../views/Fridge.vue')
+    component: Fridge,
+    children: [
+      {
+        path: '',
+        name: 'FridgeOverview',
+        component: FridgeOverview
+      },
+      {
+        path: ':name',
+        name: 'FridgeCategory',
+        component: FridgeCategory
+      }
+    ]
   },
   {
     path: '/recipes',
     name: 'Recipes',
-    component: () => import('../views/Recipes.vue')
+    component: Recipes
   },
   {
     path: '/groceryList',
     name: 'GroceryList',
-    component: () => import('../views/GroceryList.vue')
+    component: GroceryList
   },
-  {
-    path: '/registration',
-    name: 'Registration',
-    component: () => import('../views/Registration.vue')
-  }
 ]
 
 const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
-  routes
+  routes,
+  scrollBehavior(to, from, savedPosition) {
+      return { x: 0, y: 0 }
+  }
 })
 
 export default router;
