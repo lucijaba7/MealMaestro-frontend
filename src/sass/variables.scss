@@ -1,9 +1,18 @@
+@import url('https://fonts.googleapis.com/css2?family=Alegreya+Sans+SC&display=swap');
+
 $material-light: (
-  'background': #FFFEFB
+  'background': #FFFEFB,
+  'text': (
+    'primary': #445462,
+    'secondary': #6D7984
+  )
 );
 
 $body-font-family: 'Alegreya Sans SC',  sans-serif;
-$font-size-root: 16px;
+$font-size-root: 20px;
+$headings-font-family: $body-font-family;
+
+$breadcrumbs-item-font-size: 25px; 
 
 /*
 ako overrideam npr. h1 to je kao da sam overrideala display-4, h2 je za display-3, h3 za display-2, h4 za display-1, h5 za headline i h6 za title

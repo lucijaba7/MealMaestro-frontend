@@ -17,7 +17,7 @@
 
     <v-btn icon>
       <v-icon>mdi-account-circle</v-icon>
-    </v-btn>
+    </v-btn> 
   </span>
   <!-- </v-app-bar> -->
 </template>
