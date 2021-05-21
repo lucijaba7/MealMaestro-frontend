@@ -1,5 +1,4 @@
 <template>
-<div>
   <v-navigation-drawer class="secondary" app fixed permanent expand-on-hover>
     <v-list nav>
       <v-list-item
@@ -17,8 +16,7 @@
         }}</v-list-item-title>
       </v-list-item>
     </v-list>
-  </v-navigation-drawer> 
-</div>
+  </v-navigation-drawer>
 </template>
 
 <script>

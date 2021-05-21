@@ -12,6 +12,7 @@
 <script>
 import Sidebar from "@/components/Sidebar";
 import FloatingNav from "@/components/FloatingNav";
+import AvatarPopup from "@/components/AvatarPopup";
 
 export default {
   name: "App",

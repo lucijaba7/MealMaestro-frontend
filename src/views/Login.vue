@@ -1,13 +1,13 @@
 <template>
       
          <v-container fluid fill-height justify-center>
-            <!-- <v-container align-center justify-center> -->
-               <v-flex xs12 sm6 md4>
+               <v-row justify="space-around">
+                  <v-col xs="12" sm="6" md="4"  >
                   <v-card class="elevation-0 ">                     
                      <v-card-text class="py-2">
                         <v-row justify="center" >                   
-                      <v-col cols="12" xs="4" md="8"  flat>
-                       <v-card                   
+                      <v-col xs="8" md="8" flat>
+                         <v-card                   
                         class="mx-auto"                   
                         flat                                                             
                         >
@@ -50,14 +50,18 @@
                      </v-layout>
                      </v-card-text>                     
                   </v-card>
-               </v-flex>
+                  </v-col>
+               </v-row>
             </v-container>
      
 </template>
 
 <script>
+// import AvatarPopup from '../components/AvatarPopup.vue'
+
 export default {
    name: 'Login',
+
    props: {
       source: String,
    },
