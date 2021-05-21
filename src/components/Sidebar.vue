@@ -1,6 +1,6 @@
 <template>
 <div>
-  <!-- <v-navigation-drawer class="secondary" app fixed permanent expand-on-hover>
+  <v-navigation-drawer class="secondary" app fixed permanent expand-on-hover>
     <v-list nav>
       <v-list-item
         class="navigation-items"
@@ -17,7 +17,7 @@
         }}</v-list-item-title>
       </v-list-item>
     </v-list>
-  </v-navigation-drawer> -->
+  </v-navigation-drawer>
 </div>
 </template>
 
