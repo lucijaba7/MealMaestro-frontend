@@ -1,16 +1,37 @@
 <template>
   <v-card
-    class="rounded-lg mx-auto text-sm-caption"
+    class="mx-auto rounded-xl"
     :min-width="minWidth"
     :max-width="maxWidth"
+    :color="isActive ? 'secondary' : 'white'"
+    :class="{ 'mb-3 elevation-4': isActive }"
   >
-    <!-- <v-card-text class="pt-1 p-0 text-sm-caption"> -->
-    <p class="mb-0">{{ info.day.slice(0, 3).toUpperCase() }}</p>
-    <v-divider class="mx-2" color="primaryText"></v-divider>
-    <p>
-      {{ info.date }}
-    </p>
-    <!-- </v-card-text> -->
+    <v-row>
+      <v-col cols="12" class="text-center pb-0" align-self="center">
+        <div
+          class=" font-weight-bold text-uppercase"
+          :class="{ 'white--text': isActive }"
+          :style="device == 'xs' ? 'font-size: 17px' : 'font-size:18px'"
+        >
+          {{ day }}
+        </div>
+        <v-divider
+          class="my-0"
+          :color="isActive ? '#ffffff' : '#546778'"
+          style="margin: 10%"
+        ></v-divider>
+      </v-col>
+
+      <v-col cols="12" class=" text-center pt-0"
+        ><div
+          class=" font-weight-bold "
+          :class="isActive ? 'white--text' : 'secondary--text'"
+          :style="device == 'xs' ? 'font-size: 17px' : 'font-size:25px'"
+        >
+          {{ info.date }}
+        </div></v-col
+      >
+    </v-row>
   </v-card>
 </template>
 
@@ -18,46 +39,56 @@
 export default {
   props: ["info"],
   data() {
-    return {};
+    return {
+      isActive: this.info.active,
+    };
   },
   computed: {
     minWidth() {
       switch (this.$vuetify.breakpoint.name) {
         case "xs":
-          return 245;
+          return 5; //241;
         case "sm":
           return 28;
         case "md":
           return 30;
         case "lg":
-          return 140;
+          return 100;
         case "xl":
-          return 200;
+          return 150;
       }
     },
     maxWidth() {
       switch (this.$vuetify.breakpoint.name) {
         case "xs":
-          return 1000;
+          return 30;
         case "sm":
           return 90;
         case "md":
-          return 130;
+          return 140;
         case "lg":
-          return 145;
+          return 140;
         case "xl":
-          return 250;
+          return 160;
       }
     },
-  },
-  mounted() {
-    console.log(this.$vuetify.breakpoint.name);
+    device() {
+      return this.$vuetify.breakpoint.name;
+    },
+    day() {
+      if (this.device == "xs") return this.info.day.slice(0, 1);
+      return this.info.day.slice(0, 3);
+    },
   },
 };
 </script>
 
-<style lang="scss">
-.divider {
-  border-top: 1px solid black;
+<style lang="scss" scoped>
+.v-card {
+  cursor: pointer;
+  transition: all 1s;
+}
+.divier {
+  width: 100%;
 }
 </style>

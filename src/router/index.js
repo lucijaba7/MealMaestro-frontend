@@ -1,19 +1,17 @@
-import Vue from 'vue'
-import VueRouter from 'vue-router'
-import SplashScreen from '../views/SplashScreen.vue'
-import Registration from '../views/Registration.vue'
-import Login from '../views/Login.vue'
-import Home from '../views/Home.vue'
-import GroceryList from '../views/GroceryList.vue'
-import Fridge from '../views/fridge/Fridge.vue'
-import FridgeOverview from '../views/fridge/FridgeOverview.vue'
-import FridgeCategory from '../views/fridge/FridgeCategory.vue'
-import Recipes from '../views/Recipes.vue'
-import Browse from '../views/Browse.vue'
+import Vue from "vue";
+import VueRouter from "vue-router";
+import SplashScreen from "../views/SplashScreen.vue";
+import Registration from "../views/Registration.vue";
+import Login from "../views/Login.vue";
+import Home from "../views/Home.vue";
+import GroceryList from "../views/GroceryList.vue";
+import Fridge from "../views/fridge/Fridge.vue";
+import FridgeOverview from "../views/fridge/FridgeOverview.vue";
+import FridgeCategory from "../views/fridge/FridgeCategory.vue";
+import Recipes from "../views/Recipes.vue";
+import Browse from "../views/Browse.vue";
 
-Vue.use(VueRouter)
-
-
+Vue.use(VueRouter);
 
 const routes = [
   {
@@ -70,12 +68,12 @@ const routes = [
 ];
 
 const router = new VueRouter({
-  mode: 'history',
+  mode: "history",
   base: process.env.BASE_URL,
   routes,
   scrollBehavior(to, from, savedPosition) {
-      return { x: 0, y: 0 }
-  }
-})
+    return { x: 0, y: 0 };
+  },
+});
 
 export default router;

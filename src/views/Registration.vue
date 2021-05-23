@@ -52,17 +52,16 @@
                           <v-btn  rounded class="px-15 primary elevation-0" to="/">Next</v-btn>
                         </div>
                      </v-card-actions>
-                     <v-row justify-center>
+                     <v-row align="end" justify="center">                     
+                       <span class="pt-5 ">Already have an account?</span>
+                       <a href="/login" style="text-decoration: none" class="pl-1 primaryText--text"> SIGN IN </a>
+                     
 
-                     <v-flex md6 justify-center class="text-right ">
-                       <p class="pt-5 ">Already have an account?</p>
-                     </v-flex>
-                     <v-flex md6 class="pt-5 text-left ">
-                       <a href="/login" style="text-decoration: none" class="pl-1 primaryText--text text-left"> SIGN IN </a>
-                     </v-flex>
-                     <v-flex xs12 md12 justify-center class="text-center ">
+                     </v-row>
+                     <v-row>
+                     <v-col xs="12" md="12" justify-center class="text-center ">
                        <p class="pt-5 text-center ">By continuing, you agree to MealMaestro <strong>Terms of Use</strong> and confirm that you have read its <strong>Privacy Policy</strong>.</p>
-                     </v-flex>
+                     </v-col>
                      </v-row>
                      </v-card-text>                     
                   </v-card>

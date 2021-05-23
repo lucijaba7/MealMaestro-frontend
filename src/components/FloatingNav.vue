@@ -1,13 +1,13 @@
 <template>
-  <span class="floating-nav float-right mr-2 mt-5">
-    <v-btn icon>
+  <v-col cols="4" sm="2" class="floating-nav">
+    aaaqqqqqqqqqqqqqqqqqqqqqqqqq
+    <!-- <v-btn icon>
       <v-icon color="secondary">mdi-cog</v-icon>
     </v-btn>
-
     <v-btn icon secondary>
       <v-icon color="secondary">mdi-account-circle</v-icon>
-    </v-btn>
-  </span>
+    </v-btn> -->
+  </v-col>
 </template>
 
 <script>
@@ -23,4 +23,8 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.floating-nav {
+  display: inline-flex;
+}
+</style>
