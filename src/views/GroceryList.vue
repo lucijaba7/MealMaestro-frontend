@@ -1,5 +1,5 @@
 <template>
-  <v-container fluid class="pl-4">
+  <v-container fluid>
     <p class="text-h3 mt-5 mb-1">This week’s shopping list!</p>
     <p class="pl-2">This list is created based on next week’s meal plan. Happy Shopping!!</p>
 
@@ -33,7 +33,7 @@
                         <td> 
                             <v-checkbox
                                 v-model="checkbox1"
-                            ></v-checkbox>
+                            ></v-checkbox> <!-- ovo ce trebat dinamicki, sad javlja error neki pa zanemarite -->
                         </td>
                     </tr>
                     </tbody>
@@ -44,17 +44,21 @@
     </v-row>
     <v-row :class="this.$vuetify.breakpoint.name=='xs' ? 'mx-0' : 'mx-16'">
       <v-col align="end">
-        <v-btn rounded class="px-15 py-3 my-5 primary elevation-0">Shopping finished</v-btn>
+        <v-btn rounded @click.stop="warning = true" class="px-8 py-3 my-5 primary elevation-0">Shopping finished</v-btn>
       </v-col>
     </v-row>
+    <ShoppingPopup v-model="warning" />
   </v-container>
 </template>
 
 <script>
+import ShoppingPopup from '@/components/ShoppingPopup'
+
 export default {
   name: 'ShoppingList',
   data() {
     return {
+        warning: false,
         items: [
             {name: "Item 1", unit: "kg", quantity: 1},
             {name: "Item 2", unit: "kg", quantity: 1},
@@ -65,6 +69,7 @@ export default {
             {name: "Item 7", unit: "kg", quantity: 1},
         ]
     }
-  }
+  },
+  components: { ShoppingPopup }
 }
 </script>
