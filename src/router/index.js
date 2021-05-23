@@ -17,58 +17,57 @@ Vue.use(VueRouter)
 
 const routes = [
   {
-    path: '/',
-    name: 'Home',
-    component: Home
+    path: "/",
+    name: "Home",
+    component: Home,
   },
   {
-    path: '/registration',
-    name: 'Registration',
-    component: Registration
+    path: "/registration",
+    name: "Registration",
+    component: Registration,
   },
   {
-    path: '/login',
-    name: 'Login',
-    component: Login
+    path: "/login",
+    name: "Login",
+    component: Login,
   },
   {
-    path: '/splashScreen',
-    name: 'SplashScreen',
-    component: SplashScreen
+    path: "/splashScreen",
+    name: "SplashScreen",
+    component: SplashScreen,
   },
   {
-    path: '/browse',
-    name: 'Browse',
-    component: Browse
+    path: "/browse",
+    name: "Browse",
+    component: Browse,
   },
   {
-    path: '/fridge',
-    name: 'Fridge',
+    path: "/fridge",
     component: Fridge,
     children: [
       {
-        path: '',
-        name: 'FridgeOverview',
-        component: FridgeOverview
+        path: "",
+        name: "FridgeOverview",
+        component: FridgeOverview,
       },
       {
-        path: ':name',
-        name: 'FridgeCategory',
-        component: FridgeCategory
-      }
-    ]
+        path: ":name",
+        name: "FridgeCategory",
+        component: FridgeCategory,
+      },
+    ],
   },
   {
-    path: '/recipes',
-    name: 'Recipes',
-    component: Recipes
+    path: "/recipes",
+    name: "Recipes",
+    component: Recipes,
   },
   {
-    path: '/groceryList',
-    name: 'GroceryList',
-    component: GroceryList
+    path: "/groceryList",
+    name: "GroceryList",
+    component: GroceryList,
   },
-]
+];
 
 const router = new VueRouter({
   mode: 'history',

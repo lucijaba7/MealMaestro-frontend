@@ -26,7 +26,7 @@ export default {
       links: [
         { icon: "mdi-home", text: "HOME", route: "/" },
         {
-          icon: "mdi-silverware-fork-knife",
+          icon: "mdi-room-service",
           text: "RECIPES",
           route: "/recipes",
         },
