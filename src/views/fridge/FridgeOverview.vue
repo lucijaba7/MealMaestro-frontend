@@ -1,7 +1,7 @@
 <template>
-  <v-container pa-0>
-    <v-row class="justify-start mt-5 mb-3">
-      <v-col xs="12" sm="9" md="5" lg="4" v-for="category in categories" :key="category.name">
+  <v-container fluid pa-0>
+    <v-row class="mt-5 mb-3">
+      <v-col cols="12" sm="6" md="4" lg="3" align-self="center" class="pa-5" v-for="category in categories" :key="category.name">
         <FridgeCategoryCard :category="category" />
       </v-col>
     </v-row>

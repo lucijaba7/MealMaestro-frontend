@@ -1,5 +1,4 @@
 <template>
-<div>
   <v-navigation-drawer class="secondary" app fixed permanent expand-on-hover>
     <v-list nav>
       <v-list-item
@@ -17,8 +16,7 @@
         }}</v-list-item-title>
       </v-list-item>
     </v-list>
-  </v-navigation-drawer> 
-</div>
+  </v-navigation-drawer>
 </template>
 
 <script>
@@ -28,11 +26,11 @@ export default {
       links: [
         { icon: "mdi-home", text: "HOME", route: "/" },
         {
-          icon: "mdi-silverware-fork-knife",
+          icon: "mdi-room-service",
           text: "RECIPES",
           route: "/recipes",
         },
-        { icon: "mdi-fridge", text: "FRIDGE", route: "/fridge" },
+        { icon: "mdi-fridge", text: "FRIDGE", route: "/fridge/" },
         { icon: "mdi-cart", text: "GROCERY LIST", route: "/groceryList" },
         { icon: "mdi-feature-search", text: "BROWSE", route: "/browse" },
       ],

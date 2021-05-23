@@ -1,10 +1,37 @@
 <template>
-  <v-card>
-    <v-card-title>
-      {{ info.day.slice(0, 3).toUpperCase() }}
-    </v-card-title>
-    <v-divider></v-divider>
-    <div></div>
+  <v-card
+    class="mx-auto rounded-xl"
+    :min-width="minWidth"
+    :max-width="maxWidth"
+    :color="isActive ? 'secondary' : 'white'"
+    :class="{ 'mb-3 elevation-4': isActive }"
+  >
+    <v-row>
+      <v-col cols="12" class="text-center pb-0" align-self="center">
+        <div
+          class=" font-weight-bold text-uppercase"
+          :class="{ 'white--text': isActive }"
+          :style="device == 'xs' ? 'font-size: 17px' : 'font-size:18px'"
+        >
+          {{ day }}
+        </div>
+        <v-divider
+          class="my-0"
+          :color="isActive ? '#ffffff' : '#546778'"
+          style="margin: 10%"
+        ></v-divider>
+      </v-col>
+
+      <v-col cols="12" class=" text-center pt-0"
+        ><div
+          class=" font-weight-bold "
+          :class="isActive ? 'white--text' : 'secondary--text'"
+          :style="device == 'xs' ? 'font-size: 17px' : 'font-size:25px'"
+        >
+          {{ info.date }}
+        </div></v-col
+      >
+    </v-row>
   </v-card>
 </template>
 
@@ -12,9 +39,56 @@
 export default {
   props: ["info"],
   data() {
-    return {};
+    return {
+      isActive: this.info.active,
+    };
+  },
+  computed: {
+    minWidth() {
+      switch (this.$vuetify.breakpoint.name) {
+        case "xs":
+          return 5; //241;
+        case "sm":
+          return 28;
+        case "md":
+          return 30;
+        case "lg":
+          return 100;
+        case "xl":
+          return 150;
+      }
+    },
+    maxWidth() {
+      switch (this.$vuetify.breakpoint.name) {
+        case "xs":
+          return 30;
+        case "sm":
+          return 90;
+        case "md":
+          return 140;
+        case "lg":
+          return 140;
+        case "xl":
+          return 160;
+      }
+    },
+    device() {
+      return this.$vuetify.breakpoint.name;
+    },
+    day() {
+      if (this.device == "xs") return this.info.day.slice(0, 1);
+      return this.info.day.slice(0, 3);
+    },
   },
 };
 </script>
 
-<style></style>
+<style lang="scss" scoped>
+.v-card {
+  cursor: pointer;
+  transition: all 1s;
+}
+.divier {
+  width: 100%;
+}
+</style>

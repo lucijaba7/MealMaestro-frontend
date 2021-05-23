@@ -1,25 +1,13 @@
 <template>
-  <!-- <v-navigation-drawer floating app right permanent mini-variant>
-    <v-btn icon>
-      <v-icon>mdi-heart</v-icon>
+  <v-col cols="4" sm="2" class="floating-nav">
+    aaaqqqqqqqqqqqqqqqqqqqqqqqqq
+    <!-- <v-btn icon>
+      <v-icon color="secondary">mdi-cog</v-icon>
     </v-btn>
-
-    <v-btn icon>
-      <v-icon>mdi-magnify</v-icon>
-    </v-btn>
-  </v-navigation-drawer> -->
-  <!-- <v-app-bar dense dark floating collapse>
-    <v-app-bar-nav-icon></v-app-bar-nav-icon> -->
-  <span class="floating-nav float-right">
-    <v-btn icon>
-      <v-icon>mdi-cog</v-icon>
-    </v-btn>
-
-    <v-btn icon>
-      <v-icon>mdi-account-circle</v-icon>
-    </v-btn> 
-  </span>
-  <!-- </v-app-bar> -->
+    <v-btn icon secondary>
+      <v-icon color="secondary">mdi-account-circle</v-icon>
+    </v-btn> -->
+  </v-col>
 </template>
 
 <script>
@@ -37,6 +25,6 @@ export default {
 
 <style scoped>
 .floating-nav {
-  margin: 30px;
+  display: inline-flex;
 }
 </style>
