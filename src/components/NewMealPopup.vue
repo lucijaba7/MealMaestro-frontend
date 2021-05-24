@@ -3,7 +3,7 @@
     <v-dialog
       v-model="show"
       persistent
-      max-width="500"
+      max-width="600"
       @click:outside="show = false"
     >
       <v-card>
@@ -26,26 +26,28 @@
                 class="mx-auto"
             ></v-img>
           </v-col>
-          <v-col cols="12" sm="7" class="pa-0" align-self="center">
-            <v-card-title  class="font-weight-bold text-center pb-0" :style="this.$vuetify.breakpoint.name=='xs' ? 'fontSize: 20px' : ''">
-                Did you enjoy neki jako dugacak naziv recepta?
+          <v-col cols="12" sm="7" class="pa-0">
+            <v-card-title  class="font-weight-bold pb-0" :style="this.$vuetify.breakpoint.name=='xs' ? 'fontSize: 22px ' : ''">
+                Conrats!! You’ve just created a new recipe!
             </v-card-title>
-            <v-card-text class="text-center pb-2 pt-0">
-              Let {{ meal.username }} know! <StarRating :star-size="20" :increment="0.5" :inline="true" :clearable="true" :show-rating="false" class="pt-5"/>
+            <v-card-text class="pb-2 pt-0">
+                <p class="font-weight-bold ma-0" :style="this.$vuetify.breakpoint.name=='xs' ? 'fontSize: 16px ' : ''">Would you like to share this recipe with the World?</p>
+                Your recipe would be shared with your followers and will be visible on everyone’s explore page, so everyone can find your awesome recipes!
             </v-card-text>
           </v-col>
+        <v-checkbox class="ml-3 mt-0" label="Always publish my recipes"></v-checkbox>
         </v-row>
 
-        <v-card-actions class="pa-0 mt-2">
+        <v-card-actions class="pa-0">
           <v-row justify="center" class="ma-0">
-            <v-btn rounded class="py-3 px-15 mb-5 mr-2 primary elevation-0"
-              >Submit</v-btn
+            <v-btn rounded class="py-3 px-15  mb-5 mr-2 primary elevation-0"
+              >Publish</v-btn
             >
             <v-btn
               outlined
               rounded
               @click="show = false"
-              class="py-3 px-10 mb-5 mr-2 elevation-0"
+              class="py-3 px-10  mb-5 mr-2 elevation-0"
               >No, thanks</v-btn
             >
           </v-row>
@@ -56,18 +58,13 @@
 </template>
 
 <script>
-import StarRating from 'vue-star-rating'
-
 export default {
   props: {
     value: Boolean,
   },
   data() {
     return {
-        meal: {
-            name: "Peanutty Edamame and Noodle Salad",
-            username: "@sarah_foster"
-        }
+
     };
   },
   computed: {
@@ -80,6 +77,5 @@ export default {
       },
     },
   },
-  components: { StarRating }
 };
 </script>

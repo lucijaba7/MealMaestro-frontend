@@ -23,8 +23,8 @@
           <v-card-subtitle class="caption font-weight-bold primaryText--text">
             {{ recipe.username }} 
           </v-card-subtitle>
-          <v-col align="end" cols="4" sm="3" md="3" lg="3"> 
-            <StarRating  :rating="recipe.ratings" :star-size="20" :increment="0.5" :rtl="true" :read-only="true" :show-rating="false" />
+          <v-col align="end" cols="4" sm="3" md="3" lg="3" :class="this.$vuetify.breakpoint.name=='xs' ? 'mr-3' : ''"> 
+            <StarRating  :rating="recipe.ratings" :star-size="20" :increment="0.5" :inline="true" :read-only="true" :show-rating="false" />
           </v-col>
         </v-row>
 
