@@ -23,24 +23,26 @@
           <v-card-subtitle class="caption font-weight-bold primaryText--text">
             {{ recipe.username }} 
           </v-card-subtitle>
-          <v-col align="end" cols="4" sm="3" md="3" lg="3"> <v-icon small color="accent" v-for="index in recipe.ratings" :key="index">mdi-star</v-icon></v-col>
+          <v-col align="end" cols="4" sm="3" md="3" lg="3" :class="this.$vuetify.breakpoint.name=='xs' ? 'mr-3' : ''"> 
+            <StarRating  :rating="recipe.ratings" :star-size="20" :increment="0.5" :inline="true" :read-only="true" :show-rating="false" />
+          </v-col>
         </v-row>
 
         <v-divider class="mx-4"></v-divider>
 
         <v-card-text>
           <v-row class="mt-2">
-            <v-col>
+            <v-col cols="12" sm="6">
               <p class="font-weight-bold primaryText--text ma-0">{{ recipe.meal_type }}</p>
               <v-row dense>
-                <v-col cols="12" lg="6">
-                  <p class="ma-0" > <!-- {{this.$vuetify.breakpoint.name=='xs' ? '' : 'servings'}}    ma-0 -->
+                <v-col>
+                  <p class="ma-0"> 
                     {{ recipe.servings }} servings 
                     <v-icon small class="ml-1">mdi-silverware-fork-knife</v-icon>
                     <v-btn small fab class="elevation-0 ml-1" max-width="22" max-height="22"><v-icon small color="primary">mdi-pencil</v-icon></v-btn>
                   </p>
                 </v-col>
-                <v-col cols="12" lg="3">
+                <v-col>
                   <p class="ma-0">{{ recipe.total_time }} <v-icon small>mdi-clock</v-icon></p>
                 </v-col>
               </v-row>
@@ -58,7 +60,7 @@
                 <li v-for="ingredient in recipe.ingredients_list" :key="ingredient">{{ ingredient }}</li>
               </ul>
             </v-col>
-            <v-col>
+            <v-col cols="12" sm="6">
               <p class="font-weight-bold primaryText--text mb-0">Directions:</p>
               <p>
                 {{ recipe.directions }}
@@ -78,6 +80,8 @@
 </template>
 
 <script>
+import StarRating from 'vue-star-rating'
+
 export default {
   props: {
      value: Boolean
@@ -108,7 +112,7 @@ export default {
         tags: ["Gluten-free","High protein","Low-fat","neki tag","evo joos"],
         date: "22.05.2021.",
         published: true,
-        ratings: 4
+        ratings: 4.5
       }
     }
   },
@@ -121,6 +125,7 @@ export default {
          this.$emit('input', value)
       }
     }
-  }
+  },
+  components: { StarRating }
 }
 </script>
