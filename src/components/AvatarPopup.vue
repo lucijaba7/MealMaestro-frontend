@@ -1,9 +1,8 @@
 <template>
-
     <v-dialog max-width="600px">        
                      <template v-slot:activator="{ on }">
                         <v-btn icon x-small v-on="on" class="ma-10">
-                           <v-avatar size="100">
+                           <v-avatar size="90%" >
                               <img src="../assets/choose-avatar.png" contain position alt="Avatar">
                            </v-avatar>
                         </v-btn>

@@ -40,14 +40,10 @@
                           <v-btn  rounded class="px-15 py-3 mt-5 primary elevation-0" to="/">Login</v-btn>
                         </div>
                      </v-card-actions>
-                     <v-layout row>
-                     <v-flex xs6 md6 justify-center class="text-right ">
-                       <p class="pt-5 ">New to MealMaestro?</p>
-                     </v-flex>
-                     <v-flex xs6 md6 class="pt-5 transparent text-left ">
-                       <v-btn small depressed  class="transparent text-left "  to="/registration">Create account</v-btn>
-                     </v-flex>
-                     </v-layout>
+                     <v-row align="end" justify="center">                     
+                       <span class="pt-5 ">New to MealMaestro?</span>
+                       <v-btn small depressed  class="transparent text-left "  to="/registration">Create account</v-btn>                     
+                     </v-row>
                      </v-card-text>                     
                   </v-card>
                   </v-col>
