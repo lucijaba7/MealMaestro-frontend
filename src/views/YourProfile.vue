@@ -36,14 +36,13 @@
         <v-divider class="my-3"></v-divider>
         <v-spacer></v-spacer>
         <v-row class="my-10">
-            <v-col cols="6" sm="6" align="left">
+            <v-col cols="12" md="6" align="left">
             <ProfileMealCard />
             </v-col>
-            <v-col>
-            <div>
-                
-            </div>
+            <v-col cols="12" md="6" align="left">
+            <ProfileMealCard />
             </v-col>
+            
         </v-row>
     </v-container>
 </template>
