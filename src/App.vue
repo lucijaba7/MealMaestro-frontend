@@ -10,9 +10,9 @@
 </template>
 
 <script>
-import Sidebar from "@/components/Sidebar";
-import FloatingNav from "@/components/FloatingNav";
-import AvatarPopup from "@/components/AvatarPopup";
+import Sidebar from "@/components/Layout/Sidebar";
+import FloatingNav from "@/components/Layout/FloatingNav";
+import AvatarPopup from "@/components/Popups/AvatarPopup";
 
 export default {
   name: "App",
@@ -21,6 +21,6 @@ export default {
     return {
       //
     };
-  },
+  }
 };
 </script>

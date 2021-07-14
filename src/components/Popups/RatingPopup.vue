@@ -19,19 +19,32 @@
         </v-col>
         <v-row class="ma-0">
           <v-col cols="12" sm="5" align-self="center">
-            <v-img 
-                src="@/assets/LOGO-tocni.png"
-                :width="this.$vuetify.breakpoint.name=='xs' ? '70%' : '90%'"
-                :height="this.$vuetify.breakpoint.name=='xs' ? '70%' : '90%'"
-                class="mx-auto"
+            <v-img
+              src="@/assets/logo.png"
+              :width="this.$vuetify.breakpoint.name == 'xs' ? '70%' : '90%'"
+              :height="this.$vuetify.breakpoint.name == 'xs' ? '70%' : '90%'"
+              class="mx-auto"
             ></v-img>
           </v-col>
           <v-col cols="12" sm="7" class="pa-0" align-self="center">
-            <v-card-title  class="font-weight-bold text-center pb-0" :style="this.$vuetify.breakpoint.name=='xs' ? 'fontSize: 20px' : ''">
-                Did you enjoy neki jako dugacak naziv recepta?
+            <v-card-title
+              class="font-weight-bold text-center pb-0"
+              :style="
+                this.$vuetify.breakpoint.name == 'xs' ? 'fontSize: 20px' : ''
+              "
+            >
+              Did you enjoy neki jako dugacak naziv recepta?
             </v-card-title>
             <v-card-text class="text-center pb-2 pt-0">
-              Let {{ meal.username }} know! <StarRating :star-size="20" :increment="0.5" :inline="true" :clearable="true" :show-rating="false" class="pt-5"/>
+              Let {{ meal.username }} know!
+              <StarRating
+                :star-size="20"
+                :increment="0.5"
+                :inline="true"
+                :clearable="true"
+                :show-rating="false"
+                class="pt-5"
+              />
             </v-card-text>
           </v-col>
         </v-row>
@@ -56,18 +69,18 @@
 </template>
 
 <script>
-import StarRating from 'vue-star-rating'
+import StarRating from "vue-star-rating";
 
 export default {
   props: {
-    value: Boolean,
+    value: Boolean
   },
   data() {
     return {
-        meal: {
-            name: "Peanutty Edamame and Noodle Salad",
-            username: "@sarah_foster"
-        }
+      meal: {
+        name: "Peanutty Edamame and Noodle Salad",
+        username: "@sarah_foster"
+      }
     };
   },
   computed: {
@@ -77,8 +90,8 @@ export default {
       },
       set(value) {
         this.$emit("input", value);
-      },
-    },
+      }
+    }
   },
   components: { StarRating }
 };

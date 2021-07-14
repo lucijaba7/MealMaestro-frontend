@@ -19,16 +19,21 @@
         </v-col>
         <v-row class="ma-0">
           <v-col cols="12" sm="5" align-self="center">
-            <v-img 
-                src="@/assets/LOGO-tocni.png"
-                :width="this.$vuetify.breakpoint.name=='xs' ? '80%' : '100%'"
-                :height="this.$vuetify.breakpoint.name=='xs' ? '80%' : '100%'"
-                class="mx-auto"
+            <v-img
+              src="@/assets/logo.png"
+              :width="this.$vuetify.breakpoint.name == 'xs' ? '80%' : '100%'"
+              :height="this.$vuetify.breakpoint.name == 'xs' ? '80%' : '100%'"
+              class="mx-auto"
             ></v-img>
           </v-col>
           <v-col cols="12" sm="7" class="pa-0">
-            <v-card-title class="font-weight-bold" :style="this.$vuetify.breakpoint.name=='xs' ? 'fontSize: 20px' : ''">
-                Wait! You won’t be able to <br />accomplish this week’s plan.
+            <v-card-title
+              class="font-weight-bold"
+              :style="
+                this.$vuetify.breakpoint.name == 'xs' ? 'fontSize: 20px' : ''
+              "
+            >
+              Wait! You won’t be able to <br />accomplish this week’s plan.
             </v-card-title>
             <v-card-text>
               Ingredients missing:
@@ -67,15 +72,15 @@
 <script>
 export default {
   props: {
-    value: Boolean,
+    value: Boolean
   },
   data() {
     return {
       missing_ingredients: [
         { name: "Apple", unit: "g", quantity: 500 },
         { name: "Flour", unit: "g", quantity: 700 },
-        { name: "Mushrooms", unit: "kg", quantity: 1 },
-      ],
+        { name: "Mushrooms", unit: "kg", quantity: 1 }
+      ]
     };
   },
   computed: {
@@ -85,8 +90,8 @@ export default {
       },
       set(value) {
         this.$emit("input", value);
-      },
-    },
-  },
+      }
+    }
+  }
 };
 </script>

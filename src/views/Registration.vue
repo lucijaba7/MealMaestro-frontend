@@ -81,7 +81,7 @@
 </template>
 
 <script>
-import AvatarPopup from "@/components/AvatarPopup";
+import AvatarPopup from "@/components/Popups/AvatarPopup";
 
 export default {
   name: "Login",

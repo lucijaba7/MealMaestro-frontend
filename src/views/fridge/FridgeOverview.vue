@@ -1,7 +1,16 @@
 <template>
   <v-container fluid pa-0>
     <v-row class="mt-5 mb-3">
-      <v-col cols="12" sm="6" md="4" lg="3" align-self="center" class="pa-5" v-for="category in categories" :key="category.name">
+      <v-col
+        cols="12"
+        sm="6"
+        md="4"
+        lg="3"
+        align-self="center"
+        class="pa-5"
+        v-for="category in categories"
+        :key="category.name"
+      >
         <FridgeCategoryCard :category="category" />
       </v-col>
     </v-row>
@@ -9,25 +18,25 @@
 </template>
 
 <script>
-import FridgeCategoryCard from "@/components/FridgeCategoryCard";
+import FridgeCategoryCard from "@/components/Cards/FridgeCategoryCard";
 
 export default {
-  name: 'FridgeOverview',
+  name: "FridgeOverview",
   data() {
     return {
       categories: [
-        {name: "Seafood", pic: "seafood.jpg"},
-        {name: "Grains", pic: "grains.jpg"},
-        {name: "Fruits", pic: "fruits.jpg"},
-        {name: "Meat", pic: "meat.jpg"},
-        {name: "Spices", pic: "spices.jpg"},
-        {name: "Vegetables", pic: "vegetables.jpg"},
-        {name: "Legumes", pic: "legumes.jpg"},
-        {name: "Dairy products and eggs", pic: "dairy_prod_eggs.jpg"},
-        {name: "other", pic: "other.jpg"}
+        { name: "Seafood", pic: "seafood.jpg" },
+        { name: "Grains", pic: "grains.jpg" },
+        { name: "Fruits", pic: "fruits.jpg" },
+        { name: "Meat", pic: "meat.jpg" },
+        { name: "Spices", pic: "spices.jpg" },
+        { name: "Vegetables", pic: "vegetables.jpg" },
+        { name: "Legumes", pic: "legumes.jpg" },
+        { name: "Dairy products and eggs", pic: "dairy_prod_eggs.jpg" },
+        { name: "other", pic: "other.jpg" }
       ]
-    }
+    };
   },
   components: { FridgeCategoryCard }
-}
+};
 </script>
