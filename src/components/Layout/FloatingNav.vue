@@ -7,10 +7,10 @@
     order-sm="3"
     align="end"
   >
-    <v-btn icon>
+    <v-btn icon :to="(route = '/settings')">
       <v-icon color="secondary">mdi-cog</v-icon>
     </v-btn>
-    <v-btn icon secondary>
+    <v-btn icon :to="(route = '/profile')">
       <v-icon color="secondary">mdi-account-circle</v-icon>
     </v-btn>
   </v-col>
@@ -18,14 +18,7 @@
 
 <script>
 export default {
-  data() {
-    return {
-      items: [
-        { icon: "mdi-account-circle", text: "HOME", route: "/" },
-        { icon: "mdi-account-circle", text: "bla", route: "/" },
-      ],
-    };
-  },
+  name: "FloatingNav"
 };
 </script>
 

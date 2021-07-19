@@ -10,7 +10,7 @@
 
       <v-img
         src="@/assets/meal1.png"
-        class="rounded-xl"
+        class="img rounded-xl"
         width="100%"
         height="115px"
         fluid
@@ -88,5 +88,9 @@ export default {
 }
 .v-card {
   cursor: pointer;
+}
+.img {
+  position: absolute;
+  bottom: 0;
 }
 </style>

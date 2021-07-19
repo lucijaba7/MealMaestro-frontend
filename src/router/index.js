@@ -13,6 +13,7 @@ import FridgeOverview from "../views/fridge/FridgeOverview.vue";
 import FridgeCategory from "../views/fridge/FridgeCategory.vue";
 import Recipes from "../views/Recipes.vue";
 import YourProfile from "../views/YourProfile.vue";
+import Settings from "../views/Settings.vue";
 import NotFound from "../views/NotFound.vue";
 
 Vue.use(VueRouter);
@@ -81,6 +82,11 @@ const routes = [
     path: "/groceryList",
     name: "GroceryList",
     component: GroceryList
+  },
+  {
+    path: "/settings",
+    name: "Settings",
+    component: Settings
   },
   {
     path: "/profile",

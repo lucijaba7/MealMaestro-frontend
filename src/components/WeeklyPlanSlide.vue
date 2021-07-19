@@ -1,6 +1,6 @@
 <template>
   <v-row>
-    <v-col>
+    <v-col class="px-0">
       <h4 class="ml-5 mt-5">- MON 21 -</h4>
       <v-slide-group
         height="300"

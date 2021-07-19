@@ -29,9 +29,9 @@
           <v-col cols="12" sm="7" class="pa-0">
             <v-card-title
               class="font-weight-bold"
-              :style="
-                this.$vuetify.breakpoint.name == 'xs' ? 'fontSize: 20px' : ''
-              "
+              :style="{
+                'fontSize: 20px': this.$vuetify.breakpoint.name == 'xs'
+              }"
             >
               Wait! You won’t be able to <br />accomplish this week’s plan.
             </v-card-title>
@@ -60,7 +60,7 @@
               rounded
               @click="show = false"
               class="py-3 mb-5 mr-2 elevation-0"
-              >Continue chopping</v-btn
+              >Continue shopping</v-btn
             >
           </v-row>
         </v-card-actions>

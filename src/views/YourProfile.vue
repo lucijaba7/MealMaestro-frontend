@@ -9,9 +9,13 @@
           <v-col class="pb-0">
             <div class="text-h5 font-weight-bold">
               Your profile
-              <v-icon size="100%" class="px-5 primary--text"
+              <v-icon
+                size="100%"
+                class="px-5 primary--text"
+                @click.stop="editProfileOpen = true"
                 >mdi-square-edit-outline</v-icon
               >
+              <EditProfilePopup v-model="editProfileOpen" />
               <span class="text-subtitle-2">Followers:</span>
               <div class="text-subtitle-1 font-weight-bold">
                 {{ userName }}
@@ -49,12 +53,14 @@
 
 <script>
 import ProfileMealCard from "@/components/Cards/ProfileMealCard.vue";
+import EditProfilePopup from "@/components/Popups/EditProfilePopup.vue";
 
 export default {
-  components: { ProfileMealCard },
+  components: { EditProfilePopup, ProfileMealCard },
   data() {
     return {
       userName: "@SweetAmy",
+      editProfileOpen: false,
       checkbox2: null
     };
   }

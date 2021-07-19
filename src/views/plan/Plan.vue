@@ -83,8 +83,8 @@
         <CalendarButton :info="weekday" @clicked="toggleActive"
       /></v-col>
     </v-row>
-    <ConfirmPlan />
-    <!-- <CreatePlan /> -->
+    <!-- <ConfirmPlan />
+    <CreatePlan /> -->
     <router-view :key="$route.fullPath"></router-view>
   </v-container>
 </template>
@@ -95,11 +95,7 @@ import FloatingNav from "@/components/Layout/FloatingNav";
 import ConfirmPlan from "@/components/Plan/ConfirmPlan";
 import CreatePlan from "@/components/Plan/CreatePlan";
 
-const {
-  weekdayName,
-  monthName,
-  switchWeek
-} = require("@/assets/date/date_handling.js");
+const { weekdayName, monthName } = require("@/assets/date/date_handling.js");
 
 export default {
   data() {

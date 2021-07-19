@@ -1,26 +1,37 @@
 <template>
-  <v-row class="ma-9" max-width="100">
-    <v-col cols="12" sm="6">
-      <v-img
-        src="@/assets/logo.png"
-        :max-width="maxWidth"
-        class="mx-auto"
-      ></v-img> </v-col
-    ><v-col cols="12" sm="6">
-      <div class="font-weight-bold">
-        Here is your weekly plan!
-      </div>
-      <div>
-        You can change whatever you like, and when you’re happy, confirm the
-        plan to get a shopping list!!
-      </div>
-    </v-col>
-    <v-col cols="12">
-      <v-btn rounded class="py-3 primary elevation-0 text-caption"
-        >show weekly plan</v-btn
-      >
-    </v-col>
-  </v-row>
+  <v-card class="card mt-13 mx-auto white" flat max-width="550">
+    <v-row>
+      <v-col cols="12" sm="6" align-self="center">
+        <v-row :justify="device == 'xs' ? 'center' : 'end'">
+          <v-img
+            class="mx-3"
+            src="@/assets/logo.png"
+            :max-width="maxWidth"
+          ></v-img>
+        </v-row> </v-col
+      ><v-col cols="12" sm="6" align-self="center">
+        <v-row :justify="device == 'xs' ? 'center' : 'start'">
+          <div
+            class="font-weight-bold"
+            :style="{ 'text-align: center': device == 'xs' }"
+          >
+            Here is your weekly plan!
+          </div>
+          <div :style="{ 'text-align: center': device == 'xs' }">
+            You can change whatever you like, and when you’re happy, confirm the
+            plan to get a shopping list!!
+          </div>
+        </v-row>
+      </v-col>
+      <v-col cols="12" align-self="center">
+        <v-row justify="center">
+          <v-btn rounded class="py-3 my-3 primary elevation-0">
+            confirm plan</v-btn
+          ></v-row
+        >
+      </v-col>
+    </v-row>
+  </v-card>
 </template>
 
 <script>
@@ -30,19 +41,24 @@ export default {
     maxWidth() {
       switch (this.$vuetify.breakpoint.name) {
         case "xs":
-          return 50; //241;
+          return 100; //241;
         case "sm":
-          return 100;
+          return 170;
         case "md":
-          return 200;
         case "lg":
-          return 100;
         case "xl":
-          return 150;
+          return 200;
       }
+    },
+    device() {
+      return this.$vuetify.breakpoint.name;
     }
   }
 };
 </script>
 
-<style></style>
+<style scoped>
+/* .card {
+  align-self: center;
+} */
+</style>

@@ -37,6 +37,14 @@
             </v-card-title>
             <v-card-text class="text-center pb-2 pt-0">
               Let {{ meal.username }} know!
+              <v-rating
+                hover
+                :value="this.rating"
+                background-color="accent "
+                color="accent"
+                dense
+                half-increments
+              ></v-rating>
               <StarRating
                 :star-size="20"
                 :increment="0.5"
@@ -80,7 +88,8 @@ export default {
       meal: {
         name: "Peanutty Edamame and Noodle Salad",
         username: "@sarah_foster"
-      }
+      },
+      rating: 3.5
     };
   },
   computed: {
