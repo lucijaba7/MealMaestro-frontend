@@ -25,6 +25,15 @@
       >New meal</v-btn
     >
     <NewMealPopup v-model="dialog2" />
+
+    <!-- botun za otvorit create meal -->
+    <v-btn
+      rounded
+      @click.stop="dialog3 = true"
+      class="px-15 py-3 my-5 primary elevation-0"
+      >Create meal</v-btn
+    >
+    <CreateMealPopup v-model="dialog3" />
   </div>
 </template>
 
@@ -32,15 +41,17 @@
 import ExpandedMealCard from "@/components/Cards/ExpandedMealCard";
 import RatingPopup from "@/components/Popups/RatingPopup";
 import NewMealPopup from "@/components/Popups/NewMealPopup";
+import CreateMealPopup from "@/components/Popups/CreateMealPopup";
 
 export default {
   data() {
     return {
       dialog: false,
       dialog1: false,
-      dialog2: false
+      dialog2: false,
+      dialog3: false
     };
   },
-  components: { RatingPopup, ExpandedMealCard, NewMealPopup }
+  components: { RatingPopup, ExpandedMealCard, NewMealPopup, CreateMealPopup }
 };
 </script>
