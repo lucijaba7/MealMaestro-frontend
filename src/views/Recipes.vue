@@ -34,6 +34,15 @@
       >Create meal</v-btn
     >
     <CreateMealPopup v-model="dialog3" />
+
+    <!-- botun za otvorit exception -->
+    <v-btn
+      rounded
+      @click.stop="dialog4 = true"
+      class="px-15 py-3 my-5 primary elevation-0"
+      >Create exception</v-btn
+    >
+    <ExceptionPopup v-model="dialog4" />
   </div>
 </template>
 
@@ -42,6 +51,7 @@ import ExpandedMealCard from "@/components/Cards/ExpandedMealCard";
 import RatingPopup from "@/components/Popups/RatingPopup";
 import NewMealPopup from "@/components/Popups/NewMealPopup";
 import CreateMealPopup from "@/components/Popups/CreateMealPopup";
+import ExceptionPopup from "@/components/Popups/ExceptionPopup";
 
 export default {
   data() {
@@ -49,9 +59,16 @@ export default {
       dialog: false,
       dialog1: false,
       dialog2: false,
-      dialog3: false
+      dialog3: false,
+      dialog4: false
     };
   },
-  components: { RatingPopup, ExpandedMealCard, NewMealPopup, CreateMealPopup }
+  components: {
+    RatingPopup,
+    ExpandedMealCard,
+    NewMealPopup,
+    CreateMealPopup,
+    ExceptionPopup
+  }
 };
 </script>
