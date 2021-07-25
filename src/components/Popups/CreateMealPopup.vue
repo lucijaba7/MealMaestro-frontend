@@ -32,10 +32,12 @@
             :rules="inputRules"
           ></v-text-field>
         </v-col>
-
+        <v-card-subtitle class="py-0">
+          Image
+        </v-card-subtitle>
         <v-card
           outlined
-          class="dragDrop mx-auto my-12"
+          class="dragDrop mx-auto "
           max-width="650"
           @drop.prevent="onDrop($event)"
           @dragover.prevent="dragover = true"
@@ -86,11 +88,13 @@
             </v-virtual-scroll>
           </v-card-text>
           <v-card-actions>
-            <v-spacer></v-spacer>
-
-            <v-btn icon>
-              <v-icon id="upload-button">mdi-upload</v-icon>
-            </v-btn>
+            <!-- <v-spacer></v-spacer> -->
+            <v-col cols="1">
+              <v-file-input
+                truncate-length="50"
+                prepend-icon="mdi-upload"
+              ></v-file-input>
+            </v-col>
           </v-card-actions>
         </v-card>
 
@@ -119,7 +123,7 @@
           ></v-col>
         </v-row>
         <!-- </v-row> -->
-        <v-card-subtitle class="pt-5 pl-2">
+        <v-card-subtitle class="pt-5 pl-2 pb-2">
           Ingredients
         </v-card-subtitle>
         <v-row>
@@ -141,7 +145,47 @@
             <v-divider class="my-0 primary font-weight-light"></v-divider>
           </v-col>
         </v-row>
-        <v-btn small rounded outlined class="py-3 my-5 mr-2  elevation-0"
+
+        <v-item-group v-for="(item, i) in ingredientsList" :key="i">
+          <v-row>
+            <v-col cols="8" sm="7">
+              <!-- PROVJERIT JESAM DOBRO V-MODEL I ITEMS JER TREBAM INGREDIENTS IZ BAZE -->
+
+              <v-autocomplete
+                class="mt-5"
+                v-model="item.ingredientName"
+                :items="ingredients"
+                dense
+              ></v-autocomplete>
+            </v-col>
+            <v-col cols="2">
+              <v-text-field
+                class="mb-5"
+                v-model="item.quantity"
+                type="number"
+              ></v-text-field>
+            </v-col>
+            <v-col cols="2"
+              ><v-select :items="unitType" v-model="item.unit"></v-select
+            ></v-col>
+            <v-btn
+              @click="removeIngredient(i)"
+              fab
+              color="transparent"
+              class="elevation-0 mt-8"
+              max-width="18"
+              max-height="18"
+              ><v-icon medium color="grey">mdi-close-circle-outline</v-icon>
+            </v-btn>
+          </v-row>
+        </v-item-group>
+
+        <v-btn
+          @click="addIngredient"
+          small
+          rounded
+          outlined
+          class="py-3 my-5 mr-2  elevation-0"
           >Add
           <v-icon>mdi-plus</v-icon>
         </v-btn>
@@ -157,31 +201,66 @@
           ></v-textarea>
         </v-container>
 
-        <!-- <v-container fluid>
-          <v-row align="center">
-            <v-col cols="12" sm="6">
+        <!-- TAGOVIIII -->
+
+        <v-container class="py-0">
+          <v-row align="center" justify="start">
+            <!-- <v-col
+              v-for="(selection, i) in selections"
+              :key="selection.text"
+              class="shrink"
+            >
+              <v-chip
+                :disabled="loading"
+                close
+                class="primary"
+                @click:close="selected.splice(i, 1)"
+              >
+                {{ selection.text }}
+              </v-chip>
+            </v-col> -->
+
+            <!-- ko kreten mi je prije uspjelo da chips budu primary sad nece  -->
+
+            <v-col v-if="!allSelected" cols="12">
               <v-select
-                v-model="allTags"
                 :items="allTags"
-                attach
-                chips
-                label="Add tags"
+                v-model="selected"
+                full-width
                 multiple
-              ></v-select>
+                chips
+                deletable-chips
+                label="Add tags"
+                single-line
+              >
+                <!-- ovdje ovaj close nece closeat -->
+
+                <!-- <template #selection="{ item }">
+                  <v-chip close color="primary">{{ item.text }}</v-chip>
+                </template> -->
+              </v-select>
+
+              <template v-slot:selection="{ attrs, item, select, selected }">
+                <v-chip
+                  v-bind="attrs"
+                  :input-value="selected"
+                  close
+                  @click="select"
+                  @click:close="remove(item)"
+                >
+                  <strong>{{ item }}</strong>
+                  <span>(interest)</span>
+                </v-chip>
+              </template>
             </v-col>
           </v-row>
-        </v-container> -->
+        </v-container>
 
-        <!-- <v-row>
-          <v-chip
-            v-for="tag in this.allTags"
-            :key="tag"
-            class="ma-1"
-            color="primary"
-          >
-            {{ tag }}
-          </v-chip>
-        </v-row> -->
+        <!-- <v-divider v-if="!allSelected"></v-divider> -->
+
+        <v-divider></v-divider>
+
+        <!-- Kinda not sure wtf this is also kill me ovaj purple -->
       </v-card>
     </v-dialog>
   </v-row>
@@ -189,7 +268,7 @@
 
 <script>
 export default {
-  name: "Upload",
+  name: "CreateMealPopup",
   props: {
     value: Boolean,
     multiple: {
@@ -202,10 +281,40 @@ export default {
       mealName: "",
       defaultMeal: "Breakfast",
       meals: ["Breakfast", "Lunch", "Dinner", "Snack", "Dessert"],
-      tags: ["Gluten free", "High protein", "Low-fat", "Vegeterian", "Vegan"],
       servings: Number,
       totalTime: Number,
+      ingredientName: "",
+      ingredients: ["Apple", "Salt", "b", "m", "k"],
       timeType: ["h", "min"],
+      unitType: [
+        "g",
+        "kg",
+        "mg",
+        "teaspoon",
+        "tablespoon",
+        "fl oz",
+        "cup",
+        "ml",
+        "L",
+        "dl",
+        "lb",
+        "oz"
+      ],
+      ingredientQuantity: "",
+      //OVDJE U Tags hocemo cheap i nest lowFodmap idk what that is
+      allTags: [
+        { text: "Vegeterian" },
+        { text: "Vegan" },
+        { text: "Gluten-free" },
+        { text: "Dairy-free" },
+        { text: "Very healthy" },
+        { text: "High protein" },
+        { text: "Low-fat" }
+      ],
+      loading: false,
+      search: "",
+      selected: [],
+      ingredientsList: [{ ingredientName: "", quantity: "", unit: "" }],
       inputRules: [v => v.length >= 5 || "Minimum length is 5 characters"],
 
       dragover: false,
@@ -221,6 +330,29 @@ export default {
         this.$emit("input", value);
       }
     },
+
+    allSelected() {
+      return this.selected.length === this.allTags.length;
+    },
+    // categories() {
+    //   const search = this.search.toLowerCase();
+
+    //   if (!search) return this.allTags;
+
+    //   return this.allTags.filter(item => {
+    //     const text = item.text.toLowerCase();
+    //     return text.indexOf(search) > -1;
+    //   });
+    // },
+
+    selections() {
+      const selections = [];
+      for (const selection of this.selected) {
+        selections.push(selection);
+      }
+      return selections;
+    },
+
     device() {
       return this.$vuetify.breakpoint.name;
     },
@@ -235,6 +367,13 @@ export default {
       return "Unit";
     }
   },
+
+  watch: {
+    selected() {
+      this.search = "";
+    }
+  },
+
   methods: {
     // closeDialog() {
     //   // Remove all the uploaded files
@@ -242,6 +381,23 @@ export default {
     //   // Close the dialog box
     //   this.$emit("update:dialog", false);
     // },
+
+    addIngredient() {
+      this.ingredientsList.push({ ingredientName: "", quantity: "", unit: "" });
+    },
+
+    removeIngredient(i) {
+      this.ingredientsList.splice(i, 1);
+    },
+
+    next() {
+      this.loading = true;
+      setTimeout(() => {
+        this.search = "";
+        this.selected = [];
+        this.loading = false;
+      }, 2000);
+    },
 
     removeFile(fileName) {
       const index = this.uploadedFiles.findIndex(
