@@ -84,10 +84,12 @@
 
 <script>
 import SettingsMeal from "@/components/Settings/SettingsMeal";
+import { User } from "@/services";
 
 export default {
   data() {
     return {
+      username: localStorage.getItem("username"),
       meals: [
         { name: "Breakfast" },
         { name: "Lunch" },
@@ -100,6 +102,15 @@ export default {
       general_2: null,
       general_2_options: ["Never", "1-2 times a week", "Sometimes", "Every day"]
     };
+  },
+  created() {
+    this.fetchUserSettings(this.username);
+  },
+  methods: {
+    async fetchUserSettings(username) {
+      let response = await User.getSettings(username);
+      return response.data;
+    }
   },
   components: {
     SettingsMeal

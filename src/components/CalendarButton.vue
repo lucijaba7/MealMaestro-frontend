@@ -2,7 +2,11 @@
   <v-card
     :to="{
       name: 'DailyPlan',
-      query: { startDay: this.$route.query.startDay, weekDay: this.info.day }
+      query: {
+        username: this.username,
+        startDay: this.$route.query.startDay,
+        weekDay: this.info.day
+      }
     }"
     class="mx-auto rounded-xl"
     :min-width="minWidth"
@@ -45,6 +49,7 @@ export default {
   props: ["info"],
   data() {
     return {
+      username: localStorage.getItem("username"),
       isActive: this.info.active
     };
   },

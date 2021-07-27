@@ -83,17 +83,20 @@
 </template>
 
 <script>
+import { Fridge } from "@/services";
+
 export default {
   name: "FridgeCategory",
   data() {
     return {
+      username: localStorage.getItem("username"),
       breadcrump_list: [
         { text: "Fridge", disabled: false, href: "/fridge" },
         {
           text: this.$route.params.name,
           disabled: true,
-          href: this.$route.params.name,
-        },
+          href: this.$route.params.name
+        }
       ],
       items: [
         { name: "Item 1", unit: "kg", quantity: 1 },
@@ -102,9 +105,18 @@ export default {
         { name: "Item 4", unit: "l", quantity: 2 },
         { name: "Item 5", unit: "kg", quantity: 1 },
         { name: "Item 6", unit: "g", quantity: 100 },
-        { name: "Item 7", unit: "kg", quantity: 1 },
-      ],
+        { name: "Item 7", unit: "kg", quantity: 1 }
+      ]
     };
   },
+  created() {
+    this.fetchFridgeItems(this.$route.params.name, this.username);
+  },
+  methods: {
+    async fetchFridgeItems(category, username) {
+      let response = await Fridge.getItems(category, username);
+      return response.data;
+    }
+  }
 };
 </script>

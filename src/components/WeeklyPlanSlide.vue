@@ -24,6 +24,7 @@
 <script>
 import WeeklyMealCard from "@/components/Cards/WeeklyMealCard";
 import AddMealCard from "@/components/Cards/AddMealCard";
+import { Recipes } from "@/services";
 
 export default {
   name: "WeeklyPlanCarousel",
@@ -31,6 +32,17 @@ export default {
     return {
       items: ["A", "B", "C"]
     };
+  },
+  created() {
+    let username = localStorage.getItem("username");
+    let startDay = this.$route.query.startDay;
+    this.fetchWeeklyPlan(username, startDay);
+  },
+  methods: {
+    async fetchWeeklyPlan(username, startDay) {
+      let response = await Recipes.getWeekly(username, startDay);
+      return response.data;
+    }
   },
   components: { WeeklyMealCard, AddMealCard }
 };

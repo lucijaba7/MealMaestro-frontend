@@ -8,7 +8,7 @@
       class="px-15 py-3 my-5 primary elevation-0"
       >Expanded meal card</v-btn
     >
-    <ExpandedMealCard v-model="dialog" />
+    <ExpandedMealPopup v-model="dialog" />
     <!-- botun za otovrit ratings -->
     <v-btn
       rounded
@@ -47,7 +47,7 @@
 </template>
 
 <script>
-import ExpandedMealCard from "@/components/Cards/ExpandedMealCard";
+import ExpandedMealPopup from "@/components/Popups/ExpandedMealPopup";
 import RatingPopup from "@/components/Popups/RatingPopup";
 import NewMealPopup from "@/components/Popups/NewMealPopup";
 import CreateMealPopup from "@/components/Popups/CreateMealPopup";
@@ -65,7 +65,7 @@ export default {
   },
   components: {
     RatingPopup,
-    ExpandedMealCard,
+    ExpandedMealPopup,
     NewMealPopup,
     CreateMealPopup,
     ExceptionPopup

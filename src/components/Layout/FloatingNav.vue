@@ -7,10 +7,26 @@
     order-sm="3"
     align="end"
   >
-    <v-btn icon :to="(route = '/settings')">
+    <v-btn
+      icon
+      :to="{
+        name: 'Settings',
+        query: {
+          username: this.username
+        }
+      }"
+    >
       <v-icon color="secondary">mdi-cog</v-icon>
     </v-btn>
-    <v-btn icon :to="(route = '/profile')">
+    <v-btn
+      icon
+      :to="{
+        name: 'Profile',
+        query: {
+          username: this.username
+        }
+      }"
+    >
       <v-icon color="secondary">mdi-account-circle</v-icon>
     </v-btn>
   </v-col>
@@ -18,7 +34,12 @@
 
 <script>
 export default {
-  name: "FloatingNav"
+  name: "FloatingNav",
+  data() {
+    return {
+      username: localStorage.getItem("username")
+    };
+  }
 };
 </script>
 

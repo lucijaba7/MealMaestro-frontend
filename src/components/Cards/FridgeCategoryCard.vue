@@ -1,19 +1,17 @@
 <template>
-  <v-card 
-    class="rounded-xl"
-  >
+  <v-card class="rounded-xl">
     <v-img
-      @click="cat(category.name)"
+      @click="openCategory(category.name)"
       :src="require(`@/assets/${category.pic}`)"
-      height= "300"
+      height="300"
       class="align-center"
       style="cursor: pointer"
     >
       <v-card-title class="white--text justify-center" style="fontSize: 45px">
-        {{ category.name}}
+        {{ category.name }}
       </v-card-title>
     </v-img>
-  </v-card> 
+  </v-card>
 </template>
 
 <script>
@@ -22,13 +20,17 @@ import router from "@/router";
 export default {
   props: ["category"],
   data() {
-    return {};
+    return {
+      username: localStorage.getItem("username")
+    };
   },
   methods: {
-    cat(category) {
-      console.log(category);
-      router.push({ name: "FridgeCategory", params: { name: category } });
-    },
-  },
+    openCategory(category) {
+      router.push({
+        name: "FridgeCategory",
+        params: { name: category.charAt(0).toLowerCase() + category.slice(1) }
+      });
+    }
+  }
 };
 </script>

@@ -63,7 +63,10 @@
         <v-btn
           :to="{
             name: 'WeeklyPlan',
-            query: { startDay: this.$route.query.startDay }
+            query: {
+              username: this.username,
+              startDay: this.$route.query.startDay
+            }
           }"
           rounded
           class="py-3 primary elevation-0 text-caption"
@@ -100,12 +103,18 @@ const { weekdayName, monthName } = require("@/assets/date/date_handling.js");
 export default {
   data() {
     return {
+      username: localStorage.getItem("username"),
       weekday: weekdayName,
       month: monthName,
       activeDay: this.getActiveDay()
     };
   },
-  mounted() {},
+  mounted() {
+    localStorage.setItem(
+      "startDay",
+      this.weekDays[0]["date"].toISOString().split("T")[0]
+    );
+  },
   methods: {
     getActiveDay() {
       return this.$route.name == "WeeklyPlan"

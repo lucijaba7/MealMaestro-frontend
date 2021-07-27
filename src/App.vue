@@ -14,6 +14,8 @@ import Sidebar from "@/components/Layout/Sidebar";
 import FloatingNav from "@/components/Layout/FloatingNav";
 import AvatarPopup from "@/components/Popups/AvatarPopup";
 
+localStorage.setItem("username", "kuharica"); // samo privremeno
+
 export default {
   name: "App",
   components: { Sidebar, FloatingNav },

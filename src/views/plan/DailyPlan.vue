@@ -75,6 +75,8 @@
 </template>
 
 <script>
+import { Recipes } from "@/services";
+
 export default {
   name: "DailyPlan",
   data() {
@@ -115,6 +117,18 @@ export default {
         ratings: 4
       }
     };
+  },
+  created() {
+    let username = localStorage.getItem("username");
+    let startDay = this.$route.query.startDay;
+    let weekDay = this.$route.query.weekDay;
+    this.fetchDailyMeals(username, startDay, weekDay);
+  },
+  methods: {
+    async fetchDailyMeals(username, startDay, weekDay) {
+      let response = await Recipes.getDaily(username, startDay, weekDay);
+      return response.data;
+    }
   }
 };
 </script>

@@ -1,8 +1,8 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import SplashScreen from "../views/SplashScreen.vue";
-import Registration from "../views/Registration.vue";
-import Login from "../views/Login.vue";
+import Registration from "../views/authentication/Registration.vue";
+import Login from "../views/authentication/Login.vue";
 import Home from "../views/Home.vue";
 import GroceryList from "../views/GroceryList.vue";
 import Plan from "../views/plan/Plan.vue";
@@ -12,7 +12,7 @@ import Fridge from "../views/fridge/Fridge.vue";
 import FridgeOverview from "../views/fridge/FridgeOverview.vue";
 import FridgeCategory from "../views/fridge/FridgeCategory.vue";
 import Recipes from "../views/Recipes.vue";
-import YourProfile from "../views/YourProfile.vue";
+import Profile from "../views/Profile.vue";
 import Settings from "../views/Settings.vue";
 import NotFound from "../views/NotFound.vue";
 
@@ -90,8 +90,8 @@ const routes = [
   },
   {
     path: "/profile",
-    name: "YourProfile",
-    component: YourProfile
+    name: "Profile",
+    component: Profile
   },
   //catchall 404
   {

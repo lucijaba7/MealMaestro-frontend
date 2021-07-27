@@ -85,6 +85,7 @@
 
 <script>
 import ShoppingPopup from "@/components/Popups/ShoppingPopup";
+import { GroceryList } from "@/services";
 
 export default {
   name: "ShoppingList",
@@ -102,6 +103,17 @@ export default {
         { name: "Item 7", unit: "kg", quantity: 1 }
       ]
     };
+  },
+  created() {
+    let username = localStorage.getItem("username");
+    let startDay = localStorage.getItem("startDay");
+    this.fetchGroceryList(username, startDay);
+  },
+  methods: {
+    async fetchGroceryList(username, startDay) {
+      let response = await GroceryList.getItems(username, startDay);
+      return response.data;
+    }
   },
   components: { ShoppingPopup }
 };
