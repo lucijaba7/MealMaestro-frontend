@@ -1,8 +1,14 @@
 <template>
   <v-container fluid class="pt-8 ">
     <v-row>
-      <v-col cols="8" sm="2" align="start">
-        <v-img src="@/assets/Avatar.png" alt="Avatar" lazy-src contain />
+      <v-col cols="6" sm="2" xl="1" align="center">
+        <v-img
+          src="@/assets/Avatar.png"
+          alt="Avatar"
+          max-width="150px"
+          lazy-src
+          contain
+        />
       </v-col>
       <v-row>
         <v-col cols="12" sm="8">
@@ -40,11 +46,17 @@
     </v-row>
     <v-divider class="my-3"></v-divider>
     <v-spacer></v-spacer>
-    <v-row class="my-10">
-      <v-col cols="12" md="6" align="left">
+    <v-row class="my-10" justify="center">
+      <v-col cols="12" sm="8" md="7" lg="5" align="left" class="pa-8">
         <ProfileMealCard />
       </v-col>
-      <v-col cols="12" md="6" align="left">
+      <v-col cols="12" sm="8" md="7" lg="5" align="left" class="pa-8">
+        <ProfileMealCard />
+      </v-col>
+      <v-col cols="12" sm="8" md="7" lg="5" align="left" class="pa-8">
+        <ProfileMealCard />
+      </v-col>
+      <v-col cols="12" sm="8" md="7" lg="5" align="left" class="pa-8">
         <ProfileMealCard />
       </v-col>
     </v-row>
@@ -67,11 +79,17 @@ export default {
   },
   created() {
     this.fetchUserData(this.username);
+    console.log(this.device);
   },
   methods: {
     async fetchUserData(username) {
-      let response = await User.getInfo(username);
+      let response = await User.getData(username);
       return response.data;
+    }
+  },
+  computed: {
+    device() {
+      return this.$vuetify.breakpoint.name;
     }
   }
 };

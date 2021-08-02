@@ -1,63 +1,72 @@
 <template>
-  <v-card class="mx-5 rounded-xl">
+  <v-card class="rounded-xl">
     <v-row>
-      <v-col cols="12" sm="4" class="py-0">
-        <v-img src="@/assets/meal1.png" class="rounded-xl " height="100%">
+      <v-col cols="12" sm="12" md="5" lg="5" class="py-0">
+        <v-img src="@/assets/meal1.png" class="rounded-xl">
+          <!-- max-height="250px" -->
         </v-img>
       </v-col>
 
-      <v-col cols="12" sm="8">
-        <v-row width="100%">
-          <v-col cols="6" sm="8" class="ma-0 ">
-            <v-row justify="end" class="py-2 px-1">
-              <v-icon fab size="100%" class="px-5 primaryText--text"
-                >mdi-dots-horizontal</v-icon
-              >
-            </v-row>
-            <div class="text-h6 font-weight-bold ma-0">
-              {{ recipe.name }}
-              <div class="text-right pa-0 ma-0"></div>
-            </div>
-            <v-row class=" px-1">
-              <v-col class="ma-0 pl-2 ">
-                <span class="pt-0 pl-0 ">{{ recipe.meal_type }}</span>
-              </v-col>
-              <v-col align="end" cols="2" sm="8" class="ma-0 ">
-                <StarRating
-                  :rating="recipe.ratings"
-                  :star-size="20"
-                  :increment="0.5"
-                  :inline="true"
-                  :read-only="true"
-                  :show-rating="false"
-                />
-              </v-col>
-            </v-row>
-            <v-row class=" px-1 ">
-              <v-chip
-                v-for="tag in recipe.tags"
-                :key="tag"
-                class="ma-1"
-                color="primary"
-              >
-                {{ tag }}
-              </v-chip>
-            </v-row>
-            <v-row justify="end" class="mr-4">
-              <span>{{ recipe.date }}</span></v-row
-            >
+      <v-col cols="12" sm="12" md="7" lg="7">
+        <v-row justify="end" class="py-2 px-5">
+          <v-icon fab size="100%" class="px-5 primaryText--text"
+            >mdi-dots-horizontal</v-icon
+          >
+        </v-row>
+        <v-card-title class="text-h6 font-weight-bold pa-0 mx-2 mt-2">
+          {{ recipe.name }}
+        </v-card-title>
+
+        <v-row justify="space-between" class="pa-0 mx-2">
+          <v-card-subtitle
+            class="caption font-weight-bold primaryText--text px-0 pb-0"
+          >
+            {{ recipe.meal_type }}
+          </v-card-subtitle>
+          <v-col
+            align="end"
+            cols="6"
+            :class="this.$vuetify.breakpoint.name == 'lg' ? 'mr-3 pb-0' : ''"
+          >
+            <v-rating
+              readonly
+              :value="recipe.ratings"
+              background-color="accent"
+              color="accent"
+              dense
+              size="20"
+              half-increments
+            ></v-rating>
           </v-col>
         </v-row>
+        <v-row :class="this.$vuetify.breakpoint.name == 'lg' ? 'pt-2' : 'mt-0'">
+          <v-col cols="12" class="py-0">
+            <v-chip
+              v-for="tag in recipe.tags"
+              :key="tag"
+              class="ma-1"
+              color="primary"
+            >
+              {{ tag }}
+            </v-chip></v-col
+          >
+        </v-row>
+        <v-row
+          cols="12"
+          justify="end"
+          :class="
+            this.$vuetify.breakpoint.name == 'xs' ? 'pr-8 mt-3' : 'pr-8 mt-0'
+          "
+        >
+          {{ recipe.date }}</v-row
+        >
       </v-col>
     </v-row>
   </v-card>
 </template>
 
 <script>
-import StarRating from "vue-star-rating";
-
 export default {
-  components: { StarRating },
   data() {
     return {
       recipe: {
@@ -66,10 +75,12 @@ export default {
         ratings: 4.5,
         tags: [
           "Gluten-free",
-          "High protein",
-          "Low-fat",
-          "vegeterian",
-          "volim jest"
+          "Vegetarian",
+          "Vegan",
+          "Dairy-free",
+          "Very healthy",
+          "Cheap",
+          "Low Food Map"
         ],
         date: "22 April 2021"
       }

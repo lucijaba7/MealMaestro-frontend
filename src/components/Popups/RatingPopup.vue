@@ -39,20 +39,12 @@
               Let {{ meal.username }} know!
               <v-rating
                 hover
-                :value="this.rating"
+                :value="0"
                 background-color="accent "
                 color="accent"
                 dense
                 half-increments
               ></v-rating>
-              <StarRating
-                :star-size="20"
-                :increment="0.5"
-                :inline="true"
-                :clearable="true"
-                :show-rating="false"
-                class="pt-5"
-              />
             </v-card-text>
           </v-col>
         </v-row>
@@ -77,8 +69,6 @@
 </template>
 
 <script>
-import StarRating from "vue-star-rating";
-
 export default {
   props: {
     value: Boolean
@@ -102,6 +92,6 @@ export default {
       }
     }
   },
-  components: { StarRating }
+  components: {}
 };
 </script>

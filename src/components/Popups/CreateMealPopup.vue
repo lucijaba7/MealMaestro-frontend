@@ -3,7 +3,7 @@
     <v-dialog
       v-model="show"
       persistent
-      max-width="700"
+      max-width="600"
       @click:outside="show = false"
     >
       <v-card>
@@ -18,12 +18,12 @@
           max-height="18"
           ><v-icon x-small>mdi-close</v-icon></v-btn
         >
-        <!-- </v-col> -->
-        <v-card-title class="headline font-weight-bold pb-0">
-          Let's create a new meal!
-        </v-card-title>
-        <!-- <v-row> -->
-        <v-col class="pb-0" cols="12" align="start">
+        <v-row class="ma-0 pt-6" justify="center">
+          <v-card-title class="headline font-weight-bold pb-0">
+            Let's create a new meal!
+          </v-card-title></v-row
+        >
+        <v-col class="pb-0 px-8" cols="12" align="start">
           <v-text-field
             class="font-weight-medium"
             label="Meal name"
@@ -32,86 +32,88 @@
             :rules="inputRules"
           ></v-text-field>
         </v-col>
-        <v-card-subtitle class="py-0">
+
+        <v-card-subtitle class="py-0 pl-8">
           Image
         </v-card-subtitle>
-        <v-card
-          outlined
-          class="dragDrop mx-auto "
-          max-width="650"
-          @drop.prevent="onDrop($event)"
-          @dragover.prevent="dragover = true"
-          @dragenter.prevent="dragover = true"
-          @dragleave.prevent="dragover = false"
-          :class="{ 'grey lighten-2': dragover }"
-        >
-          <v-card-text>
-            <v-row
-              class="d-flex flex-column"
-              dense
-              align="center"
-              justify="center"
-            >
-              <v-icon :class="[dragover ? 'mt-2, mb-6' : 'mt-5']" size="60">
-                mdi-cloud-upload
-              </v-icon>
-              <p>
-                Drop your file(s) here.
-              </p>
-            </v-row>
-            <v-virtual-scroll
-              v-if="uploadedFiles.length > 0"
-              :items="uploadedFiles"
-              height="150"
-              item-height="50"
-            >
-              <template v-slot:default="{ item }">
-                <v-list-item :key="item.name">
-                  <v-list-item-content>
-                    <v-list-item-title>
-                      {{ item.name }}
-                      <span class="ml-3 text--secondary">
-                        {{ item.size }} bytes</span
-                      >
-                    </v-list-item-title>
-                  </v-list-item-content>
 
-                  <v-list-item-action>
-                    <v-btn @click.stop="removeFile(item.name)" icon>
-                      <v-icon> mdi-close-circle </v-icon>
-                    </v-btn>
-                  </v-list-item-action>
-                </v-list-item>
+        <v-col cols="12" class="px-8">
+          <v-card
+            outlined
+            class="dragDrop mx-auto"
+            auto-grow
+            @drop.prevent="onDrop($event)"
+            @dragover.prevent="dragover = true"
+            @dragenter.prevent="dragover = true"
+            @dragleave.prevent="dragover = false"
+            :class="{ 'grey lighten-2': dragover }"
+          >
+            <v-card-text class="pb-0">
+              <v-row
+                class="d-flex flex-column"
+                dense
+                align="center"
+                justify="center"
+              >
+                <v-icon :class="[dragover ? 'mt-2, mb-6' : 'mt-5']" size="60">
+                  mdi-cloud-upload
+                </v-icon>
+                <p>
+                  Drop your file(s) here.
+                </p>
+              </v-row>
+              <v-virtual-scroll
+                v-if="uploadedFiles.length > 0"
+                :items="uploadedFiles"
+                height="150"
+                item-height="50"
+              >
+                <template v-slot:default="{ item }">
+                  <v-list-item :key="item.name">
+                    <v-list-item-content>
+                      <v-list-item-title>
+                        {{ item.name }}
+                        <span class="ml-3 text--secondary">
+                          {{ item.size }} bytes</span
+                        >
+                      </v-list-item-title>
+                    </v-list-item-content>
 
-                <v-divider></v-divider>
-              </template>
-            </v-virtual-scroll>
-          </v-card-text>
-          <v-card-actions>
-            <!-- <v-spacer></v-spacer> -->
-            <v-col cols="1">
-              <v-file-input
-                truncate-length="50"
-                prepend-icon="mdi-upload"
-              ></v-file-input>
-            </v-col>
-          </v-card-actions>
-        </v-card>
+                    <v-list-item-action>
+                      <v-btn @click.stop="removeFile(item.name)" icon>
+                        <v-icon> mdi-close-circle </v-icon>
+                      </v-btn>
+                    </v-list-item-action>
+                  </v-list-item>
 
-        <v-col class="pb-0" cols="4" align="start">
+                  <v-divider></v-divider>
+                </template>
+              </v-virtual-scroll>
+            </v-card-text>
+            <v-card-actions>
+              <v-col cols="1">
+                <v-file-input
+                  truncate-length="50"
+                  prepend-icon="mdi-upload"
+                ></v-file-input>
+              </v-col>
+            </v-card-actions> </v-card
+        ></v-col>
+
+        <v-col class="pb-0 pl-8" cols="5" align="start">
           <v-select :items="meals" label="Meal type"></v-select>
         </v-col>
-        <!-- <v-row> -->
-        <v-col class="pb-0" cols="4" align="start">
+
+        <v-col class="pb-0 pl-8" cols="5" align="start">
           <v-text-field
             label="Servings"
             v-model="servings"
             type="number"
           ></v-text-field>
         </v-col>
-        <!-- </v-row> -->
-        <v-row>
-          <v-col class="pb-0" cols="4" align="start">
+
+        <v-row class="pa-0 mx-6">
+          <v-col class="pb-0" cols="5" align="start">
             <v-text-field
               label="Total time"
               v-model="totalTime"
@@ -122,12 +124,12 @@
             ><v-select :items="timeType"></v-select
           ></v-col>
         </v-row>
-        <!-- </v-row> -->
-        <v-card-subtitle class="pt-5 pl-2 pb-2">
+
+        <v-card-subtitle class="pt-5 px-9 pb-2">
           Ingredients
         </v-card-subtitle>
-        <v-row>
-          <v-col cols="8" sm="7">
+        <v-row class="mx-6">
+          <v-col cols="7" sm="7">
             <p class="ma-0 primary--text caption">
               Ingredient name
             </p>
@@ -147,8 +149,8 @@
         </v-row>
 
         <v-item-group v-for="(item, i) in ingredientsList" :key="i">
-          <v-row>
-            <v-col cols="8" sm="7">
+          <v-row class="mx-6">
+            <v-col cols="7" sm="7" class="pb-0">
               <!-- PROVJERIT JESAM DOBRO V-MODEL I ITEMS JER TREBAM INGREDIENTS IZ BAZE -->
 
               <v-autocomplete
@@ -158,14 +160,14 @@
                 dense
               ></v-autocomplete>
             </v-col>
-            <v-col cols="2">
+            <v-col cols="2" class="pb-0">
               <v-text-field
                 class="mb-5"
                 v-model="item.quantity"
                 type="number"
               ></v-text-field>
             </v-col>
-            <v-col cols="2"
+            <v-col cols="2" class="pb-0"
               ><v-select :items="unitType" v-model="item.unit"></v-select
             ></v-col>
             <v-btn
@@ -185,14 +187,14 @@
           small
           rounded
           outlined
-          class="py-3 my-5 mr-2  elevation-0"
+          class="my-5 ml-8 mt-0 pt-0 px-1 elevation-0"
           >Add
           <v-icon>mdi-plus</v-icon>
         </v-btn>
-        <v-card-subtitle class="py-0">
+        <v-card-subtitle class="py-0 px-8">
           Directions
         </v-card-subtitle>
-        <v-container fluid>
+        <v-container class="px-8 py-0">
           <v-textarea
             outlined
             name="input-7-1"
@@ -203,7 +205,7 @@
 
         <!-- TAGOVIIII -->
 
-        <v-container class="py-0">
+        <v-container class="px-8">
           <v-row align="center" justify="start">
             <!-- <v-col
               v-for="(selection, i) in selections"
@@ -232,6 +234,7 @@
                 deletable-chips
                 label="Add tags"
                 single-line
+                class="py-0 my-0"
               >
                 <!-- ovdje ovaj close nece closeat -->
 
@@ -258,9 +261,16 @@
 
         <!-- <v-divider v-if="!allSelected"></v-divider> -->
 
-        <v-divider></v-divider>
+        <!-- <v-divider></v-divider> -->
 
         <!-- Kinda not sure wtf this is also kill me ovaj purple -->
+        <v-card-actions>
+          <v-col class="pt-0" cols="12" align="right">
+            <v-btn rounded class="primary elevation-0 text-caption"
+              >save recipe</v-btn
+            >
+          </v-col>
+        </v-card-actions>
       </v-card>
     </v-dialog>
   </v-row>
