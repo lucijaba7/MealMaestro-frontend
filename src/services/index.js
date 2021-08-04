@@ -3,7 +3,7 @@ import axios from "axios";
 // instanca axiosa
 let Service = axios.create({
   baseURL: "http://localhost:4000", // adresa backenda
-  timeout: 1000 // "1s da poziv prema backendu uspije, više od toga ne čeka"
+  timeout: 10000 // "1s da poziv prema backendu uspije, više od toga ne čeka"
 });
 
 let Recipes = {
@@ -43,4 +43,10 @@ let GroceryList = {
   }
 };
 
-export { Recipes, User, Fridge, GroceryList };
+let Ingredients = {
+  getItems() {
+    return Service.get(`/ingredients`);
+  }
+};
+
+export { Recipes, User, Fridge, GroceryList, Ingredients };

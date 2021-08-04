@@ -17,7 +17,6 @@
           People who love to eat are always the best people
         </div>
       </v-col>
-      <FloatingNav />
     </v-row>
     <v-divider class="my-3"></v-divider>
     <v-row class="my-3">

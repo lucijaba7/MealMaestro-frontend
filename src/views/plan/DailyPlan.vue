@@ -75,7 +75,7 @@
 </template>
 
 <script>
-import { Recipes } from "@/services";
+import { Recipes, Ingredients } from "@/services";
 
 export default {
   name: "DailyPlan",
@@ -119,14 +119,19 @@ export default {
     };
   },
   created() {
-    let username = localStorage.getItem("username");
-    let startDay = this.$route.query.startDay;
-    let weekDay = this.$route.query.weekDay;
-    this.fetchDailyMeals(username, startDay, weekDay);
+    // let username = localStorage.getItem("username");
+    // let startDay = this.$route.query.startDay;
+    // let weekDay = this.$route.query.weekDay;
+    // this.fetchDailyMeals(username, startDay, weekDay);
+    this.fetchIngredients();
   },
   methods: {
     async fetchDailyMeals(username, startDay, weekDay) {
       let response = await Recipes.getDaily(username, startDay, weekDay);
+      return response.data;
+    },
+    async fetchIngredients() {
+      let response = await Ingredients.getItems();
       return response.data;
     }
   }

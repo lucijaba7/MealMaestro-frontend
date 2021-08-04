@@ -25,15 +25,46 @@ export default {
   data() {
     return {
       categories: [
-        { name: "Seafood", pic: "seafood.jpg" },
-        { name: "Grains", pic: "grains.jpg" },
-        { name: "Fruits", pic: "fruits.jpg" },
-        { name: "Meat", pic: "meat.jpg" },
-        { name: "Spices", pic: "spices.jpg" },
-        { name: "Vegetables", pic: "vegetables.jpg" },
-        { name: "Legumes", pic: "legumes.jpg" },
-        { name: "Dairy products and eggs", pic: "dairy_prod_eggs.jpg" },
-        { name: "other", pic: "other.jpg" }
+        {
+          name: "Alcoholic Beverages",
+          pic: "ingredient_categories/alcohol.jpg"
+        },
+        { name: "Bakery/Bread", pic: "ingredient_categories/bakery.jpg" },
+        { name: "Baking", pic: "ingredient_categories/baking.jpg" },
+        { name: "Beverages", pic: "ingredient_categories/baverages.jpg" },
+        { name: "Canned and Jarred", pic: "ingredient_categories/jarred.jpg" },
+        { name: "Cereal", pic: "ingredient_categories/cereal.jpg" },
+        { name: "Cheese", pic: "ingredient_categories/cheese.jpg" },
+        { name: "Condiments", pic: "ingredient_categories/condiments.jpg" },
+        { name: "Dried Fruits", pic: "ingredient_categories/baverages.jpg" },
+        { name: "Ethnic Foods", pic: "ingredient_categories/baverages.jpg" },
+        { name: "Frozen", pic: "ingredient_categories/baverages.jpg" },
+        { name: "Gluten Free", pic: "ingredient_categories/baverages.jpg" },
+        { name: "Gourmet", pic: "ingredient_categories/baverages.jpg" },
+        { name: "Meat", pic: "ingredient_categories/baverages.jpg" },
+        {
+          name: "Milk, Eggs, Other Dairy",
+          pic: "ingredient_categories/baverages.jpg"
+        },
+        {
+          name: "Nut butters, Jams, and Honey",
+          pic: "ingredient_categories/baverages.jpg"
+        },
+        { name: "Nuts and Seeds", pic: "ingredient_categories/baverages.jpg" },
+        {
+          name: "Oil, Vinegar, Salad Dressing",
+          pic: "ingredient_categories/baverages.jpg"
+        },
+        { name: "Pasta and Rice", pic: "ingredient_categories/baverages.jpg" },
+        { name: "Produce", pic: "ingredient_categories/baverages.jpg" },
+        { name: "Savory Snacks", pic: "ingredient_categories/baverages.jpg" },
+        { name: "Seafood", pic: "ingredient_categories/baverages.jpg" },
+        {
+          name: "Spices and Seasonings",
+          pic: "ingredient_categories/baverages.jpg"
+        },
+        { name: "Sweet Snacks", pic: "ingredient_categories/baverages.jpg" },
+        { name: "Tea and Coffee", pic: "ingredient_categories/baverages.jpg" }
       ]
     };
   },

@@ -3,7 +3,7 @@
     <Sidebar />
 
     <v-main>
-      <!-- <FloatingNav /> -->
+      <FloatingNav />
       <router-view></router-view>
     </v-main>
   </v-app>

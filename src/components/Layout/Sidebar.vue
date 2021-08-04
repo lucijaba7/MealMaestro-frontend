@@ -49,19 +49,33 @@ export default {
             path: "/recipes"
           }
         },
-        {
-          icon: "mdi-fridge",
-          text: "FRIDGE",
-          target: {
-            path: "/fridge/"
-          }
-        },
+        // {
+        //   icon: "mdi-fridge",
+        //   text: "FRIDGE",
+        //   target: {
+        //     path: "/fridge/"
+        //   }
+        // },
         {
           icon: "mdi-cart",
           text: "GROCERY LIST",
           target: {
             path: "/groceryList"
           }
+        },
+        // {
+        //   icon: "mdi-account-circle",
+        //   text: "ACCOUNT",
+        //   target: {
+        //     path: "/profile"
+        //   }
+        // },
+        {
+          icon: "mdi-logout",
+          text: "LOG OUT"
+          // target: {
+          //   path: "/profile"
+          // }
         }
       ]
     };
