@@ -36,12 +36,12 @@ export default {
         { name: "Cereal", pic: "ingredient_categories/cereal.jpg" },
         { name: "Cheese", pic: "ingredient_categories/cheese.jpg" },
         { name: "Condiments", pic: "ingredient_categories/condiments.jpg" },
-        { name: "Dried Fruits", pic: "ingredient_categories/baverages.jpg" },
-        { name: "Ethnic Foods", pic: "ingredient_categories/baverages.jpg" },
-        { name: "Frozen", pic: "ingredient_categories/baverages.jpg" },
-        { name: "Gluten Free", pic: "ingredient_categories/baverages.jpg" },
-        { name: "Gourmet", pic: "ingredient_categories/baverages.jpg" },
-        { name: "Meat", pic: "ingredient_categories/baverages.jpg" },
+        { name: "Dried Fruits", pic: "ingredient_categories/dried.jpg" },
+        { name: "Ethnic Foods", pic: "ingredient_categories/ethnic.jpg" },
+        { name: "Frozen", pic: "ingredient_categories/frozen.jpg" },
+        { name: "Gluten Free", pic: "ingredient_categories/gluten.jpg" },
+        { name: "Gourmet", pic: "ingredient_categories/gourmet.jpg" },
+        { name: "Meat", pic: "ingredient_categories/meat.jpg" },
         {
           name: "Milk, Eggs, Other Dairy",
           pic: "ingredient_categories/baverages.jpg"

@@ -3,14 +3,14 @@
     <v-img
       @click="openCategory(category.name)"
       :src="require(`@/assets/${category.pic}`)"
-      height="150"
+      height="130"
       class="align-center"
       style="cursor: pointer"
       fluid
       lazy-load
     >
       <v-card-title
-        class="white--text justify-center title"
+        class="white--text text-center title"
         style="fontSize: 45px"
       >
         {{ category.name }}
@@ -45,7 +45,6 @@ export default {
   overflow: hidden;
   overflow-wrap: anywhere;
   /* word-wrap: break-word; */
-  /* word-break: normal; */
-  height: 90px;
+  word-break: normal;
 }
 </style>

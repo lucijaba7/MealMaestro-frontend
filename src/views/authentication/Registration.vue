@@ -46,6 +46,24 @@
                 label="Repeat password"
                 type="password"
               ></v-text-field>
+              <v-select
+                class="pt-0"
+                label="Preferences"
+                :items="allTags"
+                v-model="selectedTags"
+                full-width
+                multiple
+                chips
+                deletable-chips
+                single-line
+              >
+              </v-select>
+              <v-text-field
+                v-model="servings"
+                label="Servings"
+                type="number"
+                required
+              ></v-text-field>
             </v-form>
             <v-card-actions xs3 md4 class="justify-center">
               <div class="text-center pb-4">
@@ -94,7 +112,18 @@ export default {
       email: "",
       password: "",
       repeatPassword: "",
-      inputRules: [v => v.length >= 5 || "Minimum length is 5 characters"]
+      inputRules: [v => v.length >= 5 || "Minimum length is 5 characters"],
+      allTags: [
+        { text: "Vegeterian" },
+        { text: "Vegan" },
+        { text: "Gluten-free" },
+        { text: "Dairy-free" },
+        { text: "Very healthy" },
+        { text: "High protein" },
+        { text: "Low-fat" }
+      ],
+      selectedTags: [],
+      servings: ""
     };
   },
   props: {
