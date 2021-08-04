@@ -1,6 +1,21 @@
 <template>
-  <div class="recipes">
-    <h1>Recipes</h1>
+  <v-container fluid>
+    <!-- <div class="recipes"> -->
+    <p class="text-h3 mt-5 mb-1">Recipes</p>
+    <v-row>
+      <v-col>
+        <p class="text-justify text-wrap">
+          This is a collection of your recipes. Go and <br />
+          write a new one to enrich your collection!
+        </p>
+      </v-col>
+    </v-row>
+    <v-row> <YourRecipesCard /></v-row>
+
+    <v-row> <SavedRecipesCard /></v-row>
+
+    <!-- BOTUNIIIIIII -->
+
     <!-- pomocni botun za otvorit expanded meal card -->
     <v-btn
       rounded
@@ -43,7 +58,8 @@
       >Create exception</v-btn
     >
     <ExceptionPopup v-model="dialog4" />
-  </div>
+    <!-- </div> -->
+  </v-container>
 </template>
 
 <script>
@@ -52,6 +68,8 @@ import RatingPopup from "@/components/Popups/RatingPopup";
 import NewMealPopup from "@/components/Popups/NewMealPopup";
 import CreateMealPopup from "@/components/Popups/CreateMealPopup";
 import ExceptionPopup from "@/components/Popups/ExceptionPopup";
+import YourRecipesCard from "@/components/Cards/YourRecipesCard";
+import SavedRecipesCard from "@/components/Cards/SavedRecipesCard";
 
 export default {
   data() {
@@ -68,7 +86,9 @@ export default {
     ExpandedMealPopup,
     NewMealPopup,
     CreateMealPopup,
-    ExceptionPopup
+    ExceptionPopup,
+    YourRecipesCard,
+    SavedRecipesCard
   }
 };
 </script>
