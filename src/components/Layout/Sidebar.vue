@@ -20,14 +20,10 @@
 </template>
 
 <script>
-const {
-  thisWeeksMonday,
-  todaysWeekDay
-} = require("@/assets/date/date_handling.js");
-
 export default {
   data() {
     return {
+      username: localStorage.getItem("username"),
       links: [
         {
           icon: "mdi-home",
@@ -35,11 +31,11 @@ export default {
           target: { path: "/" }
         },
         {
-          icon: "mdi-notebook",
-          text: "PLAN",
+          icon: "mdi-fridge",
+          text: "FRIDGE",
           target: {
-            path: "/plan/daily",
-            query: { startDay: thisWeeksMonday(), weekDay: todaysWeekDay() }
+            path: "/fridge",
+            query: { username: this.username }
           }
         },
         {

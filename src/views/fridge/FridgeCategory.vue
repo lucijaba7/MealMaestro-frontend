@@ -5,9 +5,10 @@
         <v-icon>mdi-chevron-right</v-icon>
       </template>
     </v-breadcrumbs>
+
     <v-row :class="this.$vuetify.breakpoint.name == 'xs' ? 'mx-0' : 'mx-16'">
       <v-col>
-        <v-simple-table class="mt-4">
+        <v-simple-table class="mt-4 white">
           <template v-slot:default>
             <thead>
               <tr>
@@ -120,3 +121,4 @@ export default {
   }
 };
 </script>
+<style scoped></style>

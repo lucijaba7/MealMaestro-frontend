@@ -7,17 +7,17 @@
       <v-spacer></v-spacer>
     </v-row>
     <v-row>
-      <v-col cols="12" sm="5" md="4">
+      <v-col cols="12" sm="4" md="3">
         <v-img src="@/assets/meal1.png" class="rounded-xl" height="100%">
         </v-img>
       </v-col>
-      <v-col cols="12" sm="7" md="8">
-        <v-row>
-          <v-col align-self="end" cols="12" sm="7"
+      <v-col cols="12" sm="8" md="8">
+        <v-row align="end">
+          <v-col
             ><div class="font-weight-bold text-h6">
               {{ recipe.name }}
             </div></v-col
-          ><v-col align-self="end" cols="12" sm="5">
+          ><v-col>
             <v-row align="center" justify="end">
               <span>cooked </span>
               <v-checkbox v-model="checkbox1"></v-checkbox>
@@ -64,7 +64,7 @@
           </ul>
         </v-row>
       </v-col>
-      <v-col>
+      <v-col cols="12">
         <p class="font-weight-bold primaryText--text mb-0">Directions:</p>
         <p>
           {{ recipe.directions }}

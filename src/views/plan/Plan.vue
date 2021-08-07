@@ -1,17 +1,30 @@
 <template>
   <v-container class="pt-8" :fluid="device != 'lg' || device != 'xl'">
     <v-row>
-      <v-col cols="6" sm="2" xl="1" align="start">
+      <v-col
+        cols="12"
+        sm="2"
+        xl="1"
+        :align="device == 'xs' ? 'center' : 'start'"
+      >
         <v-img
-          src="@/assets/Avatar.png"
+          src="https://cdn.image4.io/mealmaestro/f_auto/avatars/24402cdd-ffcd-448b-bddd-d2f96b82413f.png"
           alt="Avatar"
           lazy-src
           contain
-          max-width="150px"
+          max-height="100px"
         />
       </v-col>
 
-      <v-col cols="12" sm="8" xl="9" order="3" order-sm="2" align-self="center">
+      <v-col
+        cols="12"
+        sm="8"
+        xl="10"
+        order="3"
+        order-sm="2"
+        align-self="center"
+        :align="device == 'xs' ? 'center' : 'start'"
+      >
         <div class="text-h5 font-weight-bold">Ciao Lucija!</div>
         <div>
           People who love to eat are always the best people

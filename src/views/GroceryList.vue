@@ -1,13 +1,18 @@
 <template>
   <v-container fluid>
-    <p class="text-h3 mt-5 mb-1">This week’s shopping list!</p>
+    <v-row>
+      <v-col cols="11">
+        <p class="text-h4 mt-5 mb-1">This week’s shopping list!</p>
+      </v-col>
+      <v-spacer cols="1"></v-spacer>
+    </v-row>
     <p class="pl-2">
       This list is created based on next week’s meal plan. Happy Shopping!!
     </p>
 
     <v-row :class="this.$vuetify.breakpoint.name == 'xs' ? 'mx-0' : 'mx-16'">
       <v-col>
-        <v-simple-table class="mt-4">
+        <v-simple-table class="mt-4 white">
           <template v-slot:default>
             <thead>
               <tr>
