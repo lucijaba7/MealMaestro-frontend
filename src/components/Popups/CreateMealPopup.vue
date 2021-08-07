@@ -457,8 +457,8 @@ export default {
     onDrop(e) {
       // console.log(e);
       this.dragover = false;
-
-      e.dataTransfer.files.forEach(element => this.uploadedFiles.push(element));
+      this.uploadedFiles = e.target.files[0];
+      //e.dataTransfer.files.forEach(element => this.uploadedFiles.push(element));
     },
 
     // submit() {
@@ -476,33 +476,20 @@ export default {
     //   }
     // }
     async saveRecipe() {
-      // console.log(this.uploadedFiles[0]);
-
       let formData = new FormData();
 
-      // files
-      formData.append(
-        "files",
-        this.uploadedFiles[0],
-        this.uploadedFiles[0].name
-      );
+      formData.append("mealName", this.mealName);
+      formData.append("image", this.uploadedFiles[0]);
+      formData.append("mealType", this.mealType);
+      formData.append("servings", this.servings);
+      formData.append("totalTime", this.totalTime);
+      formData.append("username", this.username);
+      formData.append("ingredientsList", this.ingredientsList);
+      formData.append("directions", this.directions);
+      formData.append("tags", this.selected);
+      formData.append("date", moment(new Date()).format("yyyy-MM-DD hh:mm a"));
 
-      console.log(formData);
-
-      var data = {
-        mealName: this.mealName,
-        image: this.uploadedFiles[0],
-        mealType: this.mealType,
-        servings: this.servings,
-        totalTime: this.totalTime,
-        username: this.username,
-        ingredientsList: this.ingredientsList,
-        directions: this.directions,
-        tags: this.selected,
-        date: moment(new Date()).format("yyyy-MM-DD hh:mm a") //new Date().toISOString().split("T")
-      };
-      // console.log(data.image);
-      await RecipeService.saveRecipe(data);
+      await RecipeService.saveRecipe(formData);
     }
   }
 };
