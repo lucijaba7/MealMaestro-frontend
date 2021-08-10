@@ -12,6 +12,8 @@ import Fridge from "../views/fridge/Fridge.vue";
 import FridgeOverview from "../views/fridge/FridgeOverview.vue";
 import FridgeCategory from "../views/fridge/FridgeCategory.vue";
 import Recipes from "../views/recipes/Recipes.vue";
+import YourRecipes from "../views/recipes/YourRecipes.vue";
+import SavedRecipes from "../views/recipes/SavedRecipes.vue";
 import Profile from "../views/Profile.vue";
 import Settings from "../views/Settings.vue";
 import NotFound from "../views/NotFound.vue";
@@ -58,6 +60,23 @@ const routes = [
     ]
   },
   {
+    path: "/recipes",
+    component: Recipes,
+    children: [
+      {
+        alias: "",
+        path: "yourRecipes",
+        name: "YourRecipes",
+        component: YourRecipes
+      },
+      {
+        path: "saved",
+        name: "SavedRecipes",
+        component: SavedRecipes
+      }
+    ]
+  },
+  {
     path: "/fridge",
     component: Fridge,
     children: [
@@ -72,11 +91,6 @@ const routes = [
         component: FridgeCategory
       }
     ]
-  },
-  {
-    path: "/recipes",
-    name: "Recipes",
-    component: Recipes
   },
   {
     path: "/groceryList",

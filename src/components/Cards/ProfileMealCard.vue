@@ -1,8 +1,8 @@
 <template>
-  <v-card class="rounded-xl">
+  <v-card class="rounded-xl white">
     <v-row>
       <v-col cols="12" sm="12" md="5" lg="5" class="py-0">
-        <v-img src="@/assets/meal1.png" class="rounded-xl">
+        <v-img :src="info.img" class="rounded-xl" height="100%">
           <!-- max-height="250px" -->
         </v-img>
       </v-col>
@@ -14,14 +14,14 @@
           >
         </v-row>
         <v-card-title class="text-h6 font-weight-bold pa-0 mx-2 mt-2">
-          {{ recipe.name }}
+          {{ info.recipe_name }}
         </v-card-title>
 
         <v-row justify="space-between" class="pa-0 mx-2">
           <v-card-subtitle
             class="caption font-weight-bold primaryText--text px-0 pb-0"
           >
-            {{ recipe.meal_type }}
+            {{ info.type }}
           </v-card-subtitle>
           <v-col
             align="end"
@@ -42,7 +42,7 @@
         <v-row :class="this.$vuetify.breakpoint.name == 'lg' ? 'pt-2' : 'mt-0'">
           <v-col cols="12" class="py-0">
             <v-chip
-              v-for="tag in recipe.tags"
+              v-for="tag in info.meal_tags"
               :key="tag"
               class="ma-1"
               color="primary"
@@ -58,7 +58,7 @@
             this.$vuetify.breakpoint.name == 'xs' ? 'pr-8 mt-3' : 'pr-8 mt-0'
           "
         >
-          {{ recipe.date }}</v-row
+          {{ info.date }}</v-row
         >
       </v-col>
     </v-row>
@@ -85,6 +85,10 @@ export default {
         date: "22 April 2021"
       }
     };
+  },
+  props: ["info"],
+  created() {
+    console.log(this.info);
   }
 };
 </script>

@@ -47,17 +47,17 @@
     <v-divider class="my-3"></v-divider>
     <v-spacer></v-spacer>
     <v-row class="my-10" justify="center">
-      <v-col cols="12" sm="8" md="7" lg="5" align="left" class="pa-8">
-        <ProfileMealCard />
-      </v-col>
-      <v-col cols="12" sm="8" md="7" lg="5" align="left" class="pa-8">
-        <ProfileMealCard />
-      </v-col>
-      <v-col cols="12" sm="8" md="7" lg="5" align="left" class="pa-8">
-        <ProfileMealCard />
-      </v-col>
-      <v-col cols="12" sm="8" md="7" lg="5" align="left" class="pa-8">
-        <ProfileMealCard />
+      <v-col
+        cols="12"
+        sm="8"
+        md="7"
+        lg="5"
+        align="left"
+        class="pa-8"
+        v-for="recipe in recipes"
+        :key="recipe.id"
+      >
+        <ProfileMealCard :info="recipe" />
       </v-col>
     </v-row>
   </v-container>
@@ -67,6 +67,7 @@
 import ProfileMealCard from "@/components/Cards/ProfileMealCard.vue";
 import EditProfilePopup from "@/components/Popups/EditProfilePopup.vue";
 import { User } from "@/services";
+import RecipeService from "@/services/RecipeService";
 
 export default {
   components: { EditProfilePopup, ProfileMealCard },
@@ -74,17 +75,34 @@ export default {
     return {
       username: localStorage.getItem("username"),
       editProfileOpen: false,
-      checkbox2: null
+      checkbox2: null,
+      recipes: []
     };
   },
-  created() {
+  async created() {
     this.fetchUserData(this.username);
-    console.log(this.device);
+
+    this.fetchRecipesData();
   },
   methods: {
     async fetchUserData(username) {
       let response = await User.getData(username);
       return response.data;
+    },
+    async fetchRecipesData() {
+      const data = await RecipeService.getAllRecipes();
+
+      for (var i = 0; i < 5; i++) {
+        this.recipes.push({
+          id: data[i]._id,
+          img: data[i].image,
+          recipe_name: data[i].name,
+          type: data[i].meal_type,
+          meal_tags: data[i].tags,
+          date: data[i].date_created
+        });
+      }
+      console.log(this.recipes);
     }
   },
   computed: {
