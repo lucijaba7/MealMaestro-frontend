@@ -6,45 +6,42 @@
           <v-card-text class="py-2">
             <v-row justify="center">
               <v-card-title class="justify-center">
-                <h2 class="justify-center">Registration</h2>
+                <h2 class="justify-center">Sign up</h2>
               </v-card-title>
             </v-row>
-            <v-row xs="12" md="8" class="mb-4" justify="center">
-              <AvatarPopup />
-            </v-row>
-            <v-form>
+            <v-form ref="form" v-model="valid" lazy-validation>
+              <v-row xs="12" md="8" class="my-8" justify="center">
+                <AvatarPopup @avatar="saveAvatar" />
+              </v-row>
               <v-text-field
                 label="Username"
                 v-model="userName"
                 type="text"
-                :rules="inputRules"
-              ></v-text-field>
-              <v-text-field
-                v-model="firstName"
-                label="First name"
-                type="text"
-              ></v-text-field>
-              <v-text-field
-                v-model="lastName"
-                label="Last name"
-                type="text"
+                :rules="usernameRules"
+                required
               ></v-text-field>
               <v-text-field
                 v-model="email"
                 label="Email"
                 type="text"
+                :rules="emailRules"
+                required
               ></v-text-field>
               <v-text-field
                 id="password"
                 v-model="password"
                 label="Password"
                 type="password"
+                :rules="passwordRules"
+                required
               ></v-text-field>
               <v-text-field
                 id="repPassword"
                 v-model="repeatPassword"
                 label="Repeat password"
                 type="password"
+                :rules="passwordRepeatRules"
+                required
               ></v-text-field>
               <v-select
                 class="pt-0"
@@ -56,19 +53,25 @@
                 chips
                 deletable-chips
                 single-line
+                :rules="[v => !!v || 'Item is required']"
+                required
               >
               </v-select>
               <v-text-field
                 v-model="servings"
                 label="Servings"
                 type="number"
+                :rules="servingsRules"
                 required
               ></v-text-field>
             </v-form>
             <v-card-actions xs3 md4 class="justify-center">
               <div class="text-center pb-4">
-                <v-btn rounded class="px-15 primary elevation-0" to="/"
-                  >Next</v-btn
+                <v-btn
+                  rounded
+                  class="px-15 primary elevation-0"
+                  @click="signup()"
+                  >Signup</v-btn
                 >
               </div>
             </v-card-actions>
@@ -100,19 +103,38 @@
 
 <script>
 import AvatarPopup from "@/components/Popups/AvatarPopup";
+import AuthService from "@/services/AuthService.js";
 
 export default {
-  name: "Login",
+  name: "Registration",
   components: { AvatarPopup },
   data() {
     return {
+      valid: true,
+      avatarUrl: "",
       userName: "",
-      firstName: "",
-      lastName: "",
       email: "",
       password: "",
       repeatPassword: "",
-      inputRules: [v => v.length >= 5 || "Minimum length is 5 characters"],
+      usernameRules: [
+        v => !!v || "Name is required",
+        v => (v && v.length <= 14) || "Name must be less than 14 characters"
+      ],
+      emailRules: [
+        v => !!v || "E-mail is required",
+        v => /.+@.+\..+/.test(v) || "E-mail must be valid"
+      ],
+      servingsRules: [
+        v => !!v || "Servings are required",
+        v => (v && v > 0) || "Servings must be bigger than 0" // whyyy v > 1 ?????
+      ],
+      passwordRules: [
+        v => !!v || "Password is required",
+        v => v.length >= 8 || "Minimum length is 8 characters"
+      ],
+      passwordRepeatRules: [
+        v => !!v || "Please repeat your password." //  v => v != this.repeatPassword || "Passwords don’t match. Please try again."
+      ],
       allTags: [
         { text: "Vegeterian" },
         { text: "Vegan" },
@@ -130,7 +152,33 @@ export default {
     source: String
   },
   methods: {
-    clickmethod() {}
+    saveAvatar(avatarUrl) {
+      this.avatarUrl = avatarUrl;
+    },
+    validate() {
+      this.$refs.form.validate();
+    },
+    async signup() {
+      try {
+        let validation = await this.validate();
+        if (this.valid) {
+          let user = {
+            username: this.userName,
+            email: this.email,
+            password: this.password,
+            password_confirm: this.repeatPassword,
+            preferences: this.selectedTags,
+            servings: this.servings,
+            avatar: this.avatarUrl
+          };
+
+          let result = await AuthService.signup(user);
+          this.$router.push({ name: "Home" });
+        } else console.log("NE VALJAAA");
+      } catch (error) {
+        console.log(error);
+      }
+    }
   }
 };
 </script>

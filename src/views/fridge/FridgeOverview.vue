@@ -35,27 +35,10 @@
         </v-simple-table>
       </v-col></v-row
     >
-
-    <v-row class="mt-5 mb-3">
-      <v-col
-        cols="12"
-        sm="6"
-        md="4"
-        lg="3"
-        align-self="center"
-        class="pa-5"
-        v-for="category in categories"
-        :key="category.name"
-      >
-        <FridgeCategoryCard :category="category" />
-      </v-col>
-    </v-row>
   </v-container>
 </template>
 
 <script>
-import FridgeCategoryCard from "@/components/Cards/FridgeCategoryCard";
-
 export default {
   name: "FridgeOverview",
   data() {
@@ -104,7 +87,6 @@ export default {
       ]
     };
   },
-  components: { FridgeCategoryCard },
   methods: {
     openCategory(category) {
       this.$router.push({
