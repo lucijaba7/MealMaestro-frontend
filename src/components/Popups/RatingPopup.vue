@@ -4,12 +4,14 @@
       <v-card>
         <v-col align="right" class="pb-0">
           <v-btn
+            absolute
+            right
             fab
-            class="accent elevation-0"
+            class="accent elevation-0 mt-3"
             @click="show = false"
-            max-width="18"
-            max-height="18"
-            ><v-icon x-small>mdi-close</v-icon></v-btn
+            width="22.5"
+            height="22.5"
+            ><v-icon color="white" small>mdi-close</v-icon></v-btn
           >
         </v-col>
         <v-row class="ma-0">

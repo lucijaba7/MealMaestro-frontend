@@ -1,10 +1,8 @@
-import axios from "axios";
-
-const url = "http://localhost:4000/ingredients/";
+import httpClient from "@/utils/httpClient";
 
 export default {
   getAllIngredients() {
-    return axios.get(url).then(response => response.data);
+    return httpClient.get("/ingredients").then(response => response);
   }
   // getBySlug(slug) {
   //     return axios
