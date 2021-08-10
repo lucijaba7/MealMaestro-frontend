@@ -10,6 +10,37 @@
         </p>
       </v-col>
     </v-row>
+
+    <v-row>
+      <v-col cols="6" sm="4" :align="device == 'xs' ? 'center' : 'right'">
+        <a
+          id="btn-default"
+          :to="{
+            name: 'YourRecipes',
+            query: {
+              username: this.username
+            }
+          }"
+          class="py-3 transparent elevation-0 text-caption"
+          >Your recipes</a
+        ></v-col
+      >
+
+      <v-col cols="6" sm="4" :align="device == 'xs' ? 'center' : 'right'">
+        <a
+          id="btn-default"
+          :to="{
+            name: 'SavedRecipes',
+            query: {
+              username: this.username
+            }
+          }"
+          class="py-3 transparent elevation-0 text-caption"
+          >Saved recipes</a
+        ></v-col
+      >
+    </v-row>
+
     <v-row> <YourRecipesCard /></v-row>
 
     <v-row> <SavedRecipesCard /></v-row>
@@ -78,7 +109,8 @@ export default {
       dialog1: false,
       dialog2: false,
       dialog3: false,
-      dialog4: false
+      dialog4: false,
+      username: localStorage.getItem("username")
     };
   },
   components: {
@@ -89,6 +121,18 @@ export default {
     ExceptionPopup,
     YourRecipesCard,
     SavedRecipesCard
+  },
+  computed: {
+    device() {
+      return this.$vuetify.breakpoint.name;
+    }
   }
 };
 </script>
+
+<style scoped>
+#btn-default:hover:before {
+  background: transparent !important;
+  cursor: pointer;
+}
+</style>

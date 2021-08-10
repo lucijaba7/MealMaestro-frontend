@@ -11,7 +11,7 @@ import DailyPlan from "../views/plan/DailyPlan.vue";
 import Fridge from "../views/fridge/Fridge.vue";
 import FridgeOverview from "../views/fridge/FridgeOverview.vue";
 import FridgeCategory from "../views/fridge/FridgeCategory.vue";
-import Recipes from "../views/Recipes.vue";
+import Recipes from "../views/recipes/Recipes.vue";
 import Profile from "../views/Profile.vue";
 import Settings from "../views/Settings.vue";
 import NotFound from "../views/NotFound.vue";
