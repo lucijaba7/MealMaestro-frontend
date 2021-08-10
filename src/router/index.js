@@ -70,7 +70,7 @@ const routes = [
         component: YourRecipes
       },
       {
-        path: "saved",
+        path: "savedRecipes",
         name: "SavedRecipes",
         component: SavedRecipes
       }

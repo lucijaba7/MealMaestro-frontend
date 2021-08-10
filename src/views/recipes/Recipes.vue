@@ -13,9 +13,8 @@
 
     <v-row>
       <v-col cols="6" sm="4" :align="device == 'xs' ? 'center' : 'right'">
-        <v-btn
+        <router-link
           id="btn-default"
-          @click="proba()"
           :to="{
             name: 'YourRecipes',
             query: {
@@ -23,12 +22,12 @@
             }
           }"
           class="py-3 transparent elevation-0 text-caption"
-          >Your recipes</v-btn
+          >Your recipes</router-link
         ></v-col
       >
 
       <v-col cols="6" sm="4" :align="device == 'xs' ? 'center' : 'right'">
-        <a
+        <router-link
           id="btn-default"
           :to="{
             name: 'SavedRecipes',
@@ -37,7 +36,7 @@
             }
           }"
           class="py-3 transparent elevation-0 text-caption"
-          >Saved recipes</a
+          >Saved recipes</router-link
         ></v-col
       >
     </v-row>
