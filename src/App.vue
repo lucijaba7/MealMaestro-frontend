@@ -4,7 +4,9 @@
 
     <v-main>
       <FloatingNav />
+      <!-- <v-fade-transition> -->
       <Loader v-if="loading" />
+      <!-- </v-fade-transition> -->
       <router-view></router-view>
     </v-main>
   </v-app>

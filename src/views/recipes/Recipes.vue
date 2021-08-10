@@ -54,7 +54,7 @@
       class="px-15 py-3 my-5 primary elevation-0"
       >Expanded meal card</v-btn
     >
-    <ExpandedMealPopup v-model="dialog" />
+    <ExpandedMealPopup v-model="dialog" v-if="dialog" />
     <!-- botun za otovrit ratings -->
     <v-btn
       rounded
@@ -79,7 +79,7 @@
       class="px-15 py-3 my-5 primary elevation-0"
       >Create meal</v-btn
     >
-    <CreateMealPopup v-model="dialog3" />
+    <CreateMealPopup v-model="dialog3" v-if="dialog3" />
 
     <!-- botun za otvorit exception -->
     <v-btn

@@ -5,7 +5,8 @@
       v-model="show"
       persistent
       max-width="600"
-      @click:outside="show = false"
+      eager
+      @click:outside="closeDialog"
     >
       <v-card>
         <v-btn
@@ -13,7 +14,7 @@
           right
           fab
           class="accent elevation-0 mt-3"
-          @click="show = false"
+          @click="closeDialog"
           width="22.5"
           height="22.5"
           ><v-icon color="white" small>mdi-close</v-icon></v-btn
@@ -102,8 +103,12 @@
                       <v-divider></v-divider>
                     </template> </v-virtual-scroll
                 ></v-col>
-              </v-card-actions> </v-card
-          ></v-col>
+              </v-card-actions>
+            </v-card>
+            <div v-if="this.noImage" class="text-caption" style="color:red">
+              Please select an image
+            </div>
+          </v-col>
 
           <v-col class="py-0 pl-8" cols="5" align="start">
             <v-select
@@ -287,8 +292,8 @@ export default {
       mealName: "",
       uploadedFiles: [],
       mealType: "",
-      ingredients: [],
       name: "",
+      ingredients: [],
       servings: "",
       totalTime: "",
       ingredientsList: [{ ingredientName: "", quantity: "", unit: "" }],
@@ -319,7 +324,8 @@ export default {
       loading: false,
       search: "",
 
-      dragover: false
+      dragover: false,
+      noImage: false
     };
   },
   computed: {
@@ -358,6 +364,7 @@ export default {
   async created() {
     this.getIngredients();
   },
+  mounted() {},
   methods: {
     async getIngredients() {
       const data = await IngredientService.getAllIngredients();
@@ -380,6 +387,10 @@ export default {
         });
       }
     },
+    closeDialog() {
+      this.clear();
+      this.show = false;
+    },
 
     onFileSelected(event) {
       this.uploadedFiles.push(event);
@@ -390,7 +401,6 @@ export default {
           return ingr.unit;
         }
       }
-      console.log("opali");
     },
     addIngredient() {
       this.ingredientsList.push({ ingredientName: "", quantity: "", unit: "" });
@@ -435,7 +445,22 @@ export default {
         };
 
         await RecipeService.saveRecipeData(data);
-      } else console.log("nisam uso");
+      }
+      if (!this.uploadedFiles.length) {
+        this.noImage = true;
+      }
+    },
+    clear() {
+      this.mealName = "";
+      this.uploadedFiles = [];
+      this.mealType = "";
+      this.servings = "";
+      this.totalTime = "";
+      this.ingredientsList = [{ ingredientName: "", quantity: "", unit: "" }];
+      this.directions = "";
+      this.selected = [];
+
+      this.$refs.formCreateMeal.reset();
     }
   }
 };
@@ -445,4 +470,8 @@ export default {
 .dragDrop {
   border: 1px solid gray !important;
 }
+/* 
+.v-dialog {
+  z-index: 0; */
+/* } */
 </style>
