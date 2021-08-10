@@ -1,5 +1,10 @@
 <template>
-  <v-card class="rounded-xl white ma-4" height="280" max-width="230px">
+  <v-card
+    @click="proba()"
+    class="rounded-xl white ma-4"
+    height="280"
+    max-width="230px"
+  >
     <!-- <v-row>
       <v-col class="title text-body-1 font-weight-bold pl-3 mt-2">
         {{ recipe.name }}
@@ -66,6 +71,11 @@ export default {
         ratings: 4
       }
     };
+  },
+  methods: {
+    proba() {
+      this.$emit("dialogcard", true);
+    }
   }
 };
 </script>

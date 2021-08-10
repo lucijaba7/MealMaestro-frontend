@@ -13,8 +13,9 @@
 
     <v-row>
       <v-col cols="6" sm="4" :align="device == 'xs' ? 'center' : 'right'">
-        <a
+        <v-btn
           id="btn-default"
+          @click="proba()"
           :to="{
             name: 'YourRecipes',
             query: {
@@ -22,7 +23,7 @@
             }
           }"
           class="py-3 transparent elevation-0 text-caption"
-          >Your recipes</a
+          >Your recipes</v-btn
         ></v-col
       >
 
@@ -41,9 +42,7 @@
       >
     </v-row>
 
-    <v-row> <YourRecipesCard /></v-row>
-
-    <v-row> <SavedRecipesCard /></v-row>
+    <router-view :key="$route.fullPath"></router-view>
 
     <!-- BOTUNIIIIIII -->
 
@@ -110,6 +109,7 @@ export default {
       dialog2: false,
       dialog3: false,
       dialog4: false,
+      dialogcard: false,
       username: localStorage.getItem("username")
     };
   },
@@ -125,6 +125,11 @@ export default {
   computed: {
     device() {
       return this.$vuetify.breakpoint.name;
+    }
+  },
+  methods: {
+    proba() {
+      this.$emit("dialogcard", true);
     }
   }
 };
