@@ -1,15 +1,12 @@
-import axios from "axios";
-
-const url = "http://localhost:4000/recipes/";
+import httpClient from "@/utils/httpClient";
 
 export default {
-  saveRecipe(data) {
-    return axios.post(`${url}`, data).then(response => response.data);
+  getRecipeImage(data) {
+    return httpClient
+      .post("/recipes/getImageUrl", data)
+      .then(response => response);
   },
-  getAllRecipes() {
-    return axios.get(url).then(response => response.data);
-  },
-  getOneRecipe() {
-    //
+  saveRecipeData(data) {
+    return httpClient.post("/recipes", data).then(response => response);
   }
 };

@@ -4,6 +4,7 @@
 
     <v-main>
       <FloatingNav />
+      <Loader v-if="loading" />
       <router-view></router-view>
     </v-main>
   </v-app>
@@ -12,17 +13,31 @@
 <script>
 import Sidebar from "@/components/Layout/Sidebar";
 import FloatingNav from "@/components/Layout/FloatingNav";
-import AvatarPopup from "@/components/Popups/AvatarPopup";
+import { mapState } from "vuex";
+import Loader from "@/components/Loader";
+import httpClient from "@/utils/httpClient";
+import store from "@/store/index.js";
 
 localStorage.setItem("username", "kuharica"); // samo privremeno
 
 export default {
   name: "App",
-  components: { Sidebar, FloatingNav },
+  components: { Sidebar, FloatingNav, Loader },
   data() {
     return {
-      //
+      // myLoading: true
     };
+  },
+  mounted() {
+    console.log(this.$store.loading);
+  },
+  computed: {
+    ...mapState("loader", ["loading"])
+  },
+  watch: {
+    // myLoading() {
+    //   this.myLoading = this.$store.loading;
+    // }
   }
 };
 </script>
