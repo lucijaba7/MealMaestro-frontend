@@ -10,12 +10,14 @@
         <v-row class="ma-0">
           <v-col class="pb-0">
             <v-btn
+              absolute
+              right
               fab
-              class="accent elevation-0 float-right ma-3"
+              class="accent elevation-0 mt-3"
               @click="show = false"
-              max-width="20"
-              max-height="20"
-              ><v-icon x-small>mdi-close</v-icon></v-btn
+              width="22.4"
+              height="22.4"
+              ><v-icon color="white" small>mdi-close</v-icon></v-btn
             >
           </v-col></v-row
         >

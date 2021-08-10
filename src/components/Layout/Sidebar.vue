@@ -82,4 +82,8 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.v-navigation-drawer {
+  z-index: 200;
+}
+</style>
