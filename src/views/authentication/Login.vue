@@ -14,18 +14,19 @@
             <v-card-title class="justify-center">
               <h2 class="py-5 justify-center">Sign in</h2>
             </v-card-title>
-            <v-form>
+            <v-form ref="form" v-model="valid" lazy-validation>
               <v-text-field
                 class="py-3"
-                name="login"
+                v-model="email"
                 label="Email"
                 type="text"
+                :rules="[v => !!v || 'Email is required']"
               ></v-text-field>
               <v-text-field
-                id="password"
-                name="password"
+                v-model="password"
                 label="Password"
                 type="password"
+                :rules="[v => !!v || 'Password is required']"
               ></v-text-field>
             </v-form>
             <v-card-actions xs3 md4 class="justify-center">
@@ -33,19 +34,15 @@
                 <v-btn
                   rounded
                   class="px-15 py-3 mt-5 primary elevation-0"
-                  to="/"
+                  @click="login()"
                   >Login</v-btn
                 >
               </div>
             </v-card-actions>
             <v-row align="end" justify="center">
-              <span class="pt-5 ">New to MealMaestro?</span>
-              <v-btn
-                small
-                depressed
-                class="transparent text-left "
-                to="/registration"
-                >Create account</v-btn
+              <span class="pt-5">New to MealMaestro?</span>
+              <a class="transparent pl-2 " href="/registration"
+                >Create account</a
               >
             </v-row>
           </v-card-text>
@@ -56,13 +53,41 @@
 </template>
 
 <script>
-// import AvatarPopup from '../components/AvatarPopup.vue'
+import AuthService from "@/services/AuthService.js";
 
 export default {
   name: "Login",
-
+  data() {
+    return {
+      valid: true,
+      email: "",
+      password: ""
+    };
+  },
   props: {
     source: String
+  },
+  methods: {
+    validate() {
+      this.$refs.form.validate();
+    },
+    async login() {
+      try {
+        let validation = await this.validate();
+
+        if (this.valid) {
+          let credentials = {
+            email: this.email,
+            password: this.password
+          };
+          let success = await AuthService.login(credentials);
+          console.log("user ", success);
+          if (success) this.$router.push({ name: "Home" });
+        } else console.log("NE VALJAA");
+      } catch (error) {
+        console.log(error);
+      }
+    }
   }
 };
 </script>

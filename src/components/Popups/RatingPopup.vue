@@ -1,11 +1,6 @@
 <template>
   <v-row justify="center">
-    <v-dialog
-      v-model="show"
-      persistent
-      max-width="500"
-      @click:outside="show = false"
-    >
+    <v-dialog v-model="show" max-width="500" @click:outside="show = false">
       <v-card>
         <v-col align="right" class="pb-0">
           <v-btn
@@ -93,7 +88,6 @@ export default {
         this.$emit("input", value);
       }
     }
-  },
-  components: {}
+  }
 };
 </script>
