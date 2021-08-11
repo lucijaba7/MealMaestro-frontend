@@ -13,7 +13,7 @@
 
     <v-row>
       <v-col cols="6" sm="4" :align="device == 'xs' ? 'center' : 'right'">
-        <a
+        <router-link
           id="btn-default"
           :to="{
             name: 'YourRecipes',
@@ -22,12 +22,12 @@
             }
           }"
           class="py-3 transparent elevation-0 text-caption"
-          >Your recipes</a
+          >Your recipes</router-link
         ></v-col
       >
 
       <v-col cols="6" sm="4" :align="device == 'xs' ? 'center' : 'right'">
-        <a
+        <router-link
           id="btn-default"
           :to="{
             name: 'SavedRecipes',
@@ -36,14 +36,12 @@
             }
           }"
           class="py-3 transparent elevation-0 text-caption"
-          >Saved recipes</a
+          >Saved recipes</router-link
         ></v-col
       >
     </v-row>
 
-    <v-row> <YourRecipesCard /></v-row>
-
-    <v-row> <SavedRecipesCard /></v-row>
+    <router-view :key="$route.fullPath"></router-view>
 
     <!-- BOTUNIIIIIII -->
 
@@ -54,7 +52,7 @@
       class="px-15 py-3 my-5 primary elevation-0"
       >Expanded meal card</v-btn
     >
-    <ExpandedMealPopup v-model="dialog" />
+    <ExpandedMealPopup v-model="dialog" v-if="dialog" />
     <!-- botun za otovrit ratings -->
     <v-btn
       rounded
@@ -79,7 +77,7 @@
       class="px-15 py-3 my-5 primary elevation-0"
       >Create meal</v-btn
     >
-    <CreateMealPopup v-model="dialog3" />
+    <CreateMealPopup v-model="dialog3" v-if="dialog3" />
 
     <!-- botun za otvorit exception -->
     <v-btn
@@ -110,6 +108,7 @@ export default {
       dialog2: false,
       dialog3: false,
       dialog4: false,
+      dialogcard: false,
       username: localStorage.getItem("username")
     };
   },
@@ -125,6 +124,11 @@ export default {
   computed: {
     device() {
       return this.$vuetify.breakpoint.name;
+    }
+  },
+  methods: {
+    proba() {
+      this.$emit("dialogcard", true);
     }
   }
 };

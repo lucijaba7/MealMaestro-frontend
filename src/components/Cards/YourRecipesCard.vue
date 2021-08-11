@@ -1,10 +1,10 @@
 <template>
-  <v-card class="rounded-xl white ma-4" height="280" max-width="230px">
-    <!-- <v-row>
-      <v-col class="title text-body-1 font-weight-bold pl-3 mt-2">
-        {{ recipe.name }}
-      </v-col>
-    </v-row> -->
+  <v-card
+    class="rounded-xl white ma-4"
+    height="280"
+    max-width="230px"
+    @click="dialogcard = !dialogcard"
+  >
     <div class="text-body-1 font-weight-bold pl-3 mt-2">
       {{ recipe.name }}
     </div>
@@ -24,14 +24,18 @@
       >
       </v-img>
     </div>
+    <ExpandedMealPopup v-model="dialogcard" v-if="dialogcard" :id="infoId" />
   </v-card>
 </template>
 
 <script>
+import ExpandedMealPopup from "@/components/Popups/ExpandedMealPopup.vue";
+
 export default {
   name: "YourRecipesCard",
   data() {
     return {
+      dialogcard: false,
       checkbox1: true,
       recipe: {
         id: "5BH7BBJH6Z6",
@@ -66,6 +70,10 @@ export default {
         ratings: 4
       }
     };
+  },
+  methods: {},
+  components: {
+    ExpandedMealPopup
   }
 };
 </script>

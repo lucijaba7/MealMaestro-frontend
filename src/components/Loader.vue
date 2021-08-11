@@ -13,26 +13,26 @@
 <script>
 export default {
   name: "loader"
-  //   props: ["visible"]
+  // props: ["visible"]
 };
 </script>
 <style lang="scss">
 .loader {
   // background: rgba(255, 255, 255, 0.8);
-  transition: 0.3s ease-in opacity;
+  transition: 0.5s ease-in opacity;
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   pointer-events: none;
-  z-index: 1000;
+  z-index: 101;
   height: 350px;
   width: 350px;
-  //   opacity: 0;
-  //   &--visible {
-  //     opacity: 1;
-  //     pointer-events: all;
-  //   }
+  // opacity: 0;
+  // &--visible {
+  //   opacity: 1;
+  //   pointer-events: all;
+  // }
 }
 
 .overlay {
@@ -41,7 +41,11 @@ export default {
   width: 100%;
   height: 100%;
   position: fixed;
-  z-index: 100;
-  cursor: pointer;
+  z-index: 300;
+  // opacity: 0;
+  // &--visible {
+  //   opacity: 1;
+  //   pointer-events: all;
+  // }
 }
 </style>
