@@ -77,11 +77,7 @@
             </v-card-actions>
             <v-row align="end" justify="center">
               <span class="pt-5 ">Already have an account?</span>
-              <a
-                href="/login"
-                style="text-decoration: none"
-                class="pl-1 primaryText--text"
-              >
+              <a href="/login" class="pl-2">
                 SIGN IN
               </a>
             </v-row>

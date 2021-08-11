@@ -15,6 +15,7 @@ import Recipes from "../views/recipes/Recipes.vue";
 import Profile from "../views/Profile.vue";
 import Settings from "../views/Settings.vue";
 import NotFound from "../views/NotFound.vue";
+import AuthService from "@/services/AuthService.js";
 
 Vue.use(VueRouter);
 
@@ -108,6 +109,18 @@ const router = new VueRouter({
   scrollBehavior(to, from, savedPosition) {
     return { x: 0, y: 0 };
   }
+});
+
+router.beforeEach((to, from, next) => {
+  const publicPages = ["/splashScreen", "/registration", "/login"];
+  const loginRequired = !publicPages.includes(to.path);
+  const user = AuthService.getUser();
+
+  if (loginRequired && !user) {
+    return;
+  }
+
+  next();
 });
 
 export default router;

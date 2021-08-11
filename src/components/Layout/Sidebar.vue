@@ -15,11 +15,21 @@
           link.text
         }}</v-list-item-title>
       </v-list-item>
+      <v-list-item @click="logout()" class="navigation-items" router
+        ><v-list-item-icon>
+          <v-icon color="white">mdi-logout</v-icon>
+        </v-list-item-icon>
+        <v-list-item-title class="white--text">
+          LOG OUT
+        </v-list-item-title></v-list-item
+      >
     </v-list>
   </v-navigation-drawer>
 </template>
 
 <script>
+import AuthService from "@/services/AuthService.js";
+
 export default {
   data() {
     return {
@@ -58,7 +68,7 @@ export default {
           target: {
             path: "/groceryList"
           }
-        },
+        }
         // {
         //   icon: "mdi-account-circle",
         //   text: "ACCOUNT",
@@ -66,19 +76,15 @@ export default {
         //     path: "/profile"
         //   }
         // },
-        {
-          icon: "mdi-logout",
-          text: "LOG OUT"
-          // target: {
-          //   path: "/profile"
-          // }
-        }
       ]
     };
   },
-  mounted() {},
-  methods: {},
-  computed: {}
+  methods: {
+    logout() {
+      AuthService.logout();
+      this.$router.go(); //osvježi stranicu
+    }
+  }
 };
 </script>
 

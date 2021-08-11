@@ -40,13 +40,9 @@
               </div>
             </v-card-actions>
             <v-row align="end" justify="center">
-              <span class="pt-5 ">New to MealMaestro?</span>
-              <v-btn
-                small
-                depressed
-                class="transparent text-left "
-                to="/registration"
-                >Create account</v-btn
+              <span class="pt-5">New to MealMaestro?</span>
+              <a class="transparent pl-2 " href="/registration"
+                >Create account</a
               >
             </v-row>
           </v-card-text>
@@ -84,9 +80,9 @@ export default {
             email: this.email,
             password: this.password
           };
-          let response = await AuthService.login(credentials);
-          console.log(response);
-          this.$router.push({ name: "Home" });
+          let success = await AuthService.login(credentials);
+          console.log("user ", success);
+          if (success) this.$router.push({ name: "Home" });
         } else console.log("NE VALJAA");
       } catch (error) {
         console.log(error);
