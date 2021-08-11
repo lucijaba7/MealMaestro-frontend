@@ -1,5 +1,5 @@
 <template>
-  <span class="overlay white">
+  <span class="overlay">
     <span class="loader">
       <!-- <v-img
         :src="require('@/assets/loading_text.gif')"
@@ -42,6 +42,7 @@ export default {
   height: 100%;
   position: fixed;
   z-index: 300;
+  background: rgba(255, 255, 255, 0.644);
   // opacity: 0;
   // &--visible {
   //   opacity: 1;

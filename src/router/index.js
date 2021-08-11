@@ -17,6 +17,7 @@ import SavedRecipes from "../views/recipes/SavedRecipes.vue";
 import Profile from "../views/Profile.vue";
 import Settings from "../views/Settings.vue";
 import NotFound from "../views/NotFound.vue";
+import ExpandedMealPopup from "../components/Popups/ExpandedMealPopup.vue";
 
 Vue.use(VueRouter);
 
@@ -68,6 +69,7 @@ const routes = [
         path: "yourRecipes",
         name: "YourRecipes",
         component: YourRecipes
+        // children: [{ path: ":id", component: ExpandedMealPopup }]
       },
       {
         path: "savedRecipes",

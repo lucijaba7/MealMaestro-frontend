@@ -421,8 +421,12 @@ export default {
     },
     async saveRecipe() {
       this.$refs.formCreateMeal.validate();
-      console.log(this.uploadedFiles.length);
-      if (this.valid && this.uploadedFiles.length == 1) {
+
+      if (
+        this.valid &&
+        this.uploadedFiles.length == 1 &&
+        this.directions != ""
+      ) {
         this.show = false;
         let fileData = new FormData();
 
