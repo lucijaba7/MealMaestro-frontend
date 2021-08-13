@@ -1,9 +1,9 @@
 <template>
   <v-app>
-    <Sidebar />
+    <Sidebar v-if="this.$store.getters.isAuthenticated" />
 
     <v-main>
-      <FloatingNav />
+      <FloatingNav v-if="this.$store.getters.isAuthenticated" />
       <!-- <v-fade-transition> -->
       <Loader v-if="loading" />
       <!-- </v-fade-transition> -->
