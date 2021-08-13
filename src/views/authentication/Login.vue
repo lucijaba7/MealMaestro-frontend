@@ -18,7 +18,7 @@
               <v-text-field
                 class="py-3"
                 v-model="email"
-                label="Email"
+                label="Username or email"
                 type="text"
                 :rules="[v => !!v || 'Email is required']"
               ></v-text-field>

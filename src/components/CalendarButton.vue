@@ -3,7 +3,6 @@
     :to="{
       name: 'DailyPlan',
       query: {
-        username: this.username,
         startDay: this.$route.query.startDay,
         weekDay: this.info.day
       }

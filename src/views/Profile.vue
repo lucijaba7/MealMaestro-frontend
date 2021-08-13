@@ -56,7 +56,7 @@
         :key="recipe.id"
       >
         <ProfileMealCard :info="recipe" /> </v-col
-      ><v-spacer sm="12" md="6"></v-spacer>
+      ><v-spacer cols="12" md="6"></v-spacer>
     </v-row>
   </v-container>
 </template>

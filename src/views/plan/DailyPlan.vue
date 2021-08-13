@@ -127,12 +127,12 @@ export default {
   },
   methods: {
     async fetchDailyMeals(username, startDay, weekDay) {
-      let response = await Recipes.getDaily(username, startDay, weekDay);
-      return response.data;
+      // let response = await Recipes.getDaily(username, startDay, weekDay);
+      // return response.data;
     },
     async fetchIngredients() {
-      let response = await Ingredients.getItems();
-      return response.data;
+      // let response = await Ingredients.getItems();
+      // return response.data;
     }
   }
 };

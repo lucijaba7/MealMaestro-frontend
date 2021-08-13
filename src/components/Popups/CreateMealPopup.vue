@@ -299,7 +299,7 @@ export default {
       ingredientsList: [{ ingredientName: "", quantity: "", unit: "" }],
       directions: "",
       selected: [],
-      username: localStorage.getItem("username"),
+      userId: "611285110a50164074a3b9a8",
 
       valid: false,
       //RULES
@@ -441,7 +441,7 @@ export default {
           servings: this.servings,
           image: url.url,
           totalTime: this.totalTime,
-          username: this.username,
+          userId: this.userId,
           ingredientsList: this.ingredientsList,
           directions: this.directions,
           tags: this.selected,
