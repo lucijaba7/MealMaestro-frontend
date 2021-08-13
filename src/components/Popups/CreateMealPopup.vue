@@ -299,7 +299,7 @@ export default {
       ingredientsList: [{ ingredientName: "", quantity: "", unit: "" }],
       directions: "",
       selected: [],
-      userId: "611285110a50164074a3b9a8",
+      userId: this.$store.getters.getUser._id,
 
       valid: false,
       //RULES
@@ -364,7 +364,9 @@ export default {
   async created() {
     this.getIngredients();
   },
-  mounted() {},
+  mounted() {
+    console.log(this.userId);
+  },
   methods: {
     async getIngredients() {
       const data = await IngredientService.getAllIngredients();

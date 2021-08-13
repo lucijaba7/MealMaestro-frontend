@@ -128,9 +128,9 @@ export default {
       plan: false,
       confirmed: false,
       startDay: this.$route.query.startDay,
-      user: "611285110a50164074a3b9a8", // od tamishe
+      userId: this.$store.getters.getUser._id,
       thisWeeksMonday,
-      username: "TamishaXoXo",
+      username: this.$store.getters.getUser.username,
       weekday: weekdayName,
       month: monthName,
       activeDay: this.getActiveDay()
@@ -144,7 +144,7 @@ export default {
   methods: {
     async fetchWeeklyPlan() {
       const data = await WeeklyPlanService.getWeeklyPlan(
-        this.user,
+        this.userId,
         this.startDay
       );
 
@@ -153,7 +153,7 @@ export default {
       }
     },
     async createPlan() {
-      await WeeklyPlanService.createWeeklyPlan(this.user, this.startDay);
+      await WeeklyPlanService.createWeeklyPlan(this.userId, this.startDay);
       this.plan = true;
     },
     getActiveDay() {
