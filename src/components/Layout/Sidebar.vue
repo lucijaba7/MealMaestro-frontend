@@ -75,6 +75,6 @@ export default {
 
 <style scoped>
 .v-navigation-drawer {
-  z-index: 200;
+  /* z-index: 500; */
 }
 </style>

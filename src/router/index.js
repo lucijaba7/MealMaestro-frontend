@@ -75,6 +75,7 @@ const routes = [
         path: "yourRecipes",
         name: "YourRecipes",
         component: YourRecipes
+        // children: [{ path: ":id", component: ExpandedMealPopup }]
       },
       {
         path: "savedRecipes",
