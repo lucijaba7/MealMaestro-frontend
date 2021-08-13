@@ -8,5 +8,8 @@ export default {
   },
   saveRecipeData(data) {
     return httpClient.post("/recipes", data).then(response => response);
+  },
+  getAllRecipes() {
+    return httpClient.get("recipes").then(response => response);
   }
 };

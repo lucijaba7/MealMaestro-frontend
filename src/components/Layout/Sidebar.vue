@@ -52,7 +52,7 @@ export default {
           icon: "mdi-room-service",
           text: "RECIPES",
           target: {
-            path: "/recipes"
+            path: "/recipes/yourRecipes"
           }
         },
         // {

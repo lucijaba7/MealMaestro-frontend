@@ -1,33 +1,78 @@
 <template>
-  <v-card class="rounded-xl white ma-4" height="280" max-width="230px">
+  <v-card
+    class="rounded-xl white ma-4"
+    height="280"
+    max-width="230px"
+    @click="dialogcard = !dialogcard"
+  >
     <div class="text-body-1 font-weight-bold pl-3 mt-2">
       {{ recipe.name }}
     </div>
     <v-row>
       <v-col cols="6">
-        <v-card-text class="py-1 pl-3 ">{{ recipe.meal_type }}</v-card-text>
+        <v-card-text style="font-size: 15px" class="py-1 pl-3 ">{{
+          recipe.meal_type
+        }}</v-card-text>
       </v-col>
-      <v-col cols="6"> </v-col>
+      <v-col
+        align="end"
+        cols="6"
+        :class="this.$vuetify.breakpoint.name == 'lg' ? 'mr-3 pb-0' : ''"
+      >
+        <v-rating
+          readonly
+          :value="recipe.ratings"
+          background-color="accent"
+          color="accent"
+          dense
+          small
+          size="20"
+          half-increments
+        ></v-rating>
+      </v-col>
     </v-row>
+
+    <v-row class="pt-0 pl-3 mt-0">
+      <v-card-text class="caption pt-0 pl-3 "
+        >By {{ recipe.username }}</v-card-text
+      >
+    </v-row>
+
     <div>
       <v-img
         src="@/assets/meal1.png"
         class="img rounded-xl"
         width="100%"
-        height="170px"
+        height="160px"
         fluid
+        align="end"
       >
+        <v-btn
+          align="bottom"
+          small
+          fab
+          class="elevation-0 mt-5 mr-5"
+          color="grey lighten-1"
+          ><v-icon color="white">{{
+            saved ? "mdi-bookmark" : "mdi-bookmark-outline"
+          }}</v-icon></v-btn
+        >
       </v-img>
     </div>
+    <ExpandedMealPopup v-model="dialogcard" v-if="dialogcard" :id="infoId" />
   </v-card>
 </template>
 
 <script>
+import ExpandedMealPopup from "@/components/Popups/ExpandedMealPopup.vue";
+
 export default {
   name: "SavedRecipesCard",
   data() {
     return {
       checkbox1: true,
+      dialogcard: false,
+      saved: false,
       recipe: {
         id: "5BH7BBJH6Z6",
         name: "Tomato, Peach, and Basil Salad",
@@ -61,6 +106,19 @@ export default {
         ratings: 4
       }
     };
+  },
+  components: {
+    ExpandedMealPopup
   }
 };
 </script>
+
+<style scoped>
+.v-card {
+  cursor: pointer;
+}
+.img {
+  position: absolute;
+  bottom: 0;
+}
+</style>
