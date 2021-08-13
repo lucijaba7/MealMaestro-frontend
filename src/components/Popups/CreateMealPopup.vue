@@ -299,7 +299,7 @@ export default {
       ingredientsList: [{ ingredientName: "", quantity: "", unit: "" }],
       directions: "",
       selected: [],
-      username: localStorage.getItem("username"),
+      userId: this.$store.getters.getUser._id,
 
       valid: false,
       //RULES
@@ -364,7 +364,9 @@ export default {
   async created() {
     this.getIngredients();
   },
-  mounted() {},
+  mounted() {
+    console.log(this.userId);
+  },
   methods: {
     async getIngredients() {
       const data = await IngredientService.getAllIngredients();
@@ -421,8 +423,12 @@ export default {
     },
     async saveRecipe() {
       this.$refs.formCreateMeal.validate();
-      console.log(this.uploadedFiles.length);
-      if (this.valid && this.uploadedFiles.length == 1) {
+
+      if (
+        this.valid &&
+        this.uploadedFiles.length == 1 &&
+        this.directions != ""
+      ) {
         this.show = false;
         let fileData = new FormData();
 
@@ -437,7 +443,7 @@ export default {
           servings: this.servings,
           image: url.url,
           totalTime: this.totalTime,
-          username: this.username,
+          userId: this.userId,
           ingredientsList: this.ingredientsList,
           directions: this.directions,
           tags: this.selected,

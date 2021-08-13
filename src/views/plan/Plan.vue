@@ -76,7 +76,6 @@
           :to="{
             name: 'WeeklyPlan',
             query: {
-              username: this.username,
               startDay: this.$route.query.startDay
             }
           }"
@@ -98,9 +97,15 @@
         <CalendarButton :info="weekday" @clicked="toggleActive"
       /></v-col>
     </v-row>
-    <!-- <ConfirmPlan />
-    <CreatePlan /> -->
-    <router-view :key="$route.fullPath"></router-view>
+    <span v-if="!plan">
+      <NoPlan v-if="this.thisWeeksMonday() != this.startDay" />
+      <CreatePlan v-else @create_plan="createPlan" />
+    </span>
+    <span v-else>
+      <ConfirmPlan />
+
+      <router-view :key="$route.query.startDay"></router-view>
+    </span>
   </v-container>
 </template>
 
@@ -109,25 +114,48 @@ import CalendarButton from "@/components/CalendarButton";
 import FloatingNav from "@/components/Layout/FloatingNav";
 import ConfirmPlan from "@/components/Plan/ConfirmPlan";
 import CreatePlan from "@/components/Plan/CreatePlan";
+import NoPlan from "@/components/Plan/NoPlan";
+import WeeklyPlanService from "@/services/WeeklyPlanService";
+import router from "@/router";
+import moment from "moment";
+const { thisWeeksMonday } = require("@/assets/date/date_handling.js");
 
 const { weekdayName, monthName } = require("@/assets/date/date_handling.js");
 
 export default {
   data() {
     return {
-      username: localStorage.getItem("username"),
+      plan: false,
+      confirmed: false,
+      startDay: this.$route.query.startDay,
+      userId: this.$store.getters.getUser._id,
+      thisWeeksMonday,
+      username: this.$store.getters.getUser.username,
       weekday: weekdayName,
       month: monthName,
       activeDay: this.getActiveDay()
     };
   },
-  mounted() {
-    localStorage.setItem(
-      "startDay",
-      this.weekDays[0]["date"].toISOString().split("T")[0]
-    );
+  mounted() {},
+  created() {
+    this.fetchWeeklyPlan();
   },
+
   methods: {
+    async fetchWeeklyPlan() {
+      const data = await WeeklyPlanService.getWeeklyPlan(
+        this.userId,
+        this.startDay
+      );
+
+      if (data != null) {
+        this.plan = true;
+      }
+    },
+    async createPlan() {
+      await WeeklyPlanService.createWeeklyPlan(this.userId, this.startDay);
+      this.plan = true;
+    },
     getActiveDay() {
       return this.$route.name == "WeeklyPlan"
         ? -1
@@ -138,12 +166,12 @@ export default {
     },
     switchWeek(date, parameter) {
       var thisDate = new Date(date);
-      return new Date(thisDate.setDate(thisDate.getDate() + parameter))
-        .toISOString()
-        .split("T")[0];
+      return moment(
+        new Date(thisDate.setDate(thisDate.getDate() + parameter))
+      ).format("YYYY-MM-DD");
     }
   },
-  components: { CalendarButton, FloatingNav, CreatePlan, ConfirmPlan },
+  components: { CalendarButton, FloatingNav, CreatePlan, ConfirmPlan, NoPlan },
   computed: {
     weekDays() {
       var current_date = new Date(this.$route.query.startDay);

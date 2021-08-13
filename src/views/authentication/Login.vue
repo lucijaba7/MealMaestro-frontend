@@ -18,7 +18,7 @@
               <v-text-field
                 class="py-3"
                 v-model="email"
-                label="Email"
+                label="Username or email"
                 type="text"
                 :rules="[v => !!v || 'Email is required']"
               ></v-text-field>
@@ -29,6 +29,12 @@
                 :rules="[v => !!v || 'Password is required']"
               ></v-text-field>
             </v-form>
+            <v-row
+              :class="errorMessage ? 'justify-center' : 'justify-center d-none'"
+              style="color: #FF5252"
+            >
+              {{ errorMessage }}
+            </v-row>
             <v-card-actions xs3 md4 class="justify-center">
               <div class="text-center pb-4">
                 <v-btn
@@ -61,7 +67,8 @@ export default {
     return {
       valid: true,
       email: "",
-      password: ""
+      password: "",
+      errorMessage: null
     };
   },
   props: {
@@ -80,16 +87,17 @@ export default {
             email: this.email,
             password: this.password
           };
-          let success = await AuthService.login(credentials);
-          console.log("user ", success);
-          if (success) this.$router.push({ name: "Home" });
-        } else console.log("NE VALJAA");
+          let response = await AuthService.login(credentials);
+          const token = response.token;
+          const user = response.data.user;
+
+          this.$store.dispatch("login", { token, user });
+          this.$router.push({ name: "Home" });
+        }
       } catch (error) {
-        console.log(error);
+        this.errorMessage = error.response.data.message;
       }
     }
   }
 };
 </script>
-
-<style></style>

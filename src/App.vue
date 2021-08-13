@@ -1,13 +1,13 @@
 <template>
   <v-app>
-    <Sidebar />
+    <Sidebar v-if="this.$store.getters.isAuthenticated" />
 
     <v-main>
-      <FloatingNav />
+      <FloatingNav v-if="this.$store.getters.isAuthenticated" />
       <!-- <v-fade-transition> -->
       <Loader v-if="loading" />
       <!-- </v-fade-transition> -->
-      <router-view></router-view>
+      <router-view :key="$route.fullPath"></router-view>
     </v-main>
   </v-app>
 </template>
@@ -31,7 +31,7 @@ export default {
     };
   },
   mounted() {
-    console.log(this.$store.loading);
+    // console.log(this.$store.loading);
   },
   computed: {
     ...mapState("loader", ["loading"])

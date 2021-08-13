@@ -17,7 +17,7 @@ import SavedRecipes from "../views/recipes/SavedRecipes.vue";
 import Profile from "../views/Profile.vue";
 import Settings from "../views/Settings.vue";
 import NotFound from "../views/NotFound.vue";
-import AuthService from "@/services/AuthService.js";
+import { store } from "../store/index.js";
 
 Vue.use(VueRouter);
 
@@ -25,7 +25,10 @@ const routes = [
   {
     path: "/",
     name: "Home",
-    component: Home
+    component: Home,
+    meta: {
+      requiresAuth: true
+    }
   },
   {
     path: "/registration",
@@ -58,7 +61,10 @@ const routes = [
         name: "DailyPlan",
         component: DailyPlan
       }
-    ]
+    ],
+    meta: {
+      requiresAuth: true
+    }
   },
   {
     path: "/recipes",
@@ -69,13 +75,17 @@ const routes = [
         path: "yourRecipes",
         name: "YourRecipes",
         component: YourRecipes
+        // children: [{ path: ":id", component: ExpandedMealPopup }]
       },
       {
         path: "savedRecipes",
         name: "SavedRecipes",
         component: SavedRecipes
       }
-    ]
+    ],
+    meta: {
+      requiresAuth: true
+    }
   },
   {
     path: "/fridge",
@@ -91,22 +101,34 @@ const routes = [
         name: "FridgeCategory",
         component: FridgeCategory
       }
-    ]
+    ],
+    meta: {
+      requiresAuth: true
+    }
   },
   {
     path: "/groceryList",
     name: "GroceryList",
-    component: GroceryList
+    component: GroceryList,
+    meta: {
+      requiresAuth: true
+    }
   },
   {
     path: "/settings",
     name: "Settings",
-    component: Settings
+    component: Settings,
+    meta: {
+      requiresAuth: true
+    }
   },
   {
     path: "/profile",
     name: "Profile",
-    component: Profile
+    component: Profile,
+    meta: {
+      requiresAuth: true
+    }
   },
   //catchall 404
   {
@@ -126,15 +148,15 @@ const router = new VueRouter({
 });
 
 router.beforeEach((to, from, next) => {
-  const publicPages = ["/splashScreen", "/registration", "/login"];
-  const loginRequired = !publicPages.includes(to.path);
-  const user = AuthService.getUser();
-
-  if (loginRequired && !user) {
-    return;
+  if (to.matched.some(record => record.meta.requiresAuth)) {
+    if (store.getters.isAuthenticated) {
+      next();
+      return;
+    }
+    next("/splashScreen");
+  } else {
+    next();
   }
-
-  next();
 });
 
 export default router;

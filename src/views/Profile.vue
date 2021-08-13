@@ -49,16 +49,14 @@
     <v-row class="my-10" justify="center">
       <v-col
         cols="12"
-        sm="8"
-        md="7"
-        lg="5"
+        md="6"
         align="left"
         class="pa-8"
         v-for="recipe in recipes"
         :key="recipe.id"
       >
-        <ProfileMealCard :info="recipe" />
-      </v-col>
+        <ProfileMealCard :info="recipe" /> </v-col
+      ><v-spacer cols="12" md="6"></v-spacer>
     </v-row>
   </v-container>
 </template>
@@ -79,7 +77,7 @@ export default {
       recipes: []
     };
   },
-  async created() {
+  created() {
     this.fetchUserData(this.username);
 
     this.fetchRecipesData();
@@ -91,8 +89,9 @@ export default {
     },
     async fetchRecipesData() {
       const data = await RecipeService.getAllRecipes();
+      console.log(data);
 
-      for (var i = 0; i < 5; i++) {
+      for (var i = 15; i < 30; i++) {
         this.recipes.push({
           id: data[i]._id,
           img: data[i].image,
@@ -102,7 +101,6 @@ export default {
           date: data[i].date_created
         });
       }
-      console.log(this.recipes);
     }
   },
   computed: {

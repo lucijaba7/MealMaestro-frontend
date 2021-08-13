@@ -1,3 +1,5 @@
+const moment = require("moment");
+
 const weekdayName = [
   "Sunday",
   "Monday",
@@ -25,11 +27,8 @@ const monthName = [
 function thisWeeksMonday() {
   var today = new Date();
   var dayOfWeek = today.getDay();
-  return new Date(
-    today.setDate(today.getDate() - (dayOfWeek ? dayOfWeek - 1 : -6))
-  )
-    .toISOString()
-    .split("T")[0];
+  var diff = today.getDate() - dayOfWeek + (dayOfWeek ? 1 : -6);
+  return moment(new Date(today.setDate(diff))).format("YYYY-MM-DD");
 }
 
 function todaysWeekDay() {
