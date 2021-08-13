@@ -28,8 +28,6 @@
 </template>
 
 <script>
-import AuthService from "@/services/AuthService.js";
-
 export default {
   data() {
     return {
@@ -55,13 +53,6 @@ export default {
             path: "/recipes"
           }
         },
-        // {
-        //   icon: "mdi-fridge",
-        //   text: "FRIDGE",
-        //   target: {
-        //     path: "/fridge/"
-        //   }
-        // },
         {
           icon: "mdi-cart",
           text: "GROCERY LIST",
@@ -69,20 +60,14 @@ export default {
             path: "/groceryList"
           }
         }
-        // {
-        //   icon: "mdi-account-circle",
-        //   text: "ACCOUNT",
-        //   target: {
-        //     path: "/profile"
-        //   }
-        // },
       ]
     };
   },
   methods: {
     logout() {
-      AuthService.logout();
-      this.$router.go(); //osvježi stranicu
+      this.$store.dispatch("logout");
+      this.$router.push("/login");
+      //this.$router.go(); //osvježi stranicu
     }
   }
 };
