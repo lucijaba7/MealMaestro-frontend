@@ -1,53 +1,77 @@
 <template>
-  <WeeklyPlanSlide />
+  <span>
+    <v-row v-for="day in this.weekDays" :key="day">
+      <v-col class="pa-0">
+        <h4 class="ml-10 mt-5">- {{ day }} -</h4>
+        <v-slide-group
+          height="300"
+          show-arrows
+          next-icon="mdi-chevron-right accent rounded-xl theme--dark"
+          prev-icon="mdi-chevron-left accent rounded-xl theme--dark"
+        >
+          <v-slide-item
+            v-for="(meal, i) in meals"
+            :key="i"
+            reverse-transition="fade-transition"
+            transition="fade-transition"
+          >
+            <WeeklyMealCard
+              :meal="mealDetails(day, meal)"
+              :confirmed="confirmed"
+            />
+          </v-slide-item>
+          <!-- <v-slide-item><AddMealCard /></v-slide-item>  -->
+        </v-slide-group></v-col
+      >
+    </v-row></span
+  >
 </template>
 
 <script>
-import WeeklyPlanSlide from "@/components/WeeklyPlanSlide";
+import WeeklyMealCard from "@/components/Cards/WeeklyMealCard";
 
 export default {
   name: "WeeklyPlan",
+  props: ["data", "confirmed"],
   data() {
     return {
-      defaultMeal: "Breakfast",
-      meals: ["Breakfast", "Lunch", "Dinner", "Snack", "Dessert"],
-      checkbox1: false,
-      recipe: {
-        id: "5BH7BBJH6Z6",
-        name: "Caribbean Chicken and 'Rice'",
-        image: "neka slika",
-        meal_type: "Lunch",
-        servings: 4,
-        total_time: "20 min",
-        username: "@sarah_foster",
-        ingredients_list: [
-          "4 c. riced cauliflower",
-          "1/4 c. water",
-          "4 skinless, boneless chicken-breast cutlets",
-          "2 tsp. olive oil",
-          "1/4 c. sweetened cream of coconut",
-          "2 tbsp. Hot sauce",
-          "2 limes, halved",
-          "1 (15-oz.) can black beans, rinsed and drained",
-          "Cilantro, chopped, for garnish"
-        ],
-        directions:
-          "Combine riced cauliflower and water; cover with vented plastic wrap and microwave on High 6 minutes. Meanwhile, brush chicken with olive oil; season all over with 1/2 teaspoon each salt and pepper. Grill on medium 5 minutes, turning over once halfway through. Whisk together sweetened cream of coconut and hot sauce; brush onto chicken. Grill until cooked through (165°F), about 5 minutes longer, brushing and turning 2 more times. Grill 2 limes, halved, until lightly charred, 2 to 3 minutes.Toss cooked cauliflower with black beans and 1/4 teaspoon salt. Serve chicken over cauliflower with limes, garnished with chopped cilantro.",
-        tags: [
-          "Gluten-free",
-          "High protein",
-          "Low-fat",
-          "neki tag",
-          "evo joos"
-        ],
-        date: "22.05.2021.",
-        published: true,
-        ratings: 4
-      }
+      weekDays: [
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday",
+        "Saturday",
+        "Sunday"
+      ],
+      meals: ["Breakfast", "Lunch", "Dinner", "Snack", "Dessert"]
     };
   },
   components: {
-    WeeklyPlanSlide
+    WeeklyMealCard
+  },
+  mounted() {},
+  methods: {
+    dayDetails(day) {
+      for (var plan of this.data) {
+        if (day == plan.day) {
+          return plan.daily_plan;
+        }
+      }
+      return [];
+    },
+    mealDetails(day, meal_type) {
+      for (var plan of this.data) {
+        if (day == plan.day) {
+          for (var meal of plan.daily_plan) {
+            if (meal_type == meal.recipe.meal_type) {
+              return meal;
+            }
+          }
+        }
+      }
+      return meal_type;
+    }
   }
 };
 </script>

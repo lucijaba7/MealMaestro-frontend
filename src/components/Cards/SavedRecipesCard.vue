@@ -5,19 +5,19 @@
     max-width="230px"
     @click="dialogcard = !dialogcard"
   >
-    <div class="text-body-1 font-weight-bold pl-3 mt-2">
+    <div class="text-body-1 font-weight-bold pl-3 pt-1 mt-2">
       {{ recipe.name }}
     </div>
     <v-row>
       <v-col cols="6">
-        <v-card-text style="font-size: 15px" class="py-1 pl-3 ">{{
+        <v-card-text style="font-size: 15px" class="pt-1 pb-0 pl-3 ">{{
           recipe.meal_type
         }}</v-card-text>
       </v-col>
       <v-col
         align="end"
         cols="6"
-        :class="this.$vuetify.breakpoint.name == 'lg' ? 'mr-3 pb-0' : ''"
+        :class="this.$vuetify.breakpoint.name == 'lg' ? 'pb-0' : ''"
       >
         <v-rating
           readonly

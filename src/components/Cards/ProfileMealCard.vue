@@ -2,7 +2,7 @@
   <v-card class="rounded-xl white">
     <v-row>
       <v-col cols="12" sm="5" class="py-0">
-        <v-img :src="info.img" class="rounded-xl" height="100%" width="100%">
+        <v-img :src="info.image" class="rounded-xl" height="100%" width="100%">
           <v-btn
             small
             fab
@@ -28,7 +28,7 @@
           class=" font-weight-bold pa-0 mx-2 mt-2 title "
           :style="device != 'sm' && device != 'xs' ? 'height: 80px' : ''"
         >
-          {{ info.recipe_name }}
+          {{ info.name }}
         </div>
 
         <v-row justify="space-between" class="pa-0 mx-2">
@@ -36,13 +36,13 @@
             <v-card-subtitle
               class="type font-weight-bold primaryText--text pa-0"
             >
-              {{ info.type }}
+              {{ info.meal_type }}
             </v-card-subtitle>
           </v-col>
           <v-col align="end" cols="7" class="pr-0 pb-0">
             <v-rating
               readonly
-              :value="ratings"
+              :value="info.ratings"
               background-color="accent"
               color="accent"
               dense
@@ -55,7 +55,7 @@
         <v-row>
           <v-col cols="12" class="py-0 tags ml-1">
             <v-chip
-              v-for="tag in info.meal_tags"
+              v-for="tag in info.tags.slice(0, 5)"
               :key="tag"
               class="ma-1"
               color="primary"
@@ -65,13 +65,14 @@
           >
         </v-row>
         <v-row
+          class="mb-1 caption"
           cols="12"
           justify="end"
           :class="
             this.$vuetify.breakpoint.name == 'xs' ? 'pr-8 mt-3' : 'pr-8 mt-0'
           "
         >
-          {{ date }}</v-row
+          {{ info.date_created }}</v-row
         >
       </v-col>
     </v-row>
