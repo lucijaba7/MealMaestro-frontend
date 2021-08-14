@@ -104,13 +104,17 @@
     <span v-else>
       <ConfirmPlan />
 
-      <router-view :key="$route.query.startDay"></router-view>
+      <router-view
+        :key="$route.query.startDay"
+        :data="recipes"
+        :confirmed="this.confirmed"
+      ></router-view>
     </span>
   </v-container>
 </template>
 
 <script>
-import CalendarButton from "@/components/CalendarButton";
+import CalendarButton from "@/components/Plan/CalendarButton";
 import FloatingNav from "@/components/Layout/FloatingNav";
 import ConfirmPlan from "@/components/Plan/ConfirmPlan";
 import CreatePlan from "@/components/Plan/CreatePlan";
@@ -127,6 +131,7 @@ export default {
     return {
       plan: false,
       confirmed: false,
+      recipes: [],
       startDay: this.$route.query.startDay,
       userId: this.$store.getters.getUser._id,
       thisWeeksMonday,
@@ -150,6 +155,9 @@ export default {
 
       if (data != null) {
         this.plan = true;
+        this.recipes = data.daily_meals;
+        this.confirmed = data.confirmed;
+      } else {
       }
     },
     async createPlan() {

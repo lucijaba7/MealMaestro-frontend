@@ -65,6 +65,7 @@
           >
         </v-row>
         <v-row
+          class="mb-1 caption"
           cols="12"
           justify="end"
           :class="

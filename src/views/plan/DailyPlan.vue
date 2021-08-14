@@ -79,6 +79,7 @@ import { Recipes, Ingredients } from "@/services";
 
 export default {
   name: "DailyPlan",
+  props: ["data"],
   data() {
     return {
       defaultMeal: "Breakfast",
