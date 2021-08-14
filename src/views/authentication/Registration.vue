@@ -132,13 +132,13 @@ export default {
         v => !!v || "Please repeat your password." //  v => v != this.repeatPassword || "Passwords don’t match. Please try again."
       ],
       allTags: [
-        { text: "Vegeterian" },
-        { text: "Vegan" },
-        { text: "Gluten-free" },
-        { text: "Dairy-free" },
-        { text: "Very healthy" },
-        { text: "High protein" },
-        { text: "Low-fat" }
+        { text: "vegetarian" },
+        { text: "vegan" },
+        { text: "glutenFree" },
+        { text: "dairyFree" },
+        { text: "veryHealthy" },
+        { text: "cheap" },
+        { text: "lowFodmap" }
       ],
       selectedTags: [],
       servings: ""

@@ -10,6 +10,11 @@ export default {
     return httpClient.post("/recipes", data).then(response => response);
   },
   getAllRecipes() {
-    return httpClient.get("recipes").then(response => response);
+    return httpClient.get("/recipes").then(response => response);
+  },
+  getCustomRecipes(id) {
+    return httpClient
+      .get(`/recipes/${id}/customRecipes`)
+      .then(response => response);
   }
 };

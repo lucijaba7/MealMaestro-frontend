@@ -21,18 +21,28 @@
 
 <script>
 import YourRecipesCard from "@/components/Cards/YourRecipesCard.vue";
+import RecipeService from "@/services/RecipeService";
 
 export default {
   data() {
     return {
+      userId: this.$store.getters.getUser._id,
       dialogcard: false,
       infoId: null,
-      recipes: ["a", "B", "C", "D"]
+      recipes: []
     };
   },
-  methods: {},
+  methods: {
+    async getYourRecipes() {
+      let data = await RecipeService.getCustomRecipes(this.userId);
+      this.recipes = data;
+    }
+  },
   components: {
     YourRecipesCard
+  },
+  created() {
+    this.getYourRecipes();
   }
 };
 </script>

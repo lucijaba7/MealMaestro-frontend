@@ -71,36 +71,41 @@ export default {
   components: { EditProfilePopup, ProfileMealCard },
   data() {
     return {
-      username: localStorage.getItem("username"),
+      userId: this.$store.getters.getUser._id,
       editProfileOpen: false,
       checkbox2: null,
       recipes: []
     };
   },
   created() {
-    this.fetchUserData(this.username);
+    // this.fetchUserData(this.username);
 
-    this.fetchRecipesData();
+    this.getYourRecipes();
   },
   methods: {
-    async fetchUserData(username) {
-      let response = await User.getData(username);
-      return response.data;
-    },
-    async fetchRecipesData() {
-      const data = await RecipeService.getAllRecipes();
-      console.log(data);
+    // async fetchUserData(username) {
+    //   let response = await User.getData(username);
+    //   return response.data;
+    // },
+    // async fetchRecipesData() {
+    //   const data = await RecipeService.getAllRecipes();
+    //   console.log(data);
 
-      for (var i = 15; i < 30; i++) {
-        this.recipes.push({
-          id: data[i]._id,
-          img: data[i].image,
-          recipe_name: data[i].name,
-          type: data[i].meal_type,
-          meal_tags: data[i].tags,
-          date: data[i].date_created
-        });
-      }
+    //   for (var i = 15; i < 30; i++) {
+    //     this.recipes.push({
+    //       id: data[i]._id,
+    //       img: data[i].image,
+    //       recipe_name: data[i].name,
+    //       type: data[i].meal_type,
+    //       meal_tags: data[i].tags,
+    //       date: data[i].date_created
+    //     });
+    //   }
+    // },
+
+    async getYourRecipes() {
+      let data = await RecipeService.getCustomRecipes(this.userId);
+      this.recipes = data;
     }
   },
   computed: {
