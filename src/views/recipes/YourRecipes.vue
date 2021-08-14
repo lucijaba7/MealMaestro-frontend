@@ -13,9 +13,13 @@
       v-for="recipe in recipes"
       :key="recipe.id"
     >
-      <YourRecipesCard :info="recipe" />
+      <router-link :to="`/recipes/yourRecipes/${recipe}`" :key="recipe">
+        <YourRecipesCard :info="recipe" />
+      </router-link>
     </v-col>
-    <v-spacer cols="12" sm="6" md="8" lg="9"></v-spacer>
+    <v-spacer cols="12" sm="6" md="8" lg="9"></v-spacer>¨
+
+    <router-view></router-view>
   </v-row>
 </template>
 
@@ -26,6 +30,7 @@ export default {
   data() {
     return {
       dialogcard: false,
+      showModal: this.$store.getters.isVisible,
       infoId: null,
       recipes: ["a", "B", "C", "D"]
     };
@@ -36,5 +41,3 @@ export default {
   }
 };
 </script>
-
-<style scoped></style>

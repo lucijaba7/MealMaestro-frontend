@@ -1,10 +1,5 @@
 <template>
-  <v-card
-    class="rounded-xl white ma-4"
-    height="280"
-    max-width="230px"
-    @click="dialogcard = !dialogcard"
-  >
+  <v-card class="rounded-xl white ma-4" height="280" max-width="230px">
     <div class="text-body-1 font-weight-bold pl-3 mt-2">
       {{ recipe.name }}
     </div>
@@ -17,7 +12,7 @@
       <v-col
         align="end"
         cols="6"
-        :class="this.$vuetify.breakpoint.name == 'lg' ? 'mr-3 pb-0' : ''"
+        :class="this.$vuetify.breakpoint.name == 'lg' ? 'pb-0' : ''"
       >
         <v-rating
           readonly
@@ -42,13 +37,10 @@
       >
       </v-img>
     </div>
-    <ExpandedMealPopup v-model="dialogcard" v-if="dialogcard" :id="infoId" />
   </v-card>
 </template>
 
 <script>
-import ExpandedMealPopup from "@/components/Popups/ExpandedMealPopup.vue";
-
 export default {
   name: "YourRecipesCard",
   data() {
@@ -89,10 +81,6 @@ export default {
         ratings: 4
       }
     };
-  },
-  methods: {},
-  components: {
-    ExpandedMealPopup
   }
 };
 </script>

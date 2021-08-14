@@ -17,6 +17,7 @@ import SavedRecipes from "../views/recipes/SavedRecipes.vue";
 import Profile from "../views/Profile.vue";
 import Settings from "../views/Settings.vue";
 import NotFound from "../views/NotFound.vue";
+import ExpandedMealPopup from "../components/Popups/ExpandedMealPopup.vue";
 import { store } from "../store/index.js";
 
 Vue.use(VueRouter);
@@ -74,8 +75,14 @@ const routes = [
         alias: "",
         path: "yourRecipes",
         name: "YourRecipes",
-        component: YourRecipes
-        // children: [{ path: ":id", component: ExpandedMealPopup }]
+        component: YourRecipes,
+        children: [
+          {
+            path: ":id",
+            component: ExpandedMealPopup,
+            props: true
+          }
+        ]
       },
       {
         path: "savedRecipes",
@@ -87,6 +94,7 @@ const routes = [
       requiresAuth: true
     }
   },
+  // { path: "/expanded", component: ExpandedMealPopup, props: true },
   {
     path: "/fridge",
     component: Fridge,
