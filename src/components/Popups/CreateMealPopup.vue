@@ -313,13 +313,13 @@ export default {
       ingredientQuantity: "",
       //OVDJE U Tags hocemo cheap i nest lowFodmap idk what that is
       allTags: [
-        { text: "Vegeterian" },
-        { text: "Vegan" },
-        { text: "Gluten-free" },
-        { text: "Dairy-free" },
-        { text: "Very healthy" },
-        { text: "High protein" },
-        { text: "Low-fat" }
+        { text: "vegetarian" },
+        { text: "vegan" },
+        { text: "glutenFree" },
+        { text: "dairyFree" },
+        { text: "veryHealthy" },
+        { text: "cheap" },
+        { text: "lowFodmap" }
       ],
       loading: false,
       search: "",

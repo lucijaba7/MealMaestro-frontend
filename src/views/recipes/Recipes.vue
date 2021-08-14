@@ -11,29 +11,35 @@
       </v-col>
     </v-row>
 
-    <v-row>
-      <v-col cols="6" sm="4" :align="device == 'xs' ? 'center' : 'right'">
+    <v-row justify="center">
+      <v-col
+        class="pr-2"
+        cols="5"
+        sm="4"
+        :align="device == 'xs' ? 'center' : 'right'"
+      >
         <router-link
-          id="btn-default"
           :to="{
-            name: 'YourRecipes',
-            query: {
-              username: this.username
-            }
+            name: 'YourRecipes'
           }"
           class="py-3 transparent elevation-0 text-caption"
           >Your recipes</router-link
         ></v-col
       >
 
-      <v-col cols="6" sm="4" :align="device == 'xs' ? 'center' : 'right'">
+      <span class="pt-3">
+        /
+      </span>
+
+      <v-col
+        class="pl-2"
+        cols="5"
+        sm="4"
+        :align="device == 'xs' ? 'center' : 'left'"
+      >
         <router-link
-          id="btn-default"
           :to="{
-            name: 'SavedRecipes',
-            query: {
-              username: this.username
-            }
+            name: 'SavedRecipes'
           }"
           class="py-3 transparent elevation-0 text-caption"
           >Saved recipes</router-link
@@ -135,8 +141,17 @@ export default {
 </script>
 
 <style scoped>
-#btn-default:hover:before {
-  background: transparent !important;
-  cursor: pointer;
+a {
+  color: #445462 !important;
+  text-decoration: none;
+}
+
+a.router-link-active {
+  background: #fffefb;
+  color: #445462;
+  font-weight: bold;
+  border-bottom: 5px solid #f8ac42;
+  text-decoration: underline #f8ac42;
+  text-underline-offset: 4px;
 }
 </style>

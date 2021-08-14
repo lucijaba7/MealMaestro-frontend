@@ -50,7 +50,7 @@ export default {
           icon: "mdi-room-service",
           text: "RECIPES",
           target: {
-            path: "/recipes"
+            path: "/recipes/yourRecipes"
           }
         },
         {
@@ -74,7 +74,7 @@ export default {
 </script>
 
 <style scoped>
-.v-navigation-drawer {
-  /* z-index: 500; */
-}
+/* .v-navigation-drawer {
+  z-index: 500;
+} */
 </style>
