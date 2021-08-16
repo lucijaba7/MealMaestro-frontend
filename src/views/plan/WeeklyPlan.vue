@@ -19,12 +19,9 @@
               :meal="mealDetails(day, meal)"
               :confirmed="confirmed"
             />
-          </v-slide-item>
-          <!-- <v-slide-item><AddMealCard /></v-slide-item>  -->
-        </v-slide-group></v-col
-      >
-    </v-row></span
-  >
+          </v-slide-item> </v-slide-group
+      ></v-col> </v-row
+  ></span>
 </template>
 
 <script>

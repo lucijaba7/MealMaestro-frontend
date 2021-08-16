@@ -1,4 +1,9 @@
 import httpClient from "@/utils/httpClient";
+import axios from "axios";
+
+let Service = axios.create({
+  baseURL: "http://localhost:4000"
+});
 
 export default {
   getWeeklyPlan(user, startDay) {
@@ -10,5 +15,8 @@ export default {
     return httpClient
       .post(`/weeklyPlan?userId=${user}&startDay=${startDay}`)
       .then(response => response);
+  },
+  deleteMeal(user, ala) {
+    return 0;
   }
 };

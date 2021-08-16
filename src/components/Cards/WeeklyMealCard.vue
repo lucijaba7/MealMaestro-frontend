@@ -35,19 +35,22 @@
 
 <script>
 import AddMealCard from "@/components/Cards/AddMealCard";
+import WeeklyPlanService from "@/services/WeeklyPlanService";
 
 export default {
   name: "WeeklyMealCard",
   props: ["meal", "confirmed"],
   data() {
     return {
-      mealExists: typeof this.meal == "object"
+      mealExists: typeof this.meal == "object",
+      userId: this.$store.getters.getUser._id
     };
   },
   mounted() {},
   methods: {
     removeMeal() {
       this.mealExists = false;
+      WeeklyPlanService.deleteMeal(userId);
     }
   },
   computed: {

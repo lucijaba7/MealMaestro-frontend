@@ -2,7 +2,7 @@
   <v-card class="rounded-xl white">
     <v-row>
       <v-col cols="12" sm="5" class="py-0">
-        <v-img :src="info.image" class="rounded-xl" height="100%" width="100%">
+        <v-img :src="info.image" class="rounded-xl">
           <v-btn
             small
             fab
@@ -10,6 +10,7 @@
             right
             class="elevation-0 mt-3"
             color="grey lighten-1"
+            @click.stop.prevent=""
             ><v-icon color="white">{{
               this.saved ? "mdi-bookmark" : "mdi-bookmark-outline"
             }}</v-icon></v-btn
@@ -18,12 +19,6 @@
       </v-col>
 
       <v-col cols="12" sm="7">
-        <!-- <v-row justify="end" class="py-2 px-5">
-          <v-icon fab size="100%" class="px-5 primaryText--text"
-            >mdi-dots-horizontal</v-icon
-          >
-        </v-row> -->
-
         <div
           class=" font-weight-bold pa-0 mx-2 mt-2 title "
           :style="device != 'sm' && device != 'xs' ? 'height: 80px' : ''"
@@ -42,7 +37,7 @@
           <v-col align="end" cols="7" class="pr-0 pb-0">
             <v-rating
               readonly
-              :value="info.ratings"
+              :value="this.ratings"
               background-color="accent"
               color="accent"
               dense
@@ -72,7 +67,7 @@
             this.$vuetify.breakpoint.name == 'xs' ? 'pr-8 mt-3' : 'pr-8 mt-0'
           "
         >
-          {{ info.date_created }}</v-row
+          {{ this.date }}</v-row
         >
       </v-col>
     </v-row>
@@ -89,19 +84,15 @@ export default {
     };
   },
   props: ["info"],
-  created() {
-    console.log(this.info);
-  },
-  mounted() {
-    console.log(this.device);
-  },
+  created() {},
+  mounted() {},
   computed: {
     ratings() {
       ///ako ima rating superr tu nes agregirano bo, za sad:
       return 4.5;
     },
     date() {
-      return moment(this.info.date, "yyyy-MM-DD hh:mm a").calendar();
+      return moment(this.info.date_created, "yyyy-MM-DD hh:mm a").calendar();
     },
     device() {
       return this.$vuetify.breakpoint.name;

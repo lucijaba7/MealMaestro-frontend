@@ -74,7 +74,8 @@ export default {
       userId: this.$store.getters.getUser._id,
       editProfileOpen: false,
       checkbox2: null,
-      recipes: []
+      recipes: [],
+      username: this.$store.getters.getUser.username
     };
   },
   created() {

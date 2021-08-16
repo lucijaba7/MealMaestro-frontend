@@ -43,6 +43,7 @@
 <script>
 export default {
   name: "YourRecipesCard",
+  props: ["info"],
   data() {
     return {
       saved: false,

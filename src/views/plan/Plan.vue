@@ -103,12 +103,13 @@
     </span>
     <span v-else>
       <ConfirmPlan />
-
-      <router-view
-        :key="$route.query.startDay"
-        :data="recipes"
-        :confirmed="this.confirmed"
-      ></router-view>
+      <v-fade-transition>
+        <router-view
+          :key="$route.query.startDay"
+          :data="recipes"
+          :confirmed="this.confirmed"
+        ></router-view
+      ></v-fade-transition>
     </span>
   </v-container>
 </template>

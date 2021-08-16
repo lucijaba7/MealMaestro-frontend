@@ -1,30 +1,49 @@
 <template>
-  <div>
+  <v-container fluid>
     <v-row class="mt-3">
       <v-col class="pb-0" cols="12" sm="5" md="4" lg="2" align="start"
         ><v-select :items="meals" label="Meal" v-model="defaultMeal"></v-select
       ></v-col>
       <v-spacer></v-spacer>
     </v-row>
-    <v-row>
+    <v-row v-if="!recipe"
+      ><v-col align="center">
+        <div>There is no {{ defaultMeal }} planned for today.</div>
+        <div v-if="!confirmed">
+          <v-btn
+            rounded
+            class="py-3 my-3 primary elevation-0"
+            @click.stop="dialog = true"
+          >
+            Add {{ defaultMeal }}</v-btn
+          ><ChooseMealPopup
+            v-model="dialog"
+            v-if="dialog"
+            :meal="defaultMeal"
+          />
+        </div>
+      </v-col>
+    </v-row>
+    <v-row v-else>
       <v-col cols="12" sm="4" md="3">
-        <v-img src="@/assets/meal1.png" class="rounded-xl" height="100%">
-        </v-img>
+        <v-img :src="recipe.image" class="rounded-xl" height="100%"> </v-img>
       </v-col>
       <v-col cols="12" sm="8" md="8">
         <v-row align="end">
-          <v-col
+          <v-col cols="8" class="pr-0"
             ><div class="font-weight-bold text-h6">
               {{ recipe.name }}
             </div></v-col
-          ><v-col>
-            <v-row align="center" justify="end">
+          ><v-col cols="4">
+            <v-row align="center" justify="end" v-if="this.confirmed">
               <span>cooked </span>
               <v-checkbox v-model="checkbox1"></v-checkbox>
+            </v-row>
+            <v-row class="mb-2" align="center" justify="end" v-else>
               <v-btn icon>
                 <v-icon>mdi-delete</v-icon>
-              </v-btn>
-            </v-row>
+              </v-btn></v-row
+            >
           </v-col>
         </v-row>
 
@@ -34,19 +53,19 @@
             cols="12"
             align-self="end"
             class="font-weight-bold text-subtitle-1"
-            >{{ recipe.meal_type }}</v-col
+            >{{ this.recipe.meal_type }}</v-col
           >
           <v-col cols="12" sm="6">
             {{ recipe.servings }} servings
             <v-icon small class="ml-1">mdi-silverware-fork-knife</v-icon>
-            <v-btn
+            <!-- <v-btn
               small
               fab
               class="elevation-0 ml-1"
               max-width="22"
               max-height="22"
               ><v-icon small color="primary">mdi-pencil</v-icon></v-btn
-            >
+            > -->
             <p class="ma-0">
               {{ recipe.total_time }} <v-icon small>mdi-clock</v-icon>
             </p>
@@ -58,8 +77,12 @@
             >Ingredients</v-col
           >
           <ul>
-            <li v-for="ingredient in recipe.ingredients_list" :key="ingredient">
-              {{ ingredient }}
+            <li
+              v-for="ingredient in recipe.ingredients_list"
+              :key="ingredient.ingredient._id"
+            >
+              {{ quantity(ingredient.quantity) }} {{ ingredient.unit }}
+              {{ ingredient.ingredient.ingredient_name }}
             </li>
           </ul>
         </v-row>
@@ -67,75 +90,67 @@
       <v-col cols="12">
         <p class="font-weight-bold primaryText--text mb-0">Directions:</p>
         <p>
-          {{ recipe.directions }}
+          {{ directions }}
         </p>
       </v-col>
     </v-row>
-  </div>
+  </v-container>
 </template>
 
 <script>
-import { Recipes, Ingredients } from "@/services";
+import ChooseMealPopup from "@/components/Popups/ChooseMealPopup";
 
 export default {
   name: "DailyPlan",
-  props: ["data"],
+  props: ["data", "confirmed"],
   data() {
     return {
-      defaultMeal: "Breakfast",
+      // defaultMeal: "Breakfast",
       meals: ["Breakfast", "Lunch", "Dinner", "Snack", "Dessert"],
       checkbox1: false,
-      recipe: {
-        id: "5BH7BBJH6Z6",
-        name: "Caribbean Chicken and 'Rice'",
-        image: "neka slika",
-        meal_type: "Lunch",
-        servings: 4,
-        total_time: "20 min",
-        username: "@sarah_foster",
-        ingredients_list: [
-          "4 c. riced cauliflower",
-          "1/4 c. water",
-          "4 skinless, boneless chicken-breast cutlets",
-          "2 tsp. olive oil",
-          "1/4 c. sweetened cream of coconut",
-          "2 tbsp. Hot sauce",
-          "2 limes, halved",
-          "1 (15-oz.) can black beans, rinsed and drained",
-          "Cilantro, chopped, for garnish"
-        ],
-        directions:
-          "Combine riced cauliflower and water; cover with vented plastic wrap and microwave on High 6 minutes. Meanwhile, brush chicken with olive oil; season all over with 1/2 teaspoon each salt and pepper. Grill on medium 5 minutes, turning over once halfway through. Whisk together sweetened cream of coconut and hot sauce; brush onto chicken. Grill until cooked through (165°F), about 5 minutes longer, brushing and turning 2 more times. Grill 2 limes, halved, until lightly charred, 2 to 3 minutes.Toss cooked cauliflower with black beans and 1/4 teaspoon salt. Serve chicken over cauliflower with limes, garnished with chopped cilantro.",
-        tags: [
-          "Gluten-free",
-          "High protein",
-          "Low-fat",
-          "neki tag",
-          "evo joos"
-        ],
-        date: "22.05.2021.",
-        published: true,
-        ratings: 4
-      }
+      dialog: false,
+      defaultMeal: this.startMeal()
     };
   },
-  created() {
-    // let username = localStorage.getItem("username");
-    // let startDay = this.$route.query.startDay;
-    // let weekDay = this.$route.query.weekDay;
-    // this.fetchDailyMeals(username, startDay, weekDay);
-    this.fetchIngredients();
-  },
+  created() {},
+  mounted() {},
   methods: {
-    async fetchDailyMeals(username, startDay, weekDay) {
-      // let response = await Recipes.getDaily(username, startDay, weekDay);
-      // return response.data;
+    quantity(num) {
+      return +parseFloat(num).toFixed(2);
     },
-    async fetchIngredients() {
-      // let response = await Ingredients.getItems();
-      // return response.data;
+    startMeal() {
+      for (var plan of this.data) {
+        if (plan.day == this.$route.query.weekDay) {
+          for (var meal of plan.daily_plan) {
+            if (!meal.recipe.cooked) {
+              return meal.recipe.meal_type;
+            }
+          }
+        }
+      }
+      return "Dinner";
     }
-  }
+  },
+  computed: {
+    recipe() {
+      for (var plan of this.data) {
+        if (plan.day == this.$route.query.weekDay) {
+          for (var meal of plan.daily_plan) {
+            if (meal.recipe.meal_type == this.defaultMeal) {
+              return meal.recipe;
+            }
+          }
+        }
+      }
+      return null;
+    },
+    directions() {
+      var parser = new DOMParser();
+      var doc = parser.parseFromString(this.recipe.directions, "text/html");
+      return doc.body.firstChild.textContent;
+    }
+  },
+  components: { ChooseMealPopup }
 };
 </script>
 
