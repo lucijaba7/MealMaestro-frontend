@@ -11,7 +11,7 @@
             </v-row>
             <v-form ref="form" v-model="valid" lazy-validation>
               <v-row xs="12" md="8" class="my-8" justify="center">
-                <AvatarPopup @avatar="saveAvatar" />
+                <AvatarPopup @avatar="setAvatar" />
               </v-row>
               <v-text-field
                 label="Username"
@@ -148,7 +148,7 @@ export default {
     source: String
   },
   methods: {
-    saveAvatar(avatarUrl) {
+    setAvatar(avatarUrl) {
       this.avatarUrl = avatarUrl;
     },
     validate() {
@@ -179,4 +179,8 @@ export default {
 };
 </script>
 
-<style></style>
+<style scoped>
+.v-text-field input {
+  font-size: 50px;
+}
+</style>

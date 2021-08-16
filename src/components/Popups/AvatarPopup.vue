@@ -1,5 +1,14 @@
 <template>
-  <v-dialog v-model="dialog" max-width="600px" @click:outside="dialog = false">
+  <v-dialog
+    v-model="dialog"
+    max-width="600px"
+    @click:outside="
+      dialog = false;
+      tempAvatar = '';
+    "
+    v-if="data_loaded"
+    :key="popupKey"
+  >
     <template v-slot:activator="{ on }">
       <v-btn icon x-small v-on="on" class="ma-10">
         <v-avatar size="115">
@@ -15,6 +24,11 @@
           />
         </v-avatar>
       </v-btn>
+      <v-col v-if="route == '/profile'" cols="12" align="center" class="mt-2">
+        <v-btn v-on="on" rounded class="py-3 primary elevation-0 text-caption"
+          >EDIT</v-btn
+        ></v-col
+      >
     </template>
     <v-card>
       <v-btn
@@ -42,7 +56,7 @@
           <v-badge
             icon="mdi-check"
             :id="avatar._id"
-            :value="avatar.url == avatarUrl ? true : false"
+            :value="avatar.url == tempAvatar ? true : false"
             color="accent"
             overlap
             ><v-img
@@ -60,11 +74,7 @@
         <v-col cols="12" align="right">
           <v-btn
             rounded
-            @click="
-              dialog = false;
-              saved = true;
-              $emit('avatar', avatarUrl);
-            "
+            @click="save()"
             class="primary elevation-0 text-caption"
             >Save avatar</v-btn
           >
@@ -81,21 +91,69 @@ export default {
   name: "AvatarPopup",
   data() {
     return {
+      popupKey: 0,
+      data_loaded: false,
       saved: false,
+      tempAvatar: "",
       avatarUrl: "",
       val: true,
-      messages: 0,
       dialog: false,
-      avatars: []
+      avatars: [],
+      route: ""
     };
   },
   async created() {
+    this.route = this.$router.currentRoute.path;
     this.avatars = await AvatarService.getAllAvatars();
+
+    if (this.route == "/profile") {
+      this.avatarUrl = this.$store.getters.getUser.avatar.url;
+      this.tempAvatar = this.avatarUrl;
+      this.saved = true;
+    }
+    console.log("CREATED", this.avatars);
+    //this.$forceUpdate();
+    // this.forceRerender();
+    this.$nextTick(() => {
+      // Okay, now that everything is destroyed, lets build it up again
+      this.data_loaded = true;
+    });
+  },
+  mounted() {
+    console.log("MOUNTED", this.avatars);
+    console.log("DATA LOADED", this.data_loaded);
+    console.log("MOUNTED", this.avatarUrl);
   },
   methods: {
     selectedAvatar(avatarUrl) {
-      if (this.avatarUrl == avatarUrl) this.avatarUrl = "";
-      else this.avatarUrl = avatarUrl;
+      if (this.tempAvatar == avatarUrl) this.tempAvatar = "";
+      else this.tempAvatar = avatarUrl;
+    },
+    save() {
+      this.dialog = false;
+      this.saved = true;
+      this.avatarUrl = this.tempAvatar;
+      this.$emit("avatar", this.avatarUrl);
+    },
+    forceRerender() {
+      console.log("rerender");
+      this.popupKey += 1;
+    }
+  },
+  watch: {
+    dialog: function() {
+      if (!this.dialog) this.tempAvatar = this.avatarUrl;
+    },
+    avatars: function() {
+      console.log(this.avatarUrl, "URL");
+      console.log(this.data_loaded);
+      if (this.route == "/profile") {
+        console.log("Profilee");
+        if (this.avatars.length > 0 && this.avatarUrl != "")
+          this.data_loaded = true;
+      } else if (this.avatars.length > 0) this.data_loaded = true;
+
+      console.log(this.data_loaded);
     }
   }
 };
