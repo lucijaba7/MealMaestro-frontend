@@ -72,7 +72,7 @@
             this.$vuetify.breakpoint.name == 'xs' ? 'pr-8 mt-3' : 'pr-8 mt-0'
           "
         >
-          {{ info.date_created }}</v-row
+          {{ this.date }}</v-row
         >
       </v-col>
     </v-row>
@@ -101,7 +101,7 @@ export default {
       return 4.5;
     },
     date() {
-      return moment(this.info.date, "yyyy-MM-DD hh:mm a").calendar();
+      return moment(this.info.date_created, "yyyy-MM-DD hh:mm a").calendar();
     },
     device() {
       return this.$vuetify.breakpoint.name;

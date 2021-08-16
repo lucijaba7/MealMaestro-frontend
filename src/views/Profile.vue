@@ -1,50 +1,56 @@
 <template>
-  <v-container fluid class="pt-8 ">
+  <v-container fluid class="pt-8">
     <v-row>
-      <v-col cols="6" sm="2" xl="1" align="center">
+      <v-col
+        cols="12"
+        sm="2"
+        xl="1"
+        :align="device == 'xs' ? 'center' : 'start'"
+      >
         <v-img
-          src="@/assets/Avatar.png"
+          :src="user.avatar.url"
           alt="Avatar"
-          max-width="150px"
           lazy-src
           contain
+          max-height="100px"
         />
       </v-col>
-      <v-row>
-        <v-col cols="12" sm="8">
-          <v-col class="pb-0">
-            <div class="text-h5 font-weight-bold">
-              Your profile
-              <v-icon
-                size="100%"
-                class="px-5 primary--text"
-                @click.stop="editProfileOpen = true"
-                >mdi-square-edit-outline</v-icon
-              >
-              <EditProfilePopup v-model="editProfileOpen" />
-              <span class="text-subtitle-2">Followers:</span>
-              <div class="text-subtitle-1 font-weight-bold">
-                @{{ username }}
-              </div>
-            </div>
-          </v-col>
-          <v-col cols="12" class="pt-1 pb-0">
-            <div class="text-body-2 font-weight-medium text-left pa-0">
-              People who love to eat are always the best people
-            </div>
-          </v-col>
-          <div class="px-2 pt-0">
-            <v-checkbox
-              v-model="checkbox2"
-              color="primary"
-              label="Always publish my recipes"
-            >
-            </v-checkbox>
-          </div>
-        </v-col>
-      </v-row>
+
+      <v-col
+        cols="12"
+        sm="8"
+        xl="10"
+        order="3"
+        order-sm="2"
+        align-self="center"
+        :align="device == 'xs' ? 'center' : 'start'"
+      >
+        <div class="text-h5 font-weight-bold">
+          Your profile
+          <v-icon
+            size="100%"
+            class="px-5 primary--text"
+            @click.stop="editProfileOpen = true"
+            >mdi-square-edit-outline</v-icon
+          >
+        </div>
+        <div class="text-subtitle-1 font-weight-bold">
+          @{{ user.username }}
+          <span class="text-subtitle-2 "
+            >| Followers: {{ user.followers }}</span
+          >
+        </div>
+        <div>
+          {{ user.about_you }}
+        </div>
+      </v-col>
     </v-row>
-    <v-divider class="my-3"></v-divider>
+    <v-divider class="my-4"></v-divider>
+    <EditProfilePopup
+      v-model="editProfileOpen"
+      v-if="editProfileOpen"
+      :info="user"
+    />
     <v-spacer></v-spacer>
     <v-row class="my-10" justify="center">
       <v-col
@@ -64,23 +70,22 @@
 <script>
 import ProfileMealCard from "@/components/Cards/ProfileMealCard.vue";
 import EditProfilePopup from "@/components/Popups/EditProfilePopup.vue";
-import { User } from "@/services";
+// import { User } from "@/services";
 import RecipeService from "@/services/RecipeService";
 
 export default {
   components: { EditProfilePopup, ProfileMealCard },
   data() {
     return {
-      userId: this.$store.getters.getUser._id,
+      user: this.$store.getters.getUser,
       editProfileOpen: false,
-      checkbox2: null,
       recipes: []
     };
   },
   created() {
     // this.fetchUserData(this.username);
-
     this.getYourRecipes();
+    console.log(this.user);
   },
   methods: {
     // async fetchUserData(username) {
@@ -104,7 +109,7 @@ export default {
     // },
 
     async getYourRecipes() {
-      let data = await RecipeService.getCustomRecipes(this.userId);
+      let data = await RecipeService.getCustomRecipes(this.user._id);
       this.recipes = data;
     }
   },

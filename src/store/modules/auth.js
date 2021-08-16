@@ -23,6 +23,12 @@ export const auth = {
     logout({ commit, dispatch }) {
       commit("resetAll", "");
       delete axios.defaults.headers.common["Authorization"];
+    },
+    changePassword: ({ commit, dispatch }, token) => {
+      commit("updateToken", token);
+    },
+    updateUser: ({ commit, dispatch }, user) => {
+      commit("updateUser", user);
     }
   },
   mutations: {
@@ -30,6 +36,12 @@ export const auth = {
       state.token = token;
     },
     setUser: (state, user) => {
+      state.user = user;
+    },
+    updateToken: (state, token) => {
+      state.token = token;
+    },
+    updateUser: (state, user) => {
       state.user = user;
     },
     resetAll: state => {

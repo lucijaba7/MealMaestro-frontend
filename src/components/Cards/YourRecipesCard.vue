@@ -1,7 +1,7 @@
 <template>
   <v-card class="rounded-xl white ma-4" height="280" max-width="230px">
     <div class="text-body-1 font-weight-bold pl-3 mt-2">
-      {{ recipe.name }}
+      {{ info.name }}
     </div>
     <v-row>
       <v-col cols="6">
@@ -49,7 +49,8 @@ export default {
       dialogcard: false,
       checkbox1: true
     };
-  }
+  },
+  props: ["info"]
 };
 </script>
 
