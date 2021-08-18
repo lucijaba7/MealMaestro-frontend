@@ -6,8 +6,6 @@
       dialog = false;
       tempAvatar = '';
     "
-    v-if="data_loaded"
-    :key="popupKey"
   >
     <template v-slot:activator="{ on }">
       <v-btn icon x-small v-on="on" class="ma-10">
@@ -59,15 +57,16 @@
             :value="avatar.url == tempAvatar ? true : false"
             color="accent"
             overlap
-            ><v-img
-              :src="avatar.url"
-              :lazy-src="avatar.url"
-              aspect-ratio="1"
-              @click="selectedAvatar(avatar.url)"
-              class="avatar transform"
-            >
-            </v-img>
-          </v-badge>
+          >
+          </v-badge
+          ><v-img
+            :src="avatar.url"
+            :lazy-src="avatar.url"
+            aspect-ratio="1"
+            @click="selectedAvatar(avatar.url)"
+            class="avatar transform"
+          >
+          </v-img>
         </v-col>
       </v-row>
       <v-card-actions>
@@ -91,8 +90,6 @@ export default {
   name: "AvatarPopup",
   data() {
     return {
-      popupKey: 0,
-      data_loaded: false,
       saved: false,
       tempAvatar: "",
       avatarUrl: "",
@@ -110,19 +107,10 @@ export default {
       this.avatarUrl = this.$store.getters.getUser.avatar.url;
       this.tempAvatar = this.avatarUrl;
       this.saved = true;
+    } else {
+      this.tempAvatar = this.avatars[0].url;
+      console.log(this.tempAvatar);
     }
-    console.log("CREATED", this.avatars);
-    //this.$forceUpdate();
-    // this.forceRerender();
-    this.$nextTick(() => {
-      // Okay, now that everything is destroyed, lets build it up again
-      this.data_loaded = true;
-    });
-  },
-  mounted() {
-    console.log("MOUNTED", this.avatars);
-    console.log("DATA LOADED", this.data_loaded);
-    console.log("MOUNTED", this.avatarUrl);
   },
   methods: {
     selectedAvatar(avatarUrl) {
@@ -134,26 +122,11 @@ export default {
       this.saved = true;
       this.avatarUrl = this.tempAvatar;
       this.$emit("avatar", this.avatarUrl);
-    },
-    forceRerender() {
-      console.log("rerender");
-      this.popupKey += 1;
     }
   },
   watch: {
     dialog: function() {
       if (!this.dialog) this.tempAvatar = this.avatarUrl;
-    },
-    avatars: function() {
-      console.log(this.avatarUrl, "URL");
-      console.log(this.data_loaded);
-      if (this.route == "/profile") {
-        console.log("Profilee");
-        if (this.avatars.length > 0 && this.avatarUrl != "")
-          this.data_loaded = true;
-      } else if (this.avatars.length > 0) this.data_loaded = true;
-
-      console.log(this.data_loaded);
     }
   }
 };

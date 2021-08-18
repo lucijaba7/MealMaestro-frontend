@@ -11,9 +11,13 @@
       align="left"
       class="pa-6"
       v-for="recipe in recipes"
-      :key="recipe.id"
+      :key="recipe._id"
     >
-      <router-link :to="`/recipes/yourRecipes/${recipe}`" :key="recipe">
+      <router-link
+        :to="`/recipes/yourRecipes/${recipe._id}`"
+        :key="recipe._id"
+        style="text-decoration:none"
+      >
         <YourRecipesCard :info="recipe" />
       </router-link>
     </v-col>

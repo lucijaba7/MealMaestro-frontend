@@ -26,58 +26,56 @@
             Edit Profile
           </v-card-title></v-row
         >
-
         <v-row class="my-4 mx-0">
           <v-col cols="12" class="pt-0">
             <h4 class="pl-5">- Your avatar -</h4>
           </v-col>
           <v-col cols="12" align="center">
-            <AvatarPopup />
+            <AvatarPopup @avatar="setAvatar" />
           </v-col>
         </v-row>
+        <v-form ref="form_1" v-model="valid_1" lazy-validation>
+          <v-row class="my-4 mx-0">
+            <v-col cols="12" class="pt-0">
+              <h4 class="pl-5">- About you -</h4>
+            </v-col>
+            <v-col class="pb-0" cols="12" align="center">
+              <v-textarea
+                class="mx-5 pb-0"
+                color="primary darken-2"
+                rows="2"
+                v-model="about_you"
+                :rules="[
+                  v => v.length < 100 || 'Description must be less than 100'
+                ]"
+                counter
+                outlined
+                auto-grow
+                clearable
+              ></v-textarea>
+            </v-col>
+          </v-row>
 
-        <v-row class="my-4 mx-0">
-          <v-col cols="12" class="pt-0">
-            <h4 class="pl-5">- About you -</h4>
-          </v-col>
-          <v-col class="pb-0" cols="12" align="center">
-            <v-textarea
-              class="mx-5 pb-0"
-              color="primary darken-2"
-              rows="2"
-              v-model="about_you"
-              :rules="[
-                v =>
-                  (v || '').length <= 100 ||
-                  'Description must be 100 characters or less'
-              ]"
-              counter
-              outlined
-              auto-grow
-              clearable
-            ></v-textarea>
-          </v-col>
-        </v-row>
-
-        <v-row class="my-4 mx-0" justify="center">
-          <v-col cols="12" class="pt-0">
-            <h4 class="pl-5">- Personal info -</h4>
-          </v-col>
-          <v-col cols="8" class="px-6">
-            <v-form>
+          <v-row class="my-4 mx-0" justify="center">
+            <v-col cols="12" class="pt-0">
+              <h4 class="pl-5">- Personal info -</h4>
+            </v-col>
+            <v-col cols="8" class="px-6">
               <v-text-field
                 label="Username"
                 v-model="username"
                 type="text"
+                :rules="[v => !!v || 'Password is required']"
               ></v-text-field>
               <v-text-field
                 v-model="email"
                 label="Email"
                 type="text"
+                :rules="[v => !!v || 'Email is required']"
               ></v-text-field>
-            </v-form>
-          </v-col>
-        </v-row>
+            </v-col>
+          </v-row>
+        </v-form>
 
         <v-col class="pt-0" cols="12" align="center">
           <v-btn
@@ -93,24 +91,27 @@
             <h4 class="ml-5 ">- Change password -</h4>
           </v-col>
           <v-col cols="8" class="px-6">
-            <v-form>
+            <v-form ref="form_2" v-model="valid_2" lazy-validation>
               <v-text-field
                 id="password"
                 v-model="currentPassword"
                 label="Current password"
                 type="password"
+                :rules="[v => !!v || 'Current password is required']"
               ></v-text-field>
               <v-text-field
                 id="newPassword"
                 v-model="newPassword"
                 label="New password"
                 type="password"
+                :rules="[v => !!v || 'New password is required']"
               ></v-text-field>
               <v-text-field
                 id="repPassword"
                 v-model="confirmPassword"
                 label="Confirm new password"
                 type="password"
+                :rules="[v => !!v || 'Please confirm your new password']"
               ></v-text-field>
               <v-col class="pt-7" cols="12" align="center">
                 <v-btn
@@ -152,6 +153,8 @@ export default {
   data() {
     return {
       componentKey: 0,
+      valid_1: true,
+      valid_2: true,
       avatars: [],
       username: this.info.username,
       email: this.info.email,
@@ -168,9 +171,13 @@ export default {
     },
     async updateData() {
       try {
-        if (true) {
+        let validation = await this.$refs.form_1.validate();
+
+        if (this.valid_1) {
           let data = {};
-          // dodaj za avatar
+
+          if (this.avatarUrl != this.info.avatar.url)
+            data["avatar_url"] = this.avatarUrl;
           if (this.about_you != this.info.about_you)
             data["about_you"] = this.about_you;
           if (this.username != this.info.username)
@@ -188,9 +195,9 @@ export default {
     },
     async changePassword() {
       try {
-        console.log("updejtam");
-        //let validation = await this.validate();
-        if (true) {
+        let validation = await this.$refs.form_2.validate();
+
+        if (this.valid_2) {
           const credentials = {
             currentPassword: this.currentPassword,
             newPassword: this.newPassword,
@@ -202,7 +209,7 @@ export default {
           this.$store.dispatch("changePassword", token);
         }
       } catch (error) {
-        console.log(error);
+        console.log(error.response.data.message);
       }
     },
     forceRerender() {
