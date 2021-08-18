@@ -50,7 +50,7 @@
         <v-col
           v-for="avatar in avatars"
           :key="avatar.name"
-          class="d-flex child-flex "
+          class="d-flex child-flex"
           cols="3"
         >
           <v-badge
@@ -59,15 +59,15 @@
             :value="avatar.url == tempAvatar ? true : false"
             color="accent"
             overlap
-            ><v-img
-              :src="avatar.url"
-              :lazy-src="avatar.url"
-              aspect-ratio="1"
-              @click="selectedAvatar(avatar.url)"
-              class="avatar transform"
-            >
-            </v-img>
-          </v-badge>
+          ></v-badge>
+          <v-img
+            :src="avatar.url"
+            :key="avatar.url"
+            aspect-ratio="1"
+            @click="selectedAvatar(avatar.url)"
+            class="avatar transform"
+          >
+          </v-img>
         </v-col>
       </v-row>
       <v-card-actions>

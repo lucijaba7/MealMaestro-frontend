@@ -74,7 +74,7 @@ export default {
 </script>
 
 <style scoped>
-/* .v-navigation-drawer {
-  z-index: 500;
-} */
+.v-navigation-drawer {
+  z-index: 100;
+}
 </style>

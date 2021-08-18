@@ -31,7 +31,7 @@ export default {
     };
   },
   mounted() {
-    // console.log(this.$store.loading);
+    // this.$store.dispatch("hide");
   },
   computed: {
     ...mapState("loader", ["loading"])

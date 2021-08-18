@@ -121,7 +121,7 @@ export default {
     startMeal() {
       for (var plan of this.data) {
         if (plan.day == this.$route.query.weekDay) {
-          for (var meal of plan.daily_plan) {
+          for (var meal of plan.meals) {
             if (!meal.recipe.cooked) {
               return meal.recipe.meal_type;
             }
@@ -135,7 +135,7 @@ export default {
     recipe() {
       for (var plan of this.data) {
         if (plan.day == this.$route.query.weekDay) {
-          for (var meal of plan.daily_plan) {
+          for (var meal of plan.meals) {
             if (meal.recipe.meal_type == this.defaultMeal) {
               return meal.recipe;
             }

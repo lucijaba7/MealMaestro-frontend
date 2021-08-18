@@ -1,6 +1,6 @@
 <template>
   <v-card class="rounded-xl white ma-4" height="280" max-width="230px">
-    <div class="text-body-1 font-weight-bold pl-3 mt-2">
+    <div class="text-body-1 font-weight-bold pl-3 mt-2" align="left">
       {{ info.name }}
     </div>
     <v-row>
@@ -16,7 +16,7 @@
       >
         <v-rating
           readonly
-          :value="info.ratings"
+          :value="4.5"
           background-color="accent"
           color="accent"
           dense

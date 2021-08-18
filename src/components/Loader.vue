@@ -25,7 +25,7 @@ export default {
   left: 50%;
   transform: translate(-50%, -50%);
   pointer-events: none;
-  z-index: 101;
+  z-index: 21;
   height: 350px;
   width: 350px;
   // opacity: 0;
@@ -41,8 +41,8 @@ export default {
   width: 100%;
   height: 100%;
   position: fixed;
-  z-index: 300;
-  background: rgba(255, 255, 255, 0.644);
+  z-index: 20;
+  background: rgba(255, 255, 255);
   // opacity: 0;
   // &--visible {
   //   opacity: 1;

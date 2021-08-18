@@ -106,8 +106,8 @@
       <v-fade-transition>
         <router-view
           :key="$route.query.startDay"
-          :data="recipes"
-          :confirmed="this.confirmed"
+          :data="this.data.daily_plans"
+          :confirmed="this.data.confirmed"
         ></router-view
       ></v-fade-transition>
     </span>
@@ -131,8 +131,7 @@ export default {
   data() {
     return {
       plan: false,
-      confirmed: false,
-      recipes: [],
+
       startDay: this.$route.query.startDay,
       userId: this.$store.getters.getUser._id,
       thisWeeksMonday,
@@ -156,9 +155,7 @@ export default {
 
       if (data != null) {
         this.plan = true;
-        this.recipes = data.daily_meals;
-        this.confirmed = data.confirmed;
-      } else {
+        this.data = data;
       }
     },
     async createPlan() {

@@ -109,6 +109,6 @@ export default {
 
 <style scoped>
 .v-item-group {
-  z-index: 200;
+  z-index: 101;
 }
 </style>

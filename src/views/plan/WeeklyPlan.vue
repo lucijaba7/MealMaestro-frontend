@@ -18,10 +18,12 @@
             <WeeklyMealCard
               :meal="mealDetails(day, meal)"
               :confirmed="confirmed"
+              :dailyPlanId="dailyPlanId(day)"
             />
           </v-slide-item> </v-slide-group
-      ></v-col> </v-row
-  ></span>
+      ></v-col>
+    </v-row>
+  </span>
 </template>
 
 <script>
@@ -52,7 +54,7 @@ export default {
     dayDetails(day) {
       for (var plan of this.data) {
         if (day == plan.day) {
-          return plan.daily_plan;
+          return plan.meals;
         }
       }
       return [];
@@ -60,7 +62,7 @@ export default {
     mealDetails(day, meal_type) {
       for (var plan of this.data) {
         if (day == plan.day) {
-          for (var meal of plan.daily_plan) {
+          for (var meal of plan.meals) {
             if (meal_type == meal.recipe.meal_type) {
               return meal;
             }
@@ -68,6 +70,13 @@ export default {
         }
       }
       return meal_type;
+    },
+    dailyPlanId(day) {
+      for (var plan of this.data) {
+        if (day == plan.day) {
+          return plan._id;
+        }
+      }
     }
   }
 };

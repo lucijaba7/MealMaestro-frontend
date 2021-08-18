@@ -15,8 +15,5 @@ export default {
     return httpClient
       .post(`/weeklyPlan?userId=${user}&startDay=${startDay}`)
       .then(response => response);
-  },
-  deleteMeal(user, ala) {
-    return 0;
   }
 };

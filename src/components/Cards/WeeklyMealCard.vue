@@ -10,7 +10,7 @@
       v-model="meal.cooked"
       v-if="this.confirmed"
     ></v-checkbox>
-    <v-btn class="mt-1 mr-1 float-right" v-else icon @click="removeMeal()"
+    <v-btn class="mt-1 mr-1 float-right" v-else icon @click="removeMeal"
       ><v-icon>mdi-delete</v-icon></v-btn
     >
 
@@ -30,27 +30,38 @@
       </v-img>
     </div>
   </v-card>
-  <AddMealCard v-else :meal="this.meal" />
+  <AddMealCard
+    v-else
+    :mealType="this.meal_type"
+    :dailyPlanId="this.dailyPlanId"
+  />
 </template>
 
 <script>
 import AddMealCard from "@/components/Cards/AddMealCard";
 import WeeklyPlanService from "@/services/WeeklyPlanService";
+import DailyPlanService from "@/services/DailyPlanService";
 
 export default {
   name: "WeeklyMealCard",
-  props: ["meal", "confirmed"],
+  props: ["meal", "confirmed", "dailyPlanId"],
   data() {
     return {
       mealExists: typeof this.meal == "object",
-      userId: this.$store.getters.getUser._id
+      userId: this.$store.getters.getUser._id,
+      meal_type:
+        typeof this.meal == "object" ? this.meal.recipe.meal_type : this.meal
     };
   },
   mounted() {},
   methods: {
-    removeMeal() {
+    async removeMeal() {
+      let res = await DailyPlanService.deleteMeal(
+        this.dailyPlanId,
+        this.meal._id
+      );
+
       this.mealExists = false;
-      WeeklyPlanService.deleteMeal(userId);
     }
   },
   computed: {
