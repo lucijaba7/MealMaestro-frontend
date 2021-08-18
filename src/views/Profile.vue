@@ -70,7 +70,6 @@
 <script>
 import ProfileMealCard from "@/components/Cards/ProfileMealCard.vue";
 import EditProfilePopup from "@/components/Popups/EditProfilePopup.vue";
-// import { User } from "@/services";
 import RecipeService from "@/services/RecipeService";
 
 export default {
@@ -85,31 +84,9 @@ export default {
     };
   },
   created() {
-    // this.fetchUserData(this.username);
     this.getYourRecipes();
-    console.log(this.user);
   },
   methods: {
-    // async fetchUserData(username) {
-    //   let response = await User.getData(username);
-    //   return response.data;
-    // },
-    // async fetchRecipesData() {
-    //   const data = await RecipeService.getAllRecipes();
-    //   console.log(data);
-
-    //   for (var i = 15; i < 30; i++) {
-    //     this.recipes.push({
-    //       id: data[i]._id,
-    //       img: data[i].image,
-    //       recipe_name: data[i].name,
-    //       type: data[i].meal_type,
-    //       meal_tags: data[i].tags,
-    //       date: data[i].date_created
-    //     });
-    //   }
-    // },
-
     async getYourRecipes() {
       let data = await RecipeService.getCustomRecipes(this.user._id);
       this.recipes = data;
