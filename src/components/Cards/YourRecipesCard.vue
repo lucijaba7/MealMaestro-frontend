@@ -14,11 +14,6 @@
           >{{ info.meal_type }}</v-card-text
         >
       </v-col>
-      <!-- <v-col
-        align="end"
-        cols="7"
-        :class="this.$vuetify.breakpoint.name == 'lg' ? 'pb-0 pl-4' : ''"
-      > -->
       <v-rating
         readonly
         :value="0"
@@ -30,9 +25,7 @@
         size="20"
         half-increments
       ></v-rating>
-      <!-- </v-col> -->
     </v-row>
-    <!-- <div> -->
     <v-img
       :src="info.image"
       class="img rounded-xl"
@@ -42,14 +35,12 @@
       align="end"
     >
     </v-img>
-    <!-- </div> -->
   </v-card>
 </template>
 
 <script>
 export default {
   name: "YourRecipesCard",
-  props: ["info"],
   data() {
     return {};
   },

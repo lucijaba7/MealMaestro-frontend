@@ -13,8 +13,8 @@
       <v-card-title class="headline font-weight-bold pb-0">
         {{ recipe.name }}
       </v-card-title>
-      <v-row justify="space-between" class="mx-2">
-        <v-card-subtitle class="caption primaryText--text"
+      <v-row justify="space-between" class="mx-1">
+        <v-card-subtitle class="caption font-weight-bold primaryText--text"
           >@{{ recipe.username }}
         </v-card-subtitle>
         <v-col
@@ -23,7 +23,7 @@
           sm="3"
           md="3"
           lg="3"
-          :class="this.$vuetify.breakpoint.name == 'xs' ? 'mr-3' : ''"
+          :class="this.$vuetify.breakpoint.name == 'xs' ? 'mr-10' : 'mr-2'"
         >
           <v-rating
             readonly
@@ -97,10 +97,6 @@
 
       <v-card-actions>
         <v-spacer></v-spacer>
-        <!-- <v-btn rounded class="py-3 my-5 mr-2 primary elevation-0"
-          >Cook something else</v-btn
-        > -->
-        <!-- <v-btn outlined rounded  @click="hidePopup" class="py-3 my-5 mr-2 elevation-0">Close</v-btn> -->
         <v-btn
           rounded
           @click="hidePopup"
@@ -134,6 +130,7 @@ export default {
   },
   methods: {
     hidePopup() {
+      console.log(this.$router);
       this.$router.go(-1);
     },
     async getRecipe() {

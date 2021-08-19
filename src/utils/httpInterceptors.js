@@ -1,4 +1,5 @@
 import httpClient from "./httpClient";
+import { store } from "../store";
 const actionScope = `loader`;
 export function setupInterceptors({ dispatch }) {
   let requestsPending = 0;
@@ -16,6 +17,9 @@ export function setupInterceptors({ dispatch }) {
   };
   httpClient.interceptors.request.use(
     config => {
+      config.headers.common[
+        "Authorization"
+      ] = `Bearer ${store.getters.isAuthenticated}`;
       req.pending();
       return config;
     },

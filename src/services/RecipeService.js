@@ -9,9 +9,12 @@ export default {
   saveRecipeData(data) {
     return httpClient.post("/recipes", data).then(response => response);
   },
-  getAllRecipes(mealType = null) {
+  getAllRecipes(mealType) {
     return httpClient
       .get(`/recipes?mealType=${mealType}`)
       .then(response => response);
+  },
+  getRecipeById(id) {
+    return httpClient.get(`/recipes/${id}`).then(response => response);
   }
 };

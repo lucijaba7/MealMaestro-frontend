@@ -1,6 +1,5 @@
 <template>
   <v-container fluid>
-    <!-- <div class="recipes"> -->
     <p class="text-h3 mt-5 mb-1">Recipes</p>
     <v-row>
       <v-col>
@@ -58,60 +57,24 @@
     </v-row>
 
     <router-view :key="$route.fullPath"></router-view>
-
-    <!-- BOTUNIIIIIII -->
-
-    <!-- botun za otovrit ratings -->
-    <v-btn
-      rounded
-      @click.stop="dialog1 = true"
-      class="px-15 py-3 my-5 primary elevation-0"
-      >Rating</v-btn
-    >
-    <RatingPopup v-model="dialog1" />
-    <!-- botun za otvorit new meal popup -->
-    <v-btn
-      rounded
-      @click.stop="dialog2 = true"
-      class="px-15 py-3 my-5 primary elevation-0"
-      >New meal</v-btn
-    >
-    <NewMealPopup v-model="dialog2" />
-
-    <!-- </div> -->
   </v-container>
 </template>
 
 <script>
-import RatingPopup from "@/components/Popups/RatingPopup";
-import NewMealPopup from "@/components/Popups/NewMealPopup";
 import CreateMealPopup from "@/components/Popups/CreateMealPopup";
 
 export default {
   data() {
     return {
-      show: false,
-      dialog: false,
-      dialog1: false,
-      dialog2: false,
-      dialog3: false,
-      dialogcard: false,
-      username: localStorage.getItem("username")
+      show: false
     };
   },
   components: {
-    RatingPopup,
-    NewMealPopup,
     CreateMealPopup
   },
   computed: {
     device() {
       return this.$vuetify.breakpoint.name;
-    }
-  },
-  methods: {
-    proba() {
-      this.$emit("dialogcard", true);
     }
   }
 };

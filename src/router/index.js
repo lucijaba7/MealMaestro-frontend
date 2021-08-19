@@ -27,6 +27,13 @@ const routes = [
     path: "/",
     name: "Home",
     component: Home,
+    children: [
+      {
+        path: ":id",
+        component: ExpandedMealPopup,
+        props: true
+      }
+    ],
     meta: {
       requiresAuth: true
     }
@@ -87,7 +94,14 @@ const routes = [
       {
         path: "savedRecipes",
         name: "SavedRecipes",
-        component: SavedRecipes
+        component: SavedRecipes,
+        children: [
+          {
+            path: ":id",
+            component: ExpandedMealPopup,
+            props: true
+          }
+        ]
       }
     ],
     meta: {

@@ -2,7 +2,7 @@
   <v-card class="rounded-xl white">
     <v-row>
       <v-col cols="12" sm="5" class="py-0">
-        <v-img :src="info.image" class="rounded-xl">
+        <v-img :src="info.image" width="100%" height="200px" class="rounded-xl">
           <v-btn
             small
             fab
@@ -18,23 +18,26 @@
         >
       </v-col>
 
-      <v-col cols="12" sm="7">
-        <div
-          class=" font-weight-bold pa-0 mx-2 mt-2 title "
-          :style="device != 'sm' && device != 'xs' ? 'height: 80px' : ''"
-        >
+      <v-col
+        cols="12"
+        sm="7"
+        :class="
+          this.$vuetify.breakpoint.name == 'xs' ? 'py-0 pl-4' : 'pl-0 pt-0'
+        "
+      >
+        <div class="text-truncate font-weight-bold pa-0 mx-2 mt-2 title ">
           {{ info.name }}
         </div>
 
         <v-row justify="space-between" class="pa-0 mx-2">
-          <v-col align="start" cols="5" class="pl-0 pb-0">
+          <v-col align="start" cols="5" class="pl-0 pb-0 pt-1">
             <v-card-subtitle
               class="type font-weight-bold primaryText--text pa-0"
             >
               {{ info.meal_type }}
             </v-card-subtitle>
           </v-col>
-          <v-col align="end" cols="7" class="pr-0 pb-0">
+          <v-col align="end" cols="7" class="pr-0 pb-0 pt-1">
             <v-rating
               readonly
               :value="this.ratings"
