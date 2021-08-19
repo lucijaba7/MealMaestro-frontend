@@ -29,7 +29,7 @@
 
 <script>
 import YourRecipesCard from "@/components/Cards/YourRecipesCard.vue";
-import RecipeService from "@/services/RecipeService";
+import UserService from "@/services/UserService";
 
 export default {
   data() {
@@ -43,7 +43,7 @@ export default {
   },
   methods: {
     async getYourRecipes() {
-      let data = await RecipeService.getCustomRecipes(this.userId);
+      let data = await UserService.getCustomRecipes();
       this.recipes = data;
     }
   },

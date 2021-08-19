@@ -102,12 +102,12 @@
       <CreatePlan v-else @create_plan="createPlan" />
     </span>
     <span v-else>
-      <ConfirmPlan />
+      <ConfirmPlan v-if="!this.groceries" @confirm_plan="confirmPlan" />
       <v-fade-transition>
         <router-view
           :key="$route.query.startDay"
           :data="this.data.daily_plans"
-          :confirmed="this.data.confirmed"
+          :confirmed="this.confirmed"
         ></router-view
       ></v-fade-transition>
     </span>
@@ -131,7 +131,8 @@ export default {
   data() {
     return {
       plan: false,
-
+      groceries: false,
+      confirmed: false,
       startDay: this.$route.query.startDay,
       userId: this.$store.getters.getUser._id,
       thisWeeksMonday,
@@ -152,15 +153,22 @@ export default {
         this.userId,
         this.startDay
       );
-
       if (data != null) {
         this.plan = true;
         this.data = data;
+        this.confirmed = data.confirmed;
+
+        if (data.grocery_list != null) {
+          this.groceries = true;
+        }
       }
     },
     async createPlan() {
-      await WeeklyPlanService.createWeeklyPlan(this.userId, this.startDay);
-      this.plan = true;
+      const data = await WeeklyPlanService.createWeeklyPlan(
+        this.userId,
+        this.startDay
+      );
+      this.fetchWeeklyPlan();
     },
     getActiveDay() {
       return this.$route.name == "WeeklyPlan"
@@ -175,6 +183,11 @@ export default {
       return moment(
         new Date(thisDate.setDate(thisDate.getDate() + parameter))
       ).format("YYYY-MM-DD");
+    },
+    async confirmPlan() {
+      await WeeklyPlanService.createGroceryList(this.data._id);
+      this.groceries = true;
+      this.confirmed = true;
     }
   },
   components: { CalendarButton, FloatingNav, CreatePlan, ConfirmPlan, NoPlan },

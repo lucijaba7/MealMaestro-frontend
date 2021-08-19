@@ -40,7 +40,7 @@
               <v-checkbox v-model="checkbox1"></v-checkbox>
             </v-row>
             <v-row class="mb-2" align="center" justify="end" v-else>
-              <v-btn icon>
+              <v-btn icon @click="removeMeal">
                 <v-icon>mdi-delete</v-icon>
               </v-btn></v-row
             >
@@ -99,6 +99,7 @@
 
 <script>
 import ChooseMealPopup from "@/components/Popups/ChooseMealPopup";
+import DailyPlanService from "@/services/DailyPlanService";
 
 export default {
   name: "DailyPlan",
@@ -113,7 +114,9 @@ export default {
     };
   },
   created() {},
-  mounted() {},
+  mounted() {
+    console.log(this.dailyPlanId);
+  },
   methods: {
     quantity(num) {
       return +parseFloat(num).toFixed(2);
@@ -129,6 +132,13 @@ export default {
         }
       }
       return "Dinner";
+    },
+    async removeMeal() {
+      let res = await DailyPlanService.deleteMeal(
+        this.dailyPlanId,
+        this.mealPlanId
+      );
+      this.$router.go(0);
     }
   },
   computed: {
@@ -138,6 +148,26 @@ export default {
           for (var meal of plan.meals) {
             if (meal.recipe.meal_type == this.defaultMeal) {
               return meal.recipe;
+            }
+          }
+        }
+      }
+      return null;
+    },
+    dailyPlanId() {
+      for (var plan of this.data) {
+        if (plan.day == this.$route.query.weekDay) {
+          return plan._id;
+        }
+      }
+      return null;
+    },
+    mealPlanId() {
+      for (var plan of this.data) {
+        if (plan.day == this.$route.query.weekDay) {
+          for (var meal of plan.meals) {
+            if (meal.recipe.meal_type == this.defaultMeal) {
+              return meal._id;
             }
           }
         }

@@ -17,14 +17,20 @@ export default {
       .patch("/users/updateMyData/", data)
       .then(response => response.data);
   },
-  getCustomRecipes(userId, mealType = null) {
+  getCustomRecipes() {
+    return client.get(`/users/customRecipes`).then(response => response.data);
+  },
+  getSavedRecipes() {
+    return client.get(`/users/savedRecipes`).then(response => response.data);
+  },
+  getCustomRecipesByMealType(mealType) {
     return client
-      .get(`/users/${userId}/customRecipes?mealType=${mealType}`)
+      .get(`/users/customRecipes?mealType=${mealType}`)
       .then(response => response.data);
   },
-  getSavedRecipes(userId, mealType = null) {
+  getSavedRecipesByMealType(mealType) {
     return client
-      .get(`/users/${userId}/savedRecipes?mealType=${mealType}`)
+      .get(`/users/savedRecipes?mealType=${mealType}`)
       .then(response => response.data);
   }
 };

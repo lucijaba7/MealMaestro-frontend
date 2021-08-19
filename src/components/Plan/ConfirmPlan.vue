@@ -11,13 +11,10 @@
         </v-row> </v-col
       ><v-col cols="12" sm="6" align-self="center">
         <v-row :justify="device == 'xs' ? 'center' : 'start'">
-          <div
-            class="font-weight-bold"
-            :style="{ 'text-align: center': device == 'xs' }"
-          >
+          <div class="font-weight-bold">
             Here is your weekly plan!
           </div>
-          <div :style="{ 'text-align: center': device == 'xs' }">
+          <div :style="device == 'xs' ? 'text-align: center' : ''">
             You can change whatever you like, and when you’re happy, confirm the
             plan to get a shopping list!!
           </div>
@@ -25,7 +22,11 @@
       </v-col>
       <v-col cols="12" align-self="center">
         <v-row justify="center">
-          <v-btn rounded class="py-3 my-3 primary elevation-0">
+          <v-btn
+            rounded
+            class="py-3 my-3 primary elevation-0"
+            @click="confirmPlan"
+          >
             confirm plan</v-btn
           ></v-row
         >
@@ -37,6 +38,11 @@
 <script>
 export default {
   name: "ConfirmPlan",
+  methods: {
+    confirmPlan() {
+      this.$emit("confirm_plan");
+    }
+  },
   computed: {
     maxWidth() {
       switch (this.$vuetify.breakpoint.name) {

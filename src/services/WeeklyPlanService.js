@@ -15,5 +15,10 @@ export default {
     return httpClient
       .post(`/weeklyPlan?userId=${user}&startDay=${startDay}`)
       .then(response => response);
+  },
+  createGroceryList(planId) {
+    return httpClient
+      .post(`/weeklyPlan/${planId}/confirmPlan`)
+      .then(response => response);
   }
 };
