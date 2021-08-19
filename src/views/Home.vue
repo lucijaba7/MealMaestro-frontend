@@ -14,9 +14,8 @@
 
     <v-col cols="12">
       <v-autocomplete
-        v-model="friends"
         :disabled="isUpdating"
-        :items="people"
+        :items="recipes"
         color="seondary lighten-2"
         label="Search"
         item-text="name"
@@ -24,13 +23,30 @@
         max-width="300px"
       >
         <template v-slot:item="data">
+          <v-list-item-avatar>
+            <img :src="data.item.image" />
+          </v-list-item-avatar>
+          <v-list-item-content>
+            <router-link
+              :to="`/${data.item._id}`"
+              :key="data.item._id"
+              style="text-decoration:none"
+            >
+              <v-list-item-title v-html="data.item.name"></v-list-item-title>
+            </router-link>
+          </v-list-item-content>
+        </template>
+
+        <router-view></router-view>
+
+        <!-- <template v-slot:item="data">
           <template v-if="typeof data.item !== 'object'">
             <v-list-item-content v-text="data.item"></v-list-item-content>
           </template>
           <template v-else>
             <v-list-item-avatar>
               <img :src="data.item.avatar" />
-            </v-list-item-avatar>
+            </v-list-item-avatar> 
             <v-list-item-content>
               <v-list-item-title v-html="data.item.name"></v-list-item-title>
               <v-list-item-subtitle
@@ -38,45 +54,37 @@
               ></v-list-item-subtitle>
             </v-list-item-content>
           </template>
-        </template>
+        </template>  -->
       </v-autocomplete>
     </v-col>
   </v-container>
 </template>
 
 <script>
+import RecipeService from "../services/RecipeService";
+
 export default {
   name: "Home",
   data() {
-    const srcs = {
-      1: "https://cdn.vuetifyjs.com/images/lists/1.jpg",
-      2: "https://cdn.vuetifyjs.com/images/lists/2.jpg",
-      3: "https://cdn.vuetifyjs.com/images/lists/3.jpg",
-      4: "https://cdn.vuetifyjs.com/images/lists/4.jpg",
-      5: "https://cdn.vuetifyjs.com/images/lists/5.jpg"
-    };
     return {
+      recipes: [],
       autoUpdate: true,
-      friends: ["Sandra Adams", "Britta Holt"],
-      isUpdating: false,
-      name: "Midnight Crew",
-      people: [
-        { header: "Group 1" },
-        { name: "Sandra Adams", group: "Group 1", avatar: srcs[1] },
-        { name: "Ali Connors", group: "Group 1", avatar: srcs[2] },
-        { name: "Trevor Hansen", group: "Group 1", avatar: srcs[3] },
-        { name: "Tucker Smith", group: "Group 1", avatar: srcs[2] },
-        { divider: true },
-        { header: "Group 2" },
-        { name: "Britta Holt", group: "Group 2", avatar: srcs[4] },
-        { name: "Jane Smith ", group: "Group 2", avatar: srcs[5] },
-        { name: "John Smith", group: "Group 2", avatar: srcs[1] },
-        { name: "Sandra Williams", group: "Group 2", avatar: srcs[3] }
-      ],
-      title: "The summer breeze"
+      isUpdating: false
     };
   },
-  mounted() {},
+  created() {
+    this.getAllRecipes();
+  },
+  methods: {
+    remove(item) {
+      const index = this.friends.indexOf(item.name);
+      if (index >= 0) this.friends.splice(index, 1);
+    },
+    async getAllRecipes() {
+      let data = await RecipeService.getAllRecipes("");
+      this.recipes = data;
+    }
+  },
   computed: {
     device() {
       return this.$vuetify.breakpoint.name;
@@ -87,13 +95,6 @@ export default {
       if (val) {
         setTimeout(() => (this.isUpdating = false), 3000);
       }
-    }
-  },
-
-  methods: {
-    remove(item) {
-      const index = this.friends.indexOf(item.name);
-      if (index >= 0) this.friends.splice(index, 1);
     }
   }
 };

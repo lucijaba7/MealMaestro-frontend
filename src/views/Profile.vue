@@ -55,14 +55,15 @@
     <v-row class="my-10" justify="center">
       <v-col
         cols="12"
-        md="6"
+        md="5"
         align="left"
         class="pa-8"
         v-for="recipe in recipes"
         :key="recipe.id"
       >
-        <ProfileMealCard :info="recipe" /> </v-col
-      ><v-spacer cols="12" md="6"></v-spacer>
+        <ProfileMealCard :info="recipe" />
+      </v-col>
+      <!-- <v-spacer cols="12" md="6"></v-spacer> -->
     </v-row>
   </v-container>
 </template>
@@ -70,7 +71,7 @@
 <script>
 import ProfileMealCard from "@/components/Cards/ProfileMealCard.vue";
 import EditProfilePopup from "@/components/Popups/EditProfilePopup.vue";
-import RecipeService from "@/services/RecipeService";
+import UserService from "@/services/UserService";
 
 export default {
   components: { EditProfilePopup, ProfileMealCard },
@@ -78,7 +79,6 @@ export default {
     return {
       user: this.$store.getters.getUser,
       editProfileOpen: false,
-      checkbox2: null,
       recipes: [],
       username: this.$store.getters.getUser.username
     };
@@ -88,7 +88,7 @@ export default {
   },
   methods: {
     async getYourRecipes() {
-      let data = await RecipeService.getCustomRecipes(this.user._id);
+      let data = await UserService.getCustomRecipes("");
       this.recipes = data;
     }
   },
