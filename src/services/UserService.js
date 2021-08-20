@@ -12,23 +12,19 @@ export default {
       .then(response => response);
   },
   getCustomRecipes() {
-    return httpClient
-      .get(`/users/customRecipes`)
-      .then(response => response.data);
+    return httpClient.get(`/users/customRecipes`).then(response => response);
   },
   getSavedRecipes() {
-    return httpClient
-      .get(`/users/savedRecipes`)
-      .then(response => response.data);
+    return httpClient.get(`/users/savedRecipes`).then(response => response);
   },
   getCustomRecipesByMealType(mealType) {
     return httpClient
       .get(`/users/customRecipes?mealType=${mealType}`)
-      .then(response => response.data);
+      .then(response => response);
   },
   getSavedRecipesByMealType(mealType) {
     return httpClient
       .get(`/users/savedRecipes?mealType=${mealType}`)
-      .then(response => response.data);
+      .then(response => response);
   }
 };

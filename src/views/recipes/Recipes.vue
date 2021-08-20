@@ -18,7 +18,7 @@
       >Add
       <v-icon>mdi-plus</v-icon>
     </v-btn>
-    <CreateMealPopup v-model="show" />
+    <CreateMealPopup v-model="show" v-if="this.show" />
 
     <v-row justify="center">
       <v-col

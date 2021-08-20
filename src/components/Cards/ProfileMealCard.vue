@@ -95,7 +95,9 @@ export default {
       return 4.5;
     },
     date() {
-      return moment(this.info.date_created, "yyyy-MM-DD hh:mm a").calendar();
+      return moment(this.info.date_created, "yyyy-MM-DD hh:mm a").format(
+        "DD/MM/yyyy"
+      );
     },
     device() {
       return this.$vuetify.breakpoint.name;

@@ -125,8 +125,6 @@ export default {
         this.recipes.push({ header: "Recommended", recipes: recommended });
     },
     addMeal(mealId) {
-      console.log(mealId);
-
       this.$emit("mealId", mealId);
       this.show = false;
     }

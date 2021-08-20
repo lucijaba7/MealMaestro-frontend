@@ -51,20 +51,20 @@
       v-if="editProfileOpen"
       :info="user"
     />
-    <v-spacer></v-spacer>
-    <v-row class="my-10" justify="center">
-      <v-col
-        cols="12"
-        md="5"
-        align="left"
-        class="pa-8"
-        v-for="recipe in recipes"
-        :key="recipe.id"
-      >
-        <ProfileMealCard :info="recipe" />
-      </v-col>
-      <!-- <v-spacer cols="12" md="6"></v-spacer> -->
-    </v-row>
+    <v-container>
+      <v-row class="my-10" justify="center">
+        <v-col
+          cols="12"
+          md="6"
+          align="left"
+          class="pa-8"
+          v-for="recipe in recipes"
+          :key="recipe.id"
+        >
+          <ProfileMealCard :info="recipe" />
+        </v-col>
+        <v-spacer cols="12" md="6"></v-spacer> </v-row
+    ></v-container>
   </v-container>
 </template>
 
@@ -88,7 +88,7 @@ export default {
   },
   methods: {
     async getYourRecipes() {
-      let data = await UserService.getCustomRecipes("");
+      let data = await UserService.getCustomRecipes();
       this.recipes = data;
     }
   },

@@ -1,10 +1,10 @@
 <template>
   <v-container fluid>
     <v-row>
-      <v-col cols="11">
+      <v-col cols="10">
         <p class="text-h4 mt-5 mb-1">This week’s shopping list!</p>
       </v-col>
-      <v-spacer cols="1"></v-spacer>
+      <v-spacer cols="2"></v-spacer>
     </v-row>
     <p class="pl-2">
       This list is created based on next week’s meal plan. Happy Shopping!!
@@ -53,6 +53,7 @@
                           class="accent elevation-0"
                           max-width="18"
                           max-height="18"
+                          @click="decreaseQuantity(item)"
                           ><v-icon x-small>mdi-minus</v-icon></v-btn
                         >
                       </td>
@@ -65,6 +66,7 @@
                           class="accent elevation-0"
                           max-width="18"
                           max-height="18"
+                          @click="item.quantity += 5"
                           ><v-icon x-small>mdi-plus</v-icon></v-btn
                         >
                       </td>
@@ -97,19 +99,22 @@
         >
       </v-col>
     </v-row>
-    <ShoppingPopup v-model="warning" />
+    <MinimumQuantityWarning v-model="warning1" v-if="warning1" />
+    <ShoppingPopup v-model="warning2" v-if="warning2" />
   </v-container>
 </template>
 
 <script>
 import ShoppingPopup from "@/components/Popups/ShoppingPopup";
 import GroceryListService from "@/services/GroceryListService";
+import MinimumQuantityWarning from "@/components/Popups/MinimumQuantityWarning";
 
 export default {
-  name: "ShoppingList",
+  name: "GroceryList",
   data() {
     return {
-      warning: false,
+      warning1: false,
+      warning2: false,
       userId: this.$store.getters.getUser._id,
       items: []
     };
@@ -117,6 +122,7 @@ export default {
   created() {
     this.fetchGroceryList();
   },
+
   methods: {
     async fetchGroceryList() {
       let response = await GroceryListService.getGroceryList(this.userId);
@@ -129,13 +135,19 @@ export default {
       for (var item of this.items) {
         item.bought = true;
       }
+    },
+    decreaseQuantity(item) {
+      console.log(item);
+      if (item.required_quantity > item.quantity - 5) {
+        this.warning1 = true;
+      } else item.quantity -= 5;
     }
   },
-  components: { ShoppingPopup },
+  components: { ShoppingPopup, MinimumQuantityWarning },
   watch: {
     items: {
       handler: function(val, oldVal) {
-        console.log(this.items);
+        console.log(val);
       },
       deep: true
     }

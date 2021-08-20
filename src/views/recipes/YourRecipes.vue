@@ -10,7 +10,7 @@
         sm="6"
         md="4"
         lg="3"
-        align="left"
+        align="center"
         class="pa-6"
         v-for="recipe in recipes"
         :key="recipe._id"

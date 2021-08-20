@@ -10,5 +10,8 @@ export default {
     return httpClient
       .get(`/groceryList?userId=${userId}`)
       .then(response => response);
+  },
+  updateGroceryList(items) {
+    return 0;
   }
 };
