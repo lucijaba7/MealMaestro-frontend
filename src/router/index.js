@@ -27,13 +27,14 @@ const routes = [
     path: "/",
     name: "Home",
     component: Home,
-    children: [
-      {
-        path: ":id",
-        component: ExpandedMealPopup,
-        props: true
-      }
-    ],
+    // children: [
+    //   {
+    //     path: ":id",
+    //     name: "ExpandedMealpopup",
+    //     component: ExpandedMealPopup,
+    //     props: true
+    //   }
+    // ],
     meta: {
       requiresAuth: true
     }
@@ -82,33 +83,32 @@ const routes = [
         alias: "",
         path: "yourRecipes",
         name: "YourRecipes",
-        component: YourRecipes,
-        children: [
-          {
-            path: ":id",
-            component: ExpandedMealPopup,
-            props: true
-          }
-        ]
+        component: YourRecipes
+        // children: [
+        //   {
+        //     path: ":id",
+        //     component: ExpandedMealPopup,
+        //     props: true
+        //   }
+        // ]
       },
       {
         path: "savedRecipes",
         name: "SavedRecipes",
-        component: SavedRecipes,
-        children: [
-          {
-            path: ":id",
-            component: ExpandedMealPopup,
-            props: true
-          }
-        ]
+        component: SavedRecipes
+        // children: [
+        //   {
+        //     path: ":id",
+        //     component: ExpandedMealPopup,
+        //     props: true
+        //   }
+        // ]
       }
     ],
     meta: {
       requiresAuth: true
     }
   },
-  // { path: "/expanded", component: ExpandedMealPopup, props: true },
   {
     path: "/fridge",
     component: Fridge,

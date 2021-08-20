@@ -27,62 +27,59 @@
             <img :src="data.item.image" />
           </v-list-item-avatar>
           <v-list-item-content>
-            <router-link
+            <!-- <router-link
               :to="`/${data.item._id}`"
               :key="data.item._id"
               style="text-decoration:none"
-            >
-              <v-list-item-title v-html="data.item.name"></v-list-item-title>
-            </router-link>
+            > -->
+            <v-list-item-title
+              @click="popup(data.item._id)"
+              v-html="data.item.name"
+            ></v-list-item-title>
+            <!-- </router-link> -->
           </v-list-item-content>
         </template>
-
-        <router-view></router-view>
-
-        <!-- <template v-slot:item="data">
-          <template v-if="typeof data.item !== 'object'">
-            <v-list-item-content v-text="data.item"></v-list-item-content>
-          </template>
-          <template v-else>
-            <v-list-item-avatar>
-              <img :src="data.item.avatar" />
-            </v-list-item-avatar> 
-            <v-list-item-content>
-              <v-list-item-title v-html="data.item.name"></v-list-item-title>
-              <v-list-item-subtitle
-                v-html="data.item.group"
-              ></v-list-item-subtitle>
-            </v-list-item-content>
-          </template>
-        </template>  -->
       </v-autocomplete>
+      <ExpandedMealPopup
+        :recipeId="recipeId"
+        v-model="dialogcard"
+        v-if="dialogcard"
+      />
     </v-col>
+
+    <!-- <router-view></router-view> -->
   </v-container>
 </template>
 
 <script>
+import ExpandedMealPopup from "../components/Popups/ExpandedMealPopup.vue";
 import RecipeService from "../services/RecipeService";
 
 export default {
   name: "Home",
   data() {
     return {
+      dialogcard: false,
       recipes: [],
+      recipeId: "",
       autoUpdate: true,
       isUpdating: false
     };
+  },
+  components: {
+    ExpandedMealPopup
   },
   created() {
     this.getAllRecipes();
   },
   methods: {
-    remove(item) {
-      const index = this.friends.indexOf(item.name);
-      if (index >= 0) this.friends.splice(index, 1);
-    },
     async getAllRecipes() {
       let data = await RecipeService.getAllRecipes("");
       this.recipes = data;
+    },
+    popup(id) {
+      this.recipeId = id;
+      this.dialogcard = !this.dialogcard;
     }
   },
   computed: {

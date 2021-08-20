@@ -1,5 +1,10 @@
 <template>
-  <v-card class="rounded-xl white ma-4" height="260" max-width="230px">
+  <v-card
+    @click="dialogcard = !dialogcard"
+    class="rounded-xl white ma-4"
+    height="260"
+    max-width="230px"
+  >
     <div class="text-truncate text-body-1 font-weight-bold px-4 pt-3">
       {{ info.name }}
     </div>
@@ -36,29 +41,28 @@
       fluid
       align="end"
     >
-      <v-btn
-        align="bottom"
-        small
-        fab
-        class="elevation-0 mt-5 mr-5"
-        color="grey lighten-1"
-        ><v-icon color="white">{{
-          saved ? "mdi-bookmark" : "mdi-bookmark-outline"
-        }}</v-icon></v-btn
-      >
     </v-img>
+
+    <ExpandedMealPopup
+      :recipeId="info._id"
+      v-model="dialogcard"
+      v-if="dialogcard"
+    />
   </v-card>
 </template>
 
 <script>
+import ExpandedMealPopup from "../Popups/ExpandedMealPopup.vue";
+
 export default {
   name: "SavedRecipesCard",
+  props: ["info"],
   data() {
     return {
-      saved: true
+      dialogcard: false
     };
   },
-  props: ["info"]
+  components: { ExpandedMealPopup }
 };
 </script>
 
