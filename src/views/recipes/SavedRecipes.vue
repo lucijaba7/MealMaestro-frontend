@@ -1,7 +1,7 @@
 <template>
   <v-row class="my-10" justify="center">
     <v-row
-      v-if="!recipes.length"
+      v-if="!this.recipes.length"
       justify="center"
       class="caption mt-15 text-center"
     >
@@ -19,17 +19,27 @@
         v-for="recipe in recipes"
         :key="recipe._id"
       >
-        <router-link
+        <v-btn
+          absolute
+          fab
+          class="accent elevation-0 "
+          @click="removeFromSaved(recipe._id)"
+          width="22.5"
+          height="22.5"
+          ><v-icon color="white" small>mdi-close</v-icon></v-btn
+        >
+
+        <!-- <router-link
           :to="`/recipes/savedRecipes/${recipe._id}`"
           :key="recipe._id"
           style="text-decoration:none"
-        >
-          <SavedRecipesCard :info="recipe" />
-        </router-link>
+        > -->
+        <SavedRecipesCard :info="recipe" />
+        <!-- </router-link> -->
       </v-col>
       <v-spacer cols="12" sm="6" md="8" lg="9"></v-spacer>
 
-      <router-view></router-view>
+      <!-- <router-view></router-view> -->
     </v-row>
   </v-row>
 </template>
@@ -39,6 +49,7 @@ import SavedRecipesCard from "@/components/Cards/SavedRecipesCard.vue";
 import UserService from "@/services/UserService";
 
 export default {
+  name: "savedRecipes",
   data() {
     return {
       recipes: []
@@ -46,21 +57,27 @@ export default {
   },
   created() {
     this.getSavedRecipes();
+    console.log("CREATED", this.recipes);
+  },
+  mounted() {
+    console.log("MOUNTED", this.recipes);
   },
   methods: {
     async getSavedRecipes() {
-      let data = await UserService.getSavedRecipes("");
-      console.log("Data", data);
-      this.recipes = data;
+      let data = await UserService.getSavedRecipes();
+      if (data.length) this.recipes = data;
+    },
+    async removeFromSaved(id) {
+      console.log("AA");
+      this.recipes = this.recipes.filter(function(item) {
+        return item._id !== id;
+      });
+
+      let response = await UserService.removeFromSavedRecipes(id);
     }
   },
   components: {
     SavedRecipesCard
-  },
-  computed: {
-    device() {
-      return this.$vuetify.breakpoint.name;
-    }
   }
 };
 </script>
