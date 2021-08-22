@@ -466,7 +466,7 @@ export default {
       this.directions = "";
       this.selected = [];
 
-      this.$refs.formCreateMeal.reset();
+      this.$refs.formCreateMeal.resetValidation();
     }
   }
 };

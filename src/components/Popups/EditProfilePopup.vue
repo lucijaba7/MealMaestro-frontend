@@ -4,7 +4,7 @@
       v-model="show"
       persistent
       max-width="600"
-      @click:outside="show = false"
+      @click:outside="closeDialog"
     >
       <v-card>
         <v-row class="ma-0">
@@ -14,7 +14,7 @@
               right
               fab
               class="accent elevation-0 mt-3"
-              @click="show = false"
+              @click="closeDialog"
               width="22.4"
               height="22.4"
               ><v-icon color="white" small>mdi-close</v-icon></v-btn
@@ -51,7 +51,6 @@
                 counter
                 outlined
                 auto-grow
-                clearable
               ></v-textarea>
             </v-col>
           </v-row>
@@ -128,12 +127,12 @@
         <v-card-actions class="pt-0">
           <v-spacer></v-spacer>
           <v-btn
-            @click="show = false"
+            @click="closeDialog"
             rounded
             class="ma-3 px-8 primary elevation-0"
             >Done</v-btn
           >
-          <!-- <v-btn outlined rounded  @click="show = false" class="py-3 my-5 mr-2 elevation-0">Close</v-btn> -->
+          <!-- <v-btn outlined rounded  @click="closeDialog" class="py-3 my-5 mr-2 elevation-0">Close</v-btn> -->
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -214,6 +213,12 @@ export default {
     },
     forceRerender() {
       this.componentKey += 1;
+    },
+    closeDialog() {
+      this.$refs.form_1.resetValidation();
+      this.$refs.form_2.resetValidation();
+
+      this.show = false;
     }
   },
   computed: {

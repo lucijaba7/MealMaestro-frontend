@@ -92,6 +92,7 @@
       >
         <ProfileMealCard :info="recipe" />
       </v-col>
+      <v-spacer cols="12" md="6"></v-spacer>
     </v-row>
     <v-row v-else justify="center" class="caption mt-15 text-center"
       >Recipes not available.</v-row

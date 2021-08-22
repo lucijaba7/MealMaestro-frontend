@@ -31,6 +31,11 @@ export default {
       .get(`/users/customRecipes?mealType=${mealType}`)
       .then(response => response);
   },
+  getSavedRecipesByMealType(mealType) {
+    return httpClient
+      .get(`/users/savedRecipes?mealType=${mealType}`)
+      .then(response => response);
+  },
   removeFromYourRecipes(id) {
     return Service.patch(`/users/customRecipes/remove?recipeId=${id}`);
   },

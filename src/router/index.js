@@ -27,14 +27,6 @@ const routes = [
     path: "/",
     name: "Home",
     component: Home,
-    // children: [
-    //   {
-    //     path: ":id",
-    //     name: "ExpandedMealpopup",
-    //     component: ExpandedMealPopup,
-    //     props: true
-    //   }
-    // ],
     meta: {
       requiresAuth: true
     }
