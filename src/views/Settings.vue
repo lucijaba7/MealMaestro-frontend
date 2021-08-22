@@ -84,7 +84,7 @@
 
 <script>
 import SettingsMeal from "@/components/Settings/SettingsMeal";
-import { User } from "@/services";
+// import { User } from "@/services";
 
 export default {
   data() {
@@ -104,13 +104,13 @@ export default {
     };
   },
   created() {
-    this.fetchUserSettings(this.username);
+    // this.fetchUserSettings(this.username);
   },
   methods: {
-    async fetchUserSettings(username) {
-      let response = await User.getSettings(username);
-      return response.data;
-    }
+    // async fetchUserSettings(username) {
+    //   let response = await User.getSettings(username);
+    //   return response.data;
+    // }
   },
   components: {
     SettingsMeal

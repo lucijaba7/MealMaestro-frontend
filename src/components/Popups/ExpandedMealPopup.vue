@@ -1,14 +1,18 @@
 <template>
   <v-row justify="center">
-    <v-dialog
-      v-model="show"
-      persistent
-      max-width="600"
-      @click:outside="show = false"
-    >
-      <v-card max-height="650" :max-width="maxWidth">
+    <v-dialog v-model="show" max-width="600" @click:outside="show = false">
+      <v-card>
         <v-img :src="recipe.image" height="300" class="justify-end" align="end">
-          <v-btn small fab class="elevation-0 mt-5 mr-5" color="grey lighten-1"
+          <v-btn
+            v-if="
+              this.$route.query.username ||
+                this.$route.path == '/recipes/savedRecipes'
+            "
+            @click="editSavedRecipes()"
+            small
+            fab
+            class="elevation-0 mt-5 mr-5"
+            color="grey lighten-1"
             ><v-icon color="white">{{
               saved ? "mdi-bookmark" : "mdi-bookmark-outline"
             }}</v-icon></v-btn
@@ -19,9 +23,17 @@
           {{ recipe.name }}
         </v-card-title>
         <v-row justify="space-between" class="mx-1">
-          <v-card-subtitle class="caption font-weight-bold primaryText--text"
-            >@{{ recipe.username }}
-          </v-card-subtitle>
+          <v-card-subtitle>
+            <router-link
+              :to="{
+                name: 'Profile',
+                query: { username: recipe.username }
+              }"
+              class="caption font-weight-bold primaryText--text"
+              style="text-decoration:none; cursor:pointer"
+              >@{{ recipe.username }}
+            </router-link></v-card-subtitle
+          >
           <v-col
             align="end"
             cols="4"
@@ -118,6 +130,7 @@
 
 <script>
 import RecipeService from "@/services/RecipeService";
+import UserService from "@/services/UserService";
 
 export default {
   name: "ExpandedMealPopup",
@@ -135,9 +148,7 @@ export default {
   created() {
     // this.recipeId = this.$route.params.id;
     this.getRecipe();
-  },
-  mounted() {
-    console.log(this.show);
+    this.checkIfSaved();
   },
   methods: {
     hidePopup() {
@@ -147,6 +158,21 @@ export default {
     async getRecipe() {
       let data = await RecipeService.getRecipeById(this.recipeId);
       this.recipe = data;
+    },
+    async checkIfSaved() {
+      let savedRecipes = await UserService.getSavedRecipes();
+      if (savedRecipes.some(recipe => recipe._id === this.recipeId))
+        this.saved = true;
+      else this.saved = false;
+    },
+    async editSavedRecipes() {
+      if (this.saved) {
+        let response = await UserService.removeFromSavedRecipes(this.recipeId);
+        this.saved = false;
+      } else {
+        let response = await UserService.saveRecipe(this.recipeId);
+        this.saved = true;
+      }
     }
   },
   computed: {
@@ -178,33 +204,3 @@ export default {
   }
 };
 </script>
-
-<style scoped>
-.v-card {
-  display: flex !important;
-  flex-direction: column;
-  flex-grow: 1;
-  overflow: auto;
-  /* 
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%); */
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 20000;
-}
-
-.overlay {
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  position: fixed;
-  z-index: 10000;
-  background: rgba(0, 0, 0, 0.5); /* poprvi boju */
-  cursor: pointer;
-}
-</style>

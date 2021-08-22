@@ -55,6 +55,7 @@
             icon="mdi-check"
             :id="avatar._id"
             :value="avatar.url == tempAvatar ? true : false"
+            class="mr-1"
             color="accent"
             overlap
           >
@@ -62,6 +63,7 @@
           ><v-img
             :src="avatar.url"
             :lazy-src="avatar.url"
+            max-height="100px"
             aspect-ratio="1"
             @click="selectedAvatar(avatar.url)"
             class="avatar transform"

@@ -9,12 +9,12 @@
       icon
       large
       :to="{
-        name: 'Profile',
-        query: {
-          username: this.username
-        }
+        name: 'Profile'
       }"
     >
+      <!-- query: {
+          username: this.username
+        } -->
       <v-icon color="secondary">mdi-account-circle</v-icon></v-btn
     >
     <v-btn
@@ -59,12 +59,11 @@
       fab
       large
       :to="{
-        name: 'Profile',
-        query: {
-          username: this.username
-        }
+        name: 'Profile'
       }"
-    >
+      ><!-- query: {
+          username: this.username
+        } -->
       <v-icon color="secondary">mdi-account-circle</v-icon></v-btn
     >
     <v-btn

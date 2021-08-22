@@ -84,7 +84,7 @@
 </template>
 
 <script>
-import { Fridge } from "@/services";
+// import { Fridge } from "@/services";
 
 export default {
   name: "FridgeCategory",
@@ -111,13 +111,13 @@ export default {
     };
   },
   created() {
-    this.fetchFridgeItems(this.$route.params.name, this.username);
+    // this.fetchFridgeItems(this.$route.params.name, this.username);
   },
   methods: {
-    async fetchFridgeItems(category, username) {
-      let response = await Fridge.getItems(category, username);
-      return response.data;
-    }
+    // async fetchFridgeItems(category, username) {
+    //   let response = await Fridge.getItems(category, username);
+    //   return response.data;
+    // }
   }
 };
 </script>

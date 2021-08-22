@@ -1,10 +1,5 @@
 <template>
-  <v-card
-    @click="dialogcard = !dialogcard"
-    class="rounded-xl white ma-4"
-    height="260"
-    max-width="230px"
-  >
+  <v-card class="rounded-xl white ma-4" height="260" max-width="230px">
     <div class="text-truncate text-body-1 font-weight-bold px-4 pt-3">
       {{ info.name }}
     </div>
@@ -28,14 +23,21 @@
         half-increments
       ></v-rating>
     </v-row>
-    <v-row class="pl-3">
-      <v-card-text class="caption font-weight-bold pt-0"
-        >By @{{ info.username }}</v-card-text
+    <v-row class="pl-3 mt-2">
+      <router-link
+        :to="{
+          name: 'Profile',
+          query: { username: info.username }
+        }"
+        class="font-weight-bold text--primary pointer pl-4"
+        style="text-decoration:none; font-size:15px"
+        >By @{{ info.username }}</router-link
       >
     </v-row>
     <v-img
       :src="info.image"
-      class="img rounded-xl"
+      @click="dialogcard = !dialogcard"
+      class="img rounded-xl pointer"
       width="100%"
       height="160px"
       fluid
@@ -67,7 +69,7 @@ export default {
 </script>
 
 <style scoped>
-.v-card {
+.pointer {
   cursor: pointer;
 }
 .img {
