@@ -28,18 +28,9 @@
           height="22.5"
           ><v-icon color="white" small>mdi-close</v-icon></v-btn
         >
-
-        <!-- <router-link
-          :to="`/recipes/savedRecipes/${recipe._id}`"
-          :key="recipe._id"
-          style="text-decoration:none"
-        > -->
         <SavedRecipesCard :info="recipe" />
-        <!-- </router-link> -->
       </v-col>
       <v-spacer cols="12" sm="6" md="8" lg="9"></v-spacer>
-
-      <!-- <router-view></router-view> -->
     </v-row>
   </v-row>
 </template>
@@ -57,10 +48,6 @@ export default {
   },
   created() {
     this.getSavedRecipes();
-    console.log("CREATED", this.recipes);
-  },
-  mounted() {
-    console.log("MOUNTED", this.recipes);
   },
   methods: {
     async getSavedRecipes() {
@@ -68,7 +55,6 @@ export default {
       if (data.length) this.recipes = data;
     },
     async removeFromSaved(id) {
-      console.log("AA");
       this.recipes = this.recipes.filter(function(item) {
         return item._id !== id;
       });

@@ -1,9 +1,13 @@
 <template>
-  <v-card class="rounded-xl white">
+  <v-card
+    @click="dialogcard = !dialogcard"
+    class="rounded-xl white"
+    style="cursor:pointer"
+  >
     <v-row>
       <v-col cols="12" sm="5" class="py-0">
         <v-img :src="info.image" width="100%" height="200px" class="rounded-xl">
-          <v-btn
+          <!-- <v-btn
             small
             fab
             absolute
@@ -14,8 +18,8 @@
             ><v-icon color="white">{{
               this.saved ? "mdi-bookmark" : "mdi-bookmark-outline"
             }}</v-icon></v-btn
-          ></v-img
-        >
+          > -->
+        </v-img>
       </v-col>
 
       <v-col
@@ -74,21 +78,26 @@
         >
       </v-col>
     </v-row>
+    <ExpandedMealPopup
+      :recipeId="info._id"
+      v-model="dialogcard"
+      v-if="dialogcard"
+    />
   </v-card>
 </template>
 
 <script>
+import ExpandedMealPopup from "../Popups/ExpandedMealPopup.vue";
 import moment from "moment";
 
 export default {
   data() {
     return {
-      saved: false
+      saved: false,
+      dialogcard: false
     };
   },
   props: ["info"],
-  created() {},
-  mounted() {},
   computed: {
     ratings() {
       ///ako ima rating superr tu nes agregirano bo, za sad:
@@ -102,7 +111,8 @@ export default {
     device() {
       return this.$vuetify.breakpoint.name;
     }
-  }
+  },
+  components: { ExpandedMealPopup }
 };
 </script>
 
