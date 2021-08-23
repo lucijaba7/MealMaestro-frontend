@@ -11,7 +11,12 @@ export default {
       .get(`/groceryList?userId=${userId}`)
       .then(response => response);
   },
-  updateGroceryList(items) {
-    return 0;
+  updateGroceryList(listId, items) {
+    return Service.patch(`/groceryList/${listId}`, items).then(
+      response => response.data
+    );
+  },
+  confirmGroceryList(listId) {
+    return httpClient.post(`/groceryList/${listId}`).then(response => response);
   }
 };

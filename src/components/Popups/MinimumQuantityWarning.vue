@@ -38,7 +38,8 @@
               We're sorry.
             </v-card-title>
             <v-card-text>
-              To accomplish this week's plan, you cannot ...
+              To accomplish this week's plan, you cannot lower the quantity of
+              this ingredient.
             </v-card-text>
           </v-col>
         </v-row>

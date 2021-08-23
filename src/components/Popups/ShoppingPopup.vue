@@ -12,7 +12,7 @@
             absolute
             right
             fab
-            class="accent elevation-0 mt-3"
+            class="accent elevation-0 mt-1"
             @click="show = false"
             width="22.5"
             height="22.5"
@@ -38,31 +38,19 @@
               Wait! You won’t be able to <br />accomplish this week’s plan.
             </v-card-title>
             <v-card-text>
-              Ingredients missing:
-              <ul>
-                <li
-                  v-for="ingredient in missing_ingredients"
-                  :key="ingredient.name"
-                >
-                  {{ ingredient.name }}
-                  ( {{ ingredient.quantity }} {{ ingredient.unit }} )
-                </li>
-              </ul>
+              To accomplish this week's plan, you have to buy all the
+              ingredients.
             </v-card-text>
           </v-col>
         </v-row>
 
         <v-card-actions class="pa-0">
           <v-row justify="center" class="ma-0">
-            <v-btn rounded class="py-3 mb-5 mr-2 primary elevation-0"
-              >Generate new plan</v-btn
-            >
             <v-btn
-              outlined
               rounded
+              class="py-3 mb-5 mr-2 primary elevation-0"
               @click="show = false"
-              class="py-3 mb-5 mr-2 elevation-0"
-              >Continue shopping</v-btn
+              >OK</v-btn
             >
           </v-row>
         </v-card-actions>

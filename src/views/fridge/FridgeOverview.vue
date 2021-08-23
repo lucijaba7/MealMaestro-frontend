@@ -1,28 +1,30 @@
 <template>
   <v-container fluid pa-0>
     <v-row :class="this.$vuetify.breakpoint.name == 'xs' ? 'mx-0' : 'mx-16'">
-      <v-col>
+      <v-col class="px-0">
         <v-simple-table class="mt-4 white">
           <tbody>
             <tr
-              v-for="category in categories"
-              :key="category.name"
-              @click="openCategory(category.name)"
+              v-for="item in this.items"
+              :key="item.category"
+              @click="openCategory(item.category)"
             >
               <td class="px-0 py-1" width="5%">
                 <v-avatar>
-                  <v-img :src="require(`@/assets/${category.pic}`)"></v-img
+                  <v-img
+                    :src="require(`@/assets/${image(item.category)}`)"
+                  ></v-img
                 ></v-avatar>
               </td>
-              <td width="80%">{{ category.name }}</td>
-              <td width="10%">
+              <td width="75%">{{ item.category }}</td>
+              <td width="15%">
                 <v-row>
                   <v-col align="center">
                     <div class="font-weight-bold ma-0">
-                      33
+                      {{ item.ingredients_list.length }}
                     </div>
                     <div class="" style="font-size: 12px;">
-                      items
+                      {{ item.ingredients_list.length == 1 ? "item" : "items" }}
                     </div>
                   </v-col></v-row
                 >
@@ -41,6 +43,7 @@
 <script>
 export default {
   name: "FridgeOverview",
+  props: ["items"],
   data() {
     return {
       categories: [
@@ -48,7 +51,7 @@ export default {
           name: "Alcoholic Beverages",
           pic: "ingredient_categories/alcohol.jpg"
         },
-        { name: "Bakery / Bread", pic: "ingredient_categories/bakery.jpg" },
+        { name: "Bakery/Bread", pic: "ingredient_categories/bakery.jpg" },
         { name: "Baking", pic: "ingredient_categories/baking.jpg" },
         { name: "Beverages", pic: "ingredient_categories/baverages.jpg" },
         { name: "Canned and Jarred", pic: "ingredient_categories/jarred.jpg" },
@@ -87,12 +90,18 @@ export default {
       ]
     };
   },
+  mounted() {},
   methods: {
     openCategory(category) {
       this.$router.push({
         name: "FridgeCategory",
-        params: { name: category.charAt(0).toLowerCase() + category.slice(1) }
+        params: { name: category }
       });
+    },
+    image(cat) {
+      var category = this.categories.filter(x => x.name == cat);
+
+      return category[0].pic;
     }
   }
 };

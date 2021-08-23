@@ -7,7 +7,8 @@
       <!-- <v-fade-transition> -->
       <Loader v-if="loading" />
       <!-- </v-fade-transition> -->
-      <router-view :key="$route.fullPath"></router-view>
+      <!-- <router-view :key="$route.fullPath"></router-view> -->
+      <router-view :key="$route.query.startDay"></router-view>
     </v-main>
   </v-app>
 </template>

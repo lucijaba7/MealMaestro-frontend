@@ -7,7 +7,7 @@
     </v-breadcrumbs>
 
     <v-row :class="this.$vuetify.breakpoint.name == 'xs' ? 'mx-0' : 'mx-16'">
-      <v-col>
+      <v-col class="px-0">
         <v-simple-table class="mt-4 white">
           <template v-slot:default>
             <thead>
@@ -28,8 +28,8 @@
               </tr>
             </thead>
             <tbody>
-              <tr v-for="item in items" :key="item.name">
-                <td>{{ item.name }}</td>
+              <tr v-for="(item, i) in categoryItems" :key="item.name">
+                <td>{{ item.ingredient.ingredient_name }}</td>
                 <td align="center" class="justify-space-around">
                   <table>
                     <tr>
@@ -39,11 +39,12 @@
                           class="accent elevation-0"
                           max-width="18"
                           max-height="18"
+                          @click="decreaseQuantity(item)"
                           ><v-icon x-small>mdi-minus</v-icon></v-btn
                         >
                       </td>
                       <td width="70%" class="text-center">
-                        {{ item.quantity }} {{ item.unit }}
+                        {{ item.quantity }} g
                       </td>
                       <td width="15%">
                         <v-btn
@@ -51,6 +52,7 @@
                           class="accent elevation-0"
                           max-width="18"
                           max-height="18"
+                          @click="item.quantity += 5"
                           ><v-icon x-small>mdi-plus</v-icon></v-btn
                         >
                       </td>
@@ -64,6 +66,7 @@
                     class="elevation-0"
                     max-width="18"
                     max-height="18"
+                    @click="removeIngredient(item, i)"
                     ><v-icon medium color="grey"
                       >mdi-close-circle-outline</v-icon
                     ></v-btn
@@ -75,22 +78,21 @@
             </tbody>
           </template>
         </v-simple-table>
-        <v-btn rounded small class="primary elevation-0 mt-8"
-          >Add <v-icon small>mdi-plus</v-icon></v-btn
-        >
       </v-col>
     </v-row>
+    <MinimumQuantityWarning v-model="warning1" v-if="warning1" />
   </v-container>
 </template>
 
 <script>
-import { Fridge } from "@/services";
+import FridgeService from "@/services/FridgeService";
+import MinimumQuantityWarning from "@/components/Popups/MinimumQuantityWarning";
 
 export default {
   name: "FridgeCategory",
+  props: ["items", "fridgeId", "groceryListItems"],
   data() {
     return {
-      username: localStorage.getItem("username"),
       breadcrump_list: [
         { text: "Fridge", disabled: false, href: "/fridge" },
         {
@@ -99,26 +101,65 @@ export default {
           href: this.$route.params.name
         }
       ],
-      items: [
-        { name: "Item 1", unit: "kg", quantity: 1 },
-        { name: "Item 2", unit: "kg", quantity: 1 },
-        { name: "Item 3", unit: "g", quantity: 500 },
-        { name: "Item 4", unit: "l", quantity: 2 },
-        { name: "Item 5", unit: "kg", quantity: 1 },
-        { name: "Item 6", unit: "g", quantity: 100 },
-        { name: "Item 7", unit: "kg", quantity: 1 }
-      ]
+      warning1: false
     };
   },
-  created() {
-    this.fetchFridgeItems(this.$route.params.name, this.username);
-  },
+  mounted() {},
   methods: {
-    async fetchFridgeItems(category, username) {
-      let response = await Fridge.getItems(category, username);
-      return response.data;
+    decreaseQuantity(fridgeItem) {
+      var decrease = true;
+      for (var groceryItem of this.groceryListItems) {
+        if (
+          groceryItem.ingredient.ingredient_name ==
+          fridgeItem.ingredient.ingredient_name
+        ) {
+          if (groceryItem.required_quantity > fridgeItem.quantity - 5) {
+            decrease = false;
+            this.warning1 = true;
+            break;
+          }
+        }
+      }
+      if (decrease) fridgeItem.quantity -= 5;
+    },
+    removeIngredient(fridgeItem, index) {
+      var remove = true;
+      for (var groceryItem of this.groceryListItems) {
+        if (
+          groceryItem.ingredient.ingredient_name ==
+          fridgeItem.ingredient.ingredient_name
+        ) {
+          this.remove = false;
+          break;
+        }
+      }
+      if (remove) this.categoryItems.splice(i, 1);
     }
-  }
+  },
+  computed: {
+    categoryItems() {
+      for (var item of this.items) {
+        if (item.category == this.$route.params.name)
+          return item.ingredients_list;
+      }
+      // return this.items.filter(
+      //   x => String(x.category) == this.$route.params.name
+      // )[0].ingredients_list;
+    }
+  },
+  watch: {
+    categoryItems: {
+      handler: async function(val) {
+        await FridgeService.updateFridge(
+          this.fridgeId,
+          this.$route.params.name,
+          val
+        );
+      },
+      deep: true
+    }
+  },
+  components: { MinimumQuantityWarning }
 };
 </script>
 <style scoped></style>

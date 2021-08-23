@@ -9,7 +9,7 @@
     <p class="pl-2">
       This list is created based on next week’s meal plan. Happy Shopping!!
     </p>
-    <v-row class="mt-4" v-if="!this.items.length" justify="center">
+    <v-row class="mt-4" v-if="!this.active" justify="center">
       <b>There is no grocery list in plan</b>
     </v-row>
     <v-row
@@ -87,13 +87,13 @@
       </v-col>
     </v-row>
     <v-row
-      v-if="this.items.length"
+      v-if="this.active"
       :class="this.$vuetify.breakpoint.name == 'xs' ? 'mx-0' : 'mx-16'"
     >
       <v-col align="end">
         <v-btn
           rounded
-          @click.stop="warning = true"
+          @click.stop="finishShopping"
           class="px-8 py-3 my-5 primary elevation-0"
           >Shopping finished</v-btn
         >
@@ -113,6 +113,7 @@ export default {
   name: "GroceryList",
   data() {
     return {
+      active: false,
       warning1: false,
       warning2: false,
       userId: this.$store.getters.getUser._id,
@@ -126,7 +127,13 @@ export default {
   methods: {
     async fetchGroceryList() {
       let response = await GroceryListService.getGroceryList(this.userId);
-      if (response.length) this.items = response[0].list_items;
+      if (response.length) {
+        if (!response[0].finished_shopping) {
+          this.active = true;
+          this.listId = response[0]._id;
+          this.items = response[0].list_items;
+        } else this.active = false;
+      }
       // var sorted_items = this.items.sort(function(a, b) {
       //   return a.ingredient.ingredient_name - b.ingredient.ingredient_name;
       // });
@@ -137,17 +144,30 @@ export default {
       }
     },
     decreaseQuantity(item) {
-      console.log(item);
       if (item.required_quantity > item.quantity - 5) {
         this.warning1 = true;
       } else item.quantity -= 5;
+    },
+    async finishShopping() {
+      for (var item of this.items) {
+        if (!item.bought) {
+          this.warning2 = true;
+          break;
+        }
+      }
+      if (this.warning2 != true) {
+        var data = await GroceryListService.confirmGroceryList(this.listId);
+        this.active = false;
+        // this.items = [];
+      }
     }
   },
   components: { ShoppingPopup, MinimumQuantityWarning },
   watch: {
     items: {
-      handler: function(val, oldVal) {
-        console.log(val);
+      handler: async function(val) {
+        if (this.active)
+          await GroceryListService.updateGroceryList(this.listId, val);
       },
       deep: true
     }

@@ -24,7 +24,8 @@
             Let's create a new meal!
           </v-card-title></v-row
         >
-        <v-form ref="formCreateMeal" v-model="valid" lazy-validation>
+        <!-- makla sam lazy-validation paa ako bude bilo gluposti mozda je to -->
+        <v-form ref="formCreateMeal" v-model="valid">
           <v-col class="pb-0 px-8" cols="12" align="start">
             <v-text-field
               class="font-weight-medium"
@@ -311,7 +312,7 @@ export default {
       timeType: ["h", "min"],
       unitType: [],
       ingredientQuantity: "",
-      //OVDJE U Tags hocemo cheap i nest lowFodmap idk what that is
+
       allTags: [
         { text: "vegetarian" },
         { text: "vegan" },
@@ -361,12 +362,10 @@ export default {
     }
   },
 
-  async created() {
+  created() {
     this.getIngredients();
   },
-  mounted() {
-    console.log(this.userId);
-  },
+
   methods: {
     async getIngredients() {
       const data = await IngredientService.getAllIngredients();
