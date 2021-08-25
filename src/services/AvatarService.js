@@ -1,9 +1,7 @@
-import axios from "axios";
-
-const url = "http://localhost:4000/avatars/";
+import service from "@/utils/service";
 
 export default {
   getAllAvatars() {
-    return axios.get(url).then(response => response.data);
+    return service.get("avatars").then(response => response.data);
   }
 };

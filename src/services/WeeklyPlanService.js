@@ -1,9 +1,4 @@
 import httpClient from "@/utils/httpClient";
-import axios from "axios";
-
-let Service = axios.create({
-  baseURL: "http://localhost:4000"
-});
 
 export default {
   getWeeklyPlan(user, startDay) {

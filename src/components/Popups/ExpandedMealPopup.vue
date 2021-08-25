@@ -7,7 +7,8 @@
             v-if="
               this.$route.query.username ||
                 this.$route.path == '/recipes/savedRecipes' ||
-                this.$route.path == '/plan/weekly'
+                this.$route.path == '/plan/weekly' ||
+                this.$route.path == '/'
             "
             @click="editSavedRecipes()"
             small
@@ -161,7 +162,7 @@ export default {
       this.recipe = data;
     },
     async checkIfSaved() {
-      let savedRecipes = await UserService.getSavedRecipes();
+      let savedRecipes = await UserService.getSavedRecipes("", "");
       if (savedRecipes.some(recipe => recipe._id === this.recipeId))
         this.saved = true;
       else this.saved = false;

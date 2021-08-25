@@ -20,7 +20,7 @@
         @click="cookMeal(meal)"
       ></v-checkbox>
     </span>
-    <div class="title text-body-1 font-weight-bold pl-3 mt-2">
+    <div class="text-truncate text-body-1 font-weight-bold pl-3 mt-2">
       {{ meal.recipe.name }}
     </div>
     <div>
@@ -31,7 +31,7 @@
         @click="dialogcard = !dialogcard"
         class="img rounded-xl"
         width="100%"
-        height="115px"
+        height="170px"
         fluid
       >
       </v-img>
@@ -104,13 +104,6 @@ export default {
 </script>
 
 <style scoped>
-.title {
-  overflow: hidden;
-  overflow-wrap: anywhere;
-  /* word-wrap: break-word; */
-  /* word-break: normal; */
-  height: 90px;
-}
 .v-card {
   cursor: pointer;
 }

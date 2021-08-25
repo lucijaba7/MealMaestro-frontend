@@ -124,8 +124,8 @@ export default {
         this.recipes.push({ header: "Saved recipes", recipes: saved });
 
       const recommended = await RecipeService.recommendRecipesByMealType(
-        this.userId,
-        this.meal
+        this.meal,
+        0
       );
       if (recommended.length)
         this.recipes.push({ header: "Recommended", recipes: recommended });

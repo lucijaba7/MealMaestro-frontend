@@ -1,19 +1,12 @@
-import axios from "axios";
-
-const url = "http://127.0.0.1:4000/users/";
+import service from "@/utils/service";
 
 export default {
   signup(data) {
-    return axios.post(url + "signup/", data).then(response => response.data);
+    return service.post("users/signup", data).then(response => response.data);
   },
   login(credentials) {
-    return axios
-      .post(url + "login/", credentials)
+    return service
+      .post("users/login", credentials)
       .then(response => response.data);
-
-    // let user = response.data;
-    // console.log(user);
-    // localStorage.setItem("user", JSON.stringify(user));
-    // return true;
   }
 };
