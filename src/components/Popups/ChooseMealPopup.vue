@@ -3,6 +3,7 @@
     <v-dialog
       class="ma-0 popup "
       v-model="show"
+      v-if="loaded"
       persistent
       max-width="600"
       eager
@@ -85,7 +86,8 @@ export default {
   data() {
     return {
       recipes: [],
-      userId: this.$store.getters.getUser._id
+      userId: this.$store.getters.getUser._id,
+      loaded: false
     };
   },
   computed: {
@@ -112,17 +114,19 @@ export default {
       this.show = false;
     },
     async fetchRecipes() {
-      const custom = await UserService.getCustomRecipes(this.userId, this.meal);
+      const custom = await UserService.getCustomRecipesByMealType(this.meal);
       if (custom.length)
         this.recipes.push({ header: "Your recipes", recipes: custom });
 
-      const saved = await UserService.getSavedRecipes(this.userId, this.meal);
+      const saved = await UserService.getSavedRecipesByMealType(this.meal);
       if (saved.length)
         this.recipes.push({ header: "Saved recipes", recipes: saved });
 
       const recommended = await RecipeService.getAllRecipes(this.meal);
       if (recommended.length)
         this.recipes.push({ header: "Recommended", recipes: recommended });
+
+      this.loaded = true;
     },
     addMeal(mealId) {
       this.$emit("mealId", mealId);

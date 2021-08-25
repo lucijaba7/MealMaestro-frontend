@@ -97,6 +97,12 @@
     <v-row v-else justify="center" class="caption mt-15 text-center"
       >Recipes not available.</v-row
     >
+    <v-row
+      v-if="this.recipes.length < this.numOfRecipes"
+      justify="center"
+      class="mb-5"
+      ><v-btn @click="loadMore" plain>Load more...</v-btn></v-row
+    >
   </v-container>
 </template>
 
@@ -113,12 +119,13 @@ export default {
       editProfileOpen: false,
       recipes: [],
       following: null,
-      followers: []
+      followers: [],
+      numOfRecipes: 0
     };
   },
   created() {
     this.getUser();
-    console.log(this.$route.path);
+    this.numOfRecipes = this.user.custom_recipes.length;
   },
   methods: {
     async getUser() {
@@ -133,17 +140,29 @@ export default {
         this.user = this.$store.getters.getUser;
       }
 
-      this.getRecipes();
+      this.getRecipes(0, 10);
       this.countFollowers();
     },
-    async getRecipes() {
+    async getRecipes(start, end) {
       if (this.$route.query.username) {
-        this.recipes = await UserService.getUserRecipes(
-          this.$route.query.username
+        const newRecipes = await UserService.getUserRecipes(
+          this.$route.query.username,
+          start,
+          end
         );
+
+        if (this.recipes.length == 0) this.recipes = newRecipes;
+        else this.recipes = this.recipes.concat(newRecipes);
       } else {
-        this.recipes = await UserService.getCustomRecipes();
+        const newRecipes = await UserService.getCustomRecipes(start, end);
+
+        if (this.recipes.length == 0) {
+          this.recipes = newRecipes;
+        } else this.recipes = this.recipes.concat(newRecipes);
       }
+    },
+    loadMore() {
+      this.getRecipes(this.recipes.length, this.recipes.length + 10);
     },
     async followUser() {
       let response = await UserService.followUser(this.user._id);

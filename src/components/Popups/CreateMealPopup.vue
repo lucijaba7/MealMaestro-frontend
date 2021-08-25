@@ -361,11 +361,9 @@ export default {
       return "Ingredient name";
     }
   },
-
   created() {
     this.getIngredients();
   },
-
   methods: {
     async getIngredients() {
       const data = await IngredientService.getAllIngredients();
@@ -449,6 +447,9 @@ export default {
           date: moment(new Date()).format("yyyy-MM-DD hh:mm a")
         };
 
+        // this.$emit("rerender", true);
+        console.log("sad cu");
+        this.$router.go(0);
         await RecipeService.saveRecipeData(data);
       }
       if (!this.uploadedFiles.length) {

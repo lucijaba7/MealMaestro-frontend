@@ -20,11 +20,15 @@ export default {
       .patch("users/updateMyData", data)
       .then(response => response);
   },
-  getCustomRecipes() {
-    return httpClient.get("/users/customRecipes").then(response => response);
+  getCustomRecipes(start, end) {
+    return httpClient
+      .get(`/users/customRecipes?start=${start}&end=${end}`)
+      .then(response => response);
   },
-  getSavedRecipes() {
-    return httpClient.get("/users/savedRecipes").then(response => response);
+  getSavedRecipes(start, end) {
+    return httpClient
+      .get(`/users/savedRecipes?start=${start}&end=${end}`)
+      .then(response => response);
   },
   getCustomRecipesByMealType(mealType) {
     return httpClient

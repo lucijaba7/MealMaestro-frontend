@@ -6,7 +6,8 @@
           <v-btn
             v-if="
               this.$route.query.username ||
-                this.$route.path == '/recipes/savedRecipes'
+                this.$route.path == '/recipes/savedRecipes' ||
+                this.$route.path == '/plan/weekly'
             "
             @click="editSavedRecipes()"
             small

@@ -14,7 +14,7 @@
         sm="6"
         md="4"
         lg="3"
-        align="center"
+        align="left"
         class="pa-6"
         v-for="recipe in recipes"
         :key="recipe._id"
@@ -28,18 +28,18 @@
           height="22.5"
           ><v-icon color="white" small>mdi-close</v-icon></v-btn
         >
-        <router-link
-          :to="`/recipes/yourRecipes/${recipe._id}`"
-          :key="recipe._id"
-          style="text-decoration:none"
-        >
-          <YourRecipesCard :info="recipe" />
-        </router-link>
-      </v-col>
-      <v-spacer cols="12" sm="6" md="8" lg="9"></v-spacer>
 
-      <router-view></router-view>
+        <YourRecipesCard :info="recipe" />
+      </v-col>
+
+      <v-spacer cols="12" sm="6" md="8" lg="9"></v-spacer>
     </v-row>
+    <v-row
+      v-if="this.recipes.length != 0 && this.recipes.length < this.numOfRecipes"
+      justify="center"
+      class="mb-5"
+      ><v-btn @click="loadMore" plain>Load more...</v-btn></v-row
+    >
   </v-row>
 </template>
 
@@ -51,16 +51,27 @@ export default {
   name: "yourRecipes",
   data() {
     return {
-      recipes: []
+      recipes: [],
+      numOfRecipes: 0
     };
   },
   created() {
-    this.getYourRecipes();
+    this.getYourRecipes(0, 10);
+    this.numOfRecipes = this.$store.getters.getUser.custom_recipes.length;
   },
   methods: {
-    async getYourRecipes() {
-      let data = await UserService.getCustomRecipes();
-      if (data.length) this.recipes = data;
+    async getYourRecipes(start, end) {
+      // let data = await UserService.getCustomRecipes(start, end);
+      // if (data.length) this.recipes = data;
+
+      const newRecipes = await UserService.getCustomRecipes(start, end);
+
+      if (this.recipes.length == 0) {
+        this.recipes = newRecipes;
+      } else this.recipes = this.recipes.concat(newRecipes);
+    },
+    loadMore() {
+      this.getYourRecipes(this.recipes.length, this.recipes.length + 10);
     },
     async removeRecipe(id) {
       this.recipes = this.recipes.filter(function(item) {

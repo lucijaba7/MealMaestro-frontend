@@ -22,6 +22,7 @@
 
       <v-img
         :src="meal.recipe.image"
+        @click="dialogcard = !dialogcard"
         class="img rounded-xl"
         width="100%"
         height="115px"
@@ -29,6 +30,11 @@
       >
       </v-img>
     </div>
+    <ExpandedMealPopup
+      :recipeId="meal.recipe._id"
+      v-model="dialogcard"
+      v-if="dialogcard"
+    />
   </v-card>
   <AddMealCard
     v-else
@@ -41,6 +47,7 @@
 import AddMealCard from "@/components/Cards/AddMealCard";
 import WeeklyPlanService from "@/services/WeeklyPlanService";
 import DailyPlanService from "@/services/DailyPlanService";
+import ExpandedMealPopup from "../Popups/ExpandedMealPopup.vue";
 
 export default {
   name: "WeeklyMealCard",
@@ -50,7 +57,8 @@ export default {
       mealExists: typeof this.meal == "object",
       userId: this.$store.getters.getUser._id,
       meal_type:
-        typeof this.meal == "object" ? this.meal.recipe.meal_type : this.meal
+        typeof this.meal == "object" ? this.meal.recipe.meal_type : this.meal,
+      dialogcard: false
     };
   },
   mounted() {},
@@ -79,7 +87,7 @@ export default {
       }
     }
   },
-  components: { AddMealCard }
+  components: { AddMealCard, ExpandedMealPopup }
 };
 </script>
 

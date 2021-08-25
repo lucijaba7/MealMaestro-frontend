@@ -32,6 +32,12 @@
       </v-col>
       <v-spacer cols="12" sm="6" md="8" lg="9"></v-spacer>
     </v-row>
+    <v-row
+      v-if="this.recipes.length != 0 && this.recipes.length < this.numOfRecipes"
+      justify="center"
+      class="mb-5"
+      ><v-btn @click="loadMore" plain>Load more...</v-btn></v-row
+    >
   </v-row>
 </template>
 
@@ -43,16 +49,27 @@ export default {
   name: "savedRecipes",
   data() {
     return {
-      recipes: []
+      recipes: [],
+      numOfRecipes: 0
     };
   },
   created() {
-    this.getSavedRecipes();
+    this.getSavedRecipes(0, 10);
+    this.numOfRecipes = this.$store.getters.getUser.custom_recipes.length;
   },
   methods: {
-    async getSavedRecipes() {
-      let data = await UserService.getSavedRecipes();
-      if (data.length) this.recipes = data;
+    async getSavedRecipes(start, end) {
+      // let data = await UserService.getSavedRecipes();
+      // if (data.length) this.recipes = data;
+
+      const newRecipes = await UserService.getSavedRecipes(start, end);
+
+      if (this.recipes.length == 0) {
+        this.recipes = newRecipes;
+      } else this.recipes = this.recipes.concat(newRecipes);
+    },
+    loadMore() {
+      this.getSavedRecipes(this.recipes.length, this.recipes.length + 10);
     },
     async removeFromSaved(id) {
       this.recipes = this.recipes.filter(function(item) {

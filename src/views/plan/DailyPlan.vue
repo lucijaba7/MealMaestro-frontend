@@ -28,7 +28,7 @@
       <v-col cols="12" sm="4" md="3">
         <v-img :src="recipe.image" class="rounded-xl" height="100%"> </v-img>
       </v-col>
-      <v-col cols="12" sm="8" md="8">
+      <v-col cols="12" sm="8" md="9">
         <v-row align="end">
           <v-col cols="8" class="pr-0"
             ><div class="font-weight-bold text-h6">
