@@ -46,7 +46,8 @@
                 transition="fade-transition"
               >
                 <v-col align="center">
-                  <YourRecipesCard :info="meal" />
+                  <ChooseMealCard :meal="meal" />
+
                   <v-btn
                     rounded
                     outlined
@@ -66,8 +67,8 @@
 </template>
 
 <script>
-import WeeklyMealCard from "@/components/Cards/WeeklyMealCard";
-import YourRecipesCard from "@/components/Cards/YourRecipesCard";
+import ChooseMealCard from "@/components/Cards/ChooseMealCard";
+// import YourRecipesCard from "@/components/Cards/YourRecipesCard";
 import RecipeService from "@/services/RecipeService";
 import UserService from "@/services/UserService";
 
@@ -102,7 +103,7 @@ export default {
       return this.$vuetify.breakpoint.name;
     }
   },
-  components: { WeeklyMealCard, YourRecipesCard },
+  components: { ChooseMealCard },
   created() {
     this.fetchRecipes();
   },
@@ -112,15 +113,18 @@ export default {
       this.show = false;
     },
     async fetchRecipes() {
-      const custom = await UserService.getCustomRecipes(this.userId, this.meal);
+      const custom = await UserService.getCustomRecipesByMealType(this.meal);
       if (custom.length)
         this.recipes.push({ header: "Your recipes", recipes: custom });
 
-      const saved = await UserService.getSavedRecipes(this.userId, this.meal);
+      const saved = await UserService.getSavedRecipesByMealType(this.meal);
       if (saved.length)
         this.recipes.push({ header: "Saved recipes", recipes: saved });
 
-      const recommended = await RecipeService.getAllRecipes(this.meal);
+      const recommended = await RecipeService.recommendRecipesByMealType(
+        this.userId,
+        this.meal
+      );
       if (recommended.length)
         this.recipes.push({ header: "Recommended", recipes: recommended });
     },

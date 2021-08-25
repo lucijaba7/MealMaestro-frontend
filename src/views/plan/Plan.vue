@@ -103,11 +103,28 @@
     </span>
     <span v-else>
       <ConfirmPlan v-if="!this.groceries" @confirm_plan="confirmPlan" />
+      <span v-else>
+        <v-row v-if="!this.finishedShopping"
+          ><v-col class="font-weight-bold mt-5 text-h5" align="center"
+            ><div>Please finish shopping to start cooking!</div>
+            <v-btn
+              :to="{
+                name: 'GroceryList'
+              }"
+              rounded
+              class="py-3 primary elevation-0 text-caption"
+              @click="activeDay = -1"
+              >grocery list</v-btn
+            >
+          </v-col></v-row
+        >
+      </span>
       <v-fade-transition>
         <router-view
           :key="$route.query.startDay"
           :data="this.data.daily_plans"
           :confirmed="this.confirmed"
+          :finishedShopping="this.finishedShopping"
         ></router-view
       ></v-fade-transition>
     </span>
@@ -133,6 +150,7 @@ export default {
       plan: false,
       groceries: false,
       confirmed: false,
+      finishedShopping: false,
       startDay: this.$route.query.startDay,
       userId: this.$store.getters.getUser._id,
       thisWeeksMonday,
@@ -160,6 +178,7 @@ export default {
 
         if (data.grocery_list != null) {
           this.groceries = true;
+          this.finishedShopping = data.grocery_list.finished_shopping;
         }
       }
     },

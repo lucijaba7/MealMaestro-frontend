@@ -78,8 +78,21 @@ export default {
       // });
     },
     async addIngredient(obj) {
-      await FridgeService.addIngredient(this.fridgeId, obj);
-      this.fetchFridgeItems();
+      var addNew = true;
+      for (var category of this.fridgeItems) {
+        for (var item of category.ingredients_list) {
+          if (item.ingredient._id == obj.ingredient) {
+            console.log(item.ingredient);
+            addNew = false;
+            item.quantity += obj.quantity;
+          }
+        }
+      }
+      console.log(addNew);
+      if (addNew) {
+        await FridgeService.addIngredient(this.fridgeId, obj);
+        this.fetchFridgeItems();
+      }
     }
   },
 

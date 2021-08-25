@@ -14,6 +14,11 @@ export default {
       .get(`/recipes?mealType=${mealType}`)
       .then(response => response);
   },
+  recommendRecipesByMealType(userId, mealType) {
+    return httpClient
+      .get(`/recipes/recommend?userId=${userId}&mealType=${mealType}`)
+      .then(response => response);
+  },
   getRecipeById(id) {
     return httpClient.get(`/recipes/${id}`).then(response => response);
   }

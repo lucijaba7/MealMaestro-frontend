@@ -5,15 +5,21 @@
     :width="maxWidth"
     height="240"
   >
-    <v-checkbox
-      class="float-right mt-2 mr-1"
-      v-model="meal.cooked"
-      v-if="this.confirmed"
-    ></v-checkbox>
-    <v-btn class="mt-1 mr-1 float-right" v-else icon @click="removeMeal"
+    <v-btn
+      v-if="!this.confirmed"
+      class="mt-1 mr-1 float-right"
+      icon
+      @click="removeMeal"
       ><v-icon>mdi-delete</v-icon></v-btn
     >
-
+    <span v-else>
+      <v-checkbox
+        v-if="this.finishedShopping"
+        class="float-right mt-2 mr-1"
+        v-model="meal.cooked"
+        @click="cookMeal(meal)"
+      ></v-checkbox>
+    </span>
     <div class="title text-body-1 font-weight-bold pl-3 mt-2">
       {{ meal.recipe.name }}
     </div>
@@ -44,7 +50,7 @@ import DailyPlanService from "@/services/DailyPlanService";
 
 export default {
   name: "WeeklyMealCard",
-  props: ["meal", "confirmed", "dailyPlanId"],
+  props: ["meal", "confirmed", "dailyPlanId", "finishedShopping"],
   data() {
     return {
       mealExists: typeof this.meal == "object",
@@ -53,7 +59,7 @@ export default {
         typeof this.meal == "object" ? this.meal.recipe.meal_type : this.meal
     };
   },
-  mounted() {},
+
   methods: {
     async removeMeal() {
       let res = await DailyPlanService.deleteMeal(
@@ -62,6 +68,12 @@ export default {
       );
 
       this.mealExists = false;
+    },
+    async cookMeal(meal) {
+      console.log(meal);
+      await DailyPlanService.cookMeal(this.dailyPlanId, this.meal._id);
+
+      ///////// RATING
     }
   },
   computed: {

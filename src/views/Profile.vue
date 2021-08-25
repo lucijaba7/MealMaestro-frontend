@@ -80,23 +80,24 @@
       v-if="editProfileOpen"
       :info="user"
     />
-    <v-spacer></v-spacer>
-    <v-row v-if="this.recipes.length" class="my-10" justify="center">
-      <v-col
-        cols="12"
-        md="5"
-        align="left"
-        class="pa-8"
-        v-for="recipe in recipes"
-        :key="recipe.id"
+    <v-container>
+      <v-row v-if="this.recipes.length" class="my-10" justify="center">
+        <v-col
+          cols="12"
+          md="6"
+          align="left"
+          class="pa-8"
+          v-for="recipe in recipes"
+          :key="recipe.id"
+        >
+          <ProfileMealCard :info="recipe" />
+        </v-col>
+        <v-spacer cols="12" md="6"></v-spacer>
+      </v-row>
+      <v-row v-else justify="center" class="caption mt-15 text-center"
+        >Recipes not available.</v-row
       >
-        <ProfileMealCard :info="recipe" />
-      </v-col>
-      <v-spacer cols="12" md="6"></v-spacer>
-    </v-row>
-    <v-row v-else justify="center" class="caption mt-15 text-center"
-      >Recipes not available.</v-row
-    >
+    </v-container>
   </v-container>
 </template>
 

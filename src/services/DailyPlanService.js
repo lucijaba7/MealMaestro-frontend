@@ -15,5 +15,12 @@ export default {
     return httpClient.patch(`/dailyPlan/${dailyPlanId}/add`, {
       recipeId: recipeId
     });
+  },
+  cookMeal(dailyPlanId, recipeId) {
+    return Service.patch(
+      `/dailyPlan/${dailyPlanId}/cook?recipeId=${recipeId}`
+    ).then(response => response.data);
   }
 };
+
+//// zasto negdje saljem kao podatke a u cookMeal id kao?? nes zabrijavam ja
