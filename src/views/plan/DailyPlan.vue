@@ -35,15 +35,21 @@
               {{ recipe.name }}
             </div></v-col
           ><v-col cols="4">
-            <v-row align="center" justify="end" v-if="this.confirmed">
-              <span>cooked </span>
-              <v-checkbox v-model="checkbox1"></v-checkbox>
-            </v-row>
-            <v-row class="mb-2" align="center" justify="end" v-else>
+            <v-row
+              class="mb-2"
+              align="center"
+              justify="end"
+              v-if="!this.confirmed"
+            >
               <v-btn icon @click="removeMeal">
                 <v-icon>mdi-delete</v-icon>
               </v-btn></v-row
-            >
+            ><span v-else>
+              <v-row v-if="this.finishedShopping" align="center" justify="end">
+                <span>cooked </span>
+                <v-checkbox v-model="checkbox1"></v-checkbox>
+              </v-row>
+            </span>
           </v-col>
         </v-row>
 
@@ -77,10 +83,7 @@
             >Ingredients</v-col
           >
           <ul>
-            <li
-              v-for="ingredient in recipe.ingredients_list"
-              :key="ingredient.ingredient._id"
-            >
+            <li v-for="(ingredient, i) in recipe.ingredients_list" :key="i">
               {{ quantity(ingredient.quantity) }} {{ ingredient.unit }}
               {{ ingredient.ingredient.ingredient_name }}
             </li>
@@ -103,7 +106,7 @@ import DailyPlanService from "@/services/DailyPlanService";
 
 export default {
   name: "DailyPlan",
-  props: ["data", "confirmed"],
+  props: ["data", "confirmed", "finishedShopping"],
   data() {
     return {
       // defaultMeal: "Breakfast",
@@ -114,9 +117,7 @@ export default {
     };
   },
   created() {},
-  mounted() {
-    console.log(this.dailyPlanId);
-  },
+  mounted() {},
   methods: {
     quantity(num) {
       return +parseFloat(num).toFixed(2);
@@ -138,6 +139,7 @@ export default {
         this.dailyPlanId,
         this.mealPlanId
       );
+      // tu treba maknut iz liste a ne refresht sve
       this.$router.go(0);
     }
   },

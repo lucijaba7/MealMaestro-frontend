@@ -59,7 +59,7 @@
                     </tr>
                   </table>
                 </td>
-                <td>
+                <td class="px-0">
                   <v-btn
                     fab
                     color="transparent"
@@ -120,7 +120,7 @@ export default {
           }
         }
       }
-      if (decrease) fridgeItem.quantity -= 5;
+      if (decrease && fridgeItem.quantity - 5 >= 0) fridgeItem.quantity -= 5;
     },
     removeIngredient(fridgeItem, index) {
       var remove = true;
@@ -129,11 +129,12 @@ export default {
           groceryItem.ingredient.ingredient_name ==
           fridgeItem.ingredient.ingredient_name
         ) {
-          this.remove = false;
+          remove = false;
+          this.warning1 = true;
           break;
         }
       }
-      if (remove) this.categoryItems.splice(i, 1);
+      if (remove) this.categoryItems.splice(index, 1);
     }
   },
   computed: {

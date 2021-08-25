@@ -21,10 +21,5 @@ export default {
     return Service.patch(`/fridge/${fridgeId}/add`, { newItem: newItem }).then(
       response => response.data
     );
-  },
-  removeIngredient(fridgeId, itemId) {
-    return Service.patch(`/fridge/${fridgeId}/remove`, { itemId: itemId }).then(
-      response => response.data
-    );
   }
 };

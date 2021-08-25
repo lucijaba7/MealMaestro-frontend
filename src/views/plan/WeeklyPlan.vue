@@ -19,6 +19,7 @@
               :meal="mealDetails(day, meal)"
               :confirmed="confirmed"
               :dailyPlanId="dailyPlanId(day)"
+              :finishedShopping="finishedShopping"
             />
           </v-slide-item> </v-slide-group
       ></v-col>
@@ -31,7 +32,7 @@ import WeeklyMealCard from "@/components/Cards/WeeklyMealCard";
 
 export default {
   name: "WeeklyPlan",
-  props: ["data", "confirmed"],
+  props: ["data", "confirmed", "finishedShopping"],
   data() {
     return {
       weekDays: [
