@@ -83,19 +83,20 @@ export default {
           if (item.ingredient._id == obj.ingredient) {
             console.log(item.ingredient);
             addNew = false;
-            item.quantity += obj.quantity;
+            item.quantity += Number(obj.quantity);
           }
         }
       }
 
-      if (!this.fridegId) {
+      if (!this.fridgeId) {
         const fridge = await FridgeService.createFridge();
+        console.log(fridge);
         this.fridgeId = fridge._id;
       }
-      // if (addNew) {
-      //   await FridgeService.addIngredient(this.fridgeId, obj);
-      //   this.fetchFridgeItems();
-      // }
+      if (addNew) {
+        await FridgeService.addIngredient(this.fridgeId, obj);
+        this.fetchFridgeItems();
+      }
     }
   },
 
