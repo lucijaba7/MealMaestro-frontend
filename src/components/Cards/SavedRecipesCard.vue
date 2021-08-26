@@ -12,8 +12,9 @@
         >
       </v-col>
       <v-rating
+        v-if="this.ratings > 0"
         readonly
-        :value="0"
+        :value="ratings"
         background-color="accent"
         color="accent"
         class="mt-2 mr-4"
@@ -55,14 +56,25 @@
 
 <script>
 import ExpandedMealPopup from "../Popups/ExpandedMealPopup.vue";
+import RecipeService from "@/services/RecipeService";
 
 export default {
   name: "SavedRecipesCard",
   props: ["info"],
   data() {
     return {
-      dialogcard: false
+      dialogcard: false,
+      ratings: 0
     };
+  },
+  computed() {
+    this.getRating();
+  },
+  methods: {
+    async getRating() {
+      let data = await RecipeService.getRating(this.info._id);
+      if (data.length) this.ratings = data[0].rating;
+    }
   },
   components: { ExpandedMealPopup }
 };

@@ -45,6 +45,7 @@
             :class="this.$vuetify.breakpoint.name == 'xs' ? 'mr-10' : 'mr-2'"
           >
             <v-rating
+              v-if="this.ratings > 0"
               readonly
               :value="ratings"
               background-color="accent "
@@ -148,7 +149,6 @@ export default {
     };
   },
   created() {
-    // this.recipeId = this.$route.params.id;
     this.getRecipe();
     this.checkIfSaved();
   },
@@ -160,6 +160,11 @@ export default {
     async getRecipe() {
       let data = await RecipeService.getRecipeById(this.recipeId);
       this.recipe = data;
+      this.getRating();
+    },
+    async getRating() {
+      let data = await RecipeService.getRating(this.recipeId);
+      if (data.length) this.ratings = data[0].rating;
     },
     async checkIfSaved() {
       let savedRecipes = await UserService.getSavedRecipes("", "");

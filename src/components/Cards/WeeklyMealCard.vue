@@ -41,6 +41,7 @@
       v-model="dialogcard"
       v-if="dialogcard"
     />
+    <RatingPopup :info="meal.recipe" v-model="rating" v-if="rating" />
   </v-card>
   <AddMealCard
     v-else
@@ -54,6 +55,7 @@ import AddMealCard from "@/components/Cards/AddMealCard";
 import WeeklyPlanService from "@/services/WeeklyPlanService";
 import DailyPlanService from "@/services/DailyPlanService";
 import ExpandedMealPopup from "../Popups/ExpandedMealPopup.vue";
+import RatingPopup from "../Popups/RatingPopup.vue";
 
 export default {
   name: "WeeklyMealCard",
@@ -62,9 +64,11 @@ export default {
     return {
       mealExists: typeof this.meal == "object",
       userId: this.$store.getters.getUser._id,
+      username: this.$store.getters.getUser.username,
       meal_type:
         typeof this.meal == "object" ? this.meal.recipe.meal_type : this.meal,
-      dialogcard: false
+      dialogcard: false,
+      rating: false
     };
   },
 
@@ -81,7 +85,13 @@ export default {
       console.log(meal);
       await DailyPlanService.cookMeal(this.dailyPlanId, this.meal._id);
 
-      ///////// RATING
+      if (!this.meal.recipe.ratings) this.rating = true;
+      else if (
+        this.meal.recipe.ratings.find(
+          rating => rating.username == this.username
+        ) == undefined
+      )
+        this.rating = true;
     }
   },
   computed: {
@@ -99,7 +109,7 @@ export default {
       }
     }
   },
-  components: { AddMealCard, ExpandedMealPopup }
+  components: { AddMealCard, ExpandedMealPopup, RatingPopup }
 };
 </script>
 

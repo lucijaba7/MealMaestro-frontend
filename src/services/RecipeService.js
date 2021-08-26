@@ -1,4 +1,5 @@
 import httpClient from "@/utils/httpClient";
+import service from "@/utils/service";
 
 export default {
   getRecipeImage(data) {
@@ -21,5 +22,13 @@ export default {
   },
   getRecipeById(id) {
     return httpClient.get(`/recipes/${id}`).then(response => response);
+  },
+  rateRecipe(id, data) {
+    return service
+      .patch(`/recipes/${id}/rating`, data)
+      .then(response => response.data);
+  },
+  getRating(id) {
+    return service.get(`/recipes/${id}/rating`).then(response => response.data);
   }
 };
