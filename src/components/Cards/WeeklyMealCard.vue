@@ -17,6 +17,7 @@
         v-if="this.finishedShopping"
         class="float-right mt-2 mr-1"
         v-model="meal.cooked"
+        :disabled="this.disabled"
         @click="cookMeal(meal)"
       ></v-checkbox>
     </span>
@@ -60,6 +61,7 @@ export default {
   props: ["meal", "confirmed", "dailyPlanId", "finishedShopping"],
   data() {
     return {
+      disabled: this.meal.cooked,
       mealExists: typeof this.meal == "object",
       userId: this.$store.getters.getUser._id,
       meal_type:
@@ -78,7 +80,7 @@ export default {
       this.mealExists = false;
     },
     async cookMeal(meal) {
-      console.log(meal);
+      this.disabled = true;
       await DailyPlanService.cookMeal(this.dailyPlanId, this.meal._id);
 
       ///////// RATING
@@ -111,11 +113,10 @@ export default {
   /* word-break: normal; */
   height: 90px;
 }
-.v-card {
-  cursor: pointer;
-}
+
 .img {
   position: absolute;
   bottom: 0;
+  cursor: pointer;
 }
 </style>

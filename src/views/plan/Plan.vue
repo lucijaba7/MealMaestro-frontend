@@ -98,8 +98,11 @@
       /></v-col>
     </v-row>
     <span v-if="!plan">
-      <NoPlan v-if="this.thisWeeksMonday() != this.startDay" />
-      <CreatePlan v-else @create_plan="createPlan" />
+      <CreatePlan
+        v-if="this.thisWeeksMonday() == this.startDay || this.isItSunday"
+        @create_plan="createPlan"
+      />
+      <NoPlan v-else />
     </span>
     <span v-else>
       <ConfirmPlan v-if="!this.groceries" @confirm_plan="confirmPlan" />
@@ -125,6 +128,7 @@
           :data="this.data.daily_plans"
           :confirmed="this.confirmed"
           :finishedShopping="this.finishedShopping"
+          @getData="this.fetchWeeklyPlan"
         ></router-view
       ></v-fade-transition>
     </span>
@@ -160,7 +164,10 @@ export default {
       activeDay: this.getActiveDay()
     };
   },
-  mounted() {},
+
+  mounted() {
+    console.log(this.isItSunday);
+  },
   created() {
     this.fetchWeeklyPlan();
   },
@@ -208,6 +215,15 @@ export default {
       this.groceries = true;
       this.confirmed = true;
     }
+    // // cookMeal(mealPlanId) {
+    // //   for (var plan of this.data.daily_plans) {
+    // //     for (var meal of plan.meals) {
+    // //       if (meal._id == mealPlanId) {
+    // //         meal.cooked = true;
+    // //       }
+    // //     }
+    // //   }
+    // }
   },
   components: { CalendarButton, FloatingNav, CreatePlan, ConfirmPlan, NoPlan },
   computed: {
@@ -225,6 +241,15 @@ export default {
       } while (week_days.length != 7);
 
       return week_days;
+    },
+    isItSunday() {
+      var today = new Date();
+
+      return (
+        moment(today)
+          .add(1, "days")
+          .format("YYYY-MM-DD") == this.startDay
+      );
     },
     device() {
       return this.$vuetify.breakpoint.name;

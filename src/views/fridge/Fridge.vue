@@ -15,7 +15,6 @@
       <v-spacer cols="3"></v-spacer>
     </v-row>
     <v-btn
-      v-if="this.fridgeId"
       rounded
       small
       class="primary elevation-0 mt-1"
@@ -88,11 +87,15 @@ export default {
           }
         }
       }
-      console.log(addNew);
-      if (addNew) {
-        await FridgeService.addIngredient(this.fridgeId, obj);
-        this.fetchFridgeItems();
+
+      if (!this.fridegId) {
+        const fridge = await FridgeService.createFridge();
+        this.fridgeId = fridge._id;
       }
+      // if (addNew) {
+      //   await FridgeService.addIngredient(this.fridgeId, obj);
+      //   this.fetchFridgeItems();
+      // }
     }
   },
 

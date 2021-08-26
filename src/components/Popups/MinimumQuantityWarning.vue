@@ -23,21 +23,19 @@
           <v-col cols="12" sm="5" align-self="center">
             <v-img
               src="@/assets/logo.png"
-              :width="this.$vuetify.breakpoint.name == 'xs' ? '80%' : '70%'"
-              :height="this.$vuetify.breakpoint.name == 'xs' ? '80%' : '70%'"
+              :width="device == 'xs' ? '60%' : '80%'"
+              :height="device == 'xs' ? '60%' : '80%'"
               class="mx-auto"
             ></v-img>
           </v-col>
-          <v-col cols="12" sm="7" class="pa-0">
-            <v-card-title
-              class="font-weight-bold"
-              :style="{
-                'fontSize: 20px': this.$vuetify.breakpoint.name == 'xs'
-              }"
-            >
-              We're sorry.
-            </v-card-title>
+          <v-col
+            :align="device == 'xs' ? 'center' : 'left'"
+            cols="12"
+            sm="7"
+            class="pa-0"
+          >
             <v-card-text>
+              <b style="font-size: 25px">We're sorry.</b> <br />
               To accomplish this week's plan, you cannot lower the quantity of
               this ingredient.
             </v-card-text>
@@ -76,6 +74,9 @@ export default {
       set(value) {
         this.$emit("input", value);
       }
+    },
+    device() {
+      return this.$vuetify.breakpoint.name;
     }
   }
 };

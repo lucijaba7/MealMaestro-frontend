@@ -6,7 +6,7 @@
       ></v-col>
       <v-spacer></v-spacer>
     </v-row>
-    <v-row v-if="!recipe"
+    <v-row v-if="!this.meal"
       ><v-col align="center">
         <div>There is no {{ defaultMeal }} planned for today.</div>
         <div v-if="!confirmed">
@@ -26,15 +26,17 @@
     </v-row>
     <v-row v-else>
       <v-col cols="12" sm="4" md="3">
-        <v-img :src="recipe.image" class="rounded-xl" height="100%"> </v-img>
+        <v-img :src="this.meal.recipe.image" class="rounded-xl" height="100%">
+        </v-img>
       </v-col>
       <v-col cols="12" sm="8" md="9">
         <v-row align="end">
           <v-col cols="8" class="pr-0"
             ><div class="font-weight-bold text-h6">
-              {{ recipe.name }}
+              {{ this.meal.recipe.name }}
             </div></v-col
-          ><v-col cols="4">
+          >
+          <v-col cols="4">
             <v-row
               class="mb-2"
               align="center"
@@ -44,10 +46,15 @@
               <v-btn icon @click="removeMeal">
                 <v-icon>mdi-delete</v-icon>
               </v-btn></v-row
-            ><span v-else>
+            >
+            <span v-else>
               <v-row v-if="this.finishedShopping" align="center" justify="end">
                 <span>cooked </span>
-                <v-checkbox v-model="checkbox1"></v-checkbox>
+                <v-checkbox
+                  v-model="cooked[defaultMeal]"
+                  :disabled="cooked[defaultMeal]"
+                  @click="cookMeal()"
+                ></v-checkbox>
               </v-row>
             </span>
           </v-col>
@@ -59,21 +66,15 @@
             cols="12"
             align-self="end"
             class="font-weight-bold text-subtitle-1"
-            >{{ this.recipe.meal_type }}</v-col
+            >{{ this.meal.recipe.meal_type }}</v-col
           >
           <v-col cols="12" sm="6">
-            {{ recipe.servings }} servings
+            {{ this.meal.recipe.servings }} servings
             <v-icon small class="ml-1">mdi-silverware-fork-knife</v-icon>
-            <!-- <v-btn
-              small
-              fab
-              class="elevation-0 ml-1"
-              max-width="22"
-              max-height="22"
-              ><v-icon small color="primary">mdi-pencil</v-icon></v-btn
-            > -->
+
             <p class="ma-0">
-              {{ recipe.total_time }} <v-icon small>mdi-clock</v-icon>
+              {{ this.meal.recipe.total_time }} min
+              <v-icon small>mdi-clock</v-icon>
             </p>
           </v-col>
           <v-col cols="12" sm="6"> </v-col>
@@ -83,7 +84,10 @@
             >Ingredients</v-col
           >
           <ul>
-            <li v-for="(ingredient, i) in recipe.ingredients_list" :key="i">
+            <li
+              v-for="(ingredient, i) in this.meal.recipe.ingredients_list"
+              :key="i"
+            >
               {{ quantity(ingredient.quantity) }} {{ ingredient.unit }}
               {{ ingredient.ingredient.ingredient_name }}
             </li>
@@ -111,13 +115,15 @@ export default {
     return {
       // defaultMeal: "Breakfast",
       meals: ["Breakfast", "Lunch", "Dinner", "Snack", "Dessert"],
-      checkbox1: false,
       dialog: false,
-      defaultMeal: this.startMeal()
+      defaultMeal: this.startMeal(),
+      cooked: this.cookedObject()
     };
   },
   created() {},
-  mounted() {},
+  mounted() {
+    console.log(this.cooked);
+  },
   methods: {
     quantity(num) {
       return +parseFloat(num).toFixed(2);
@@ -134,22 +140,39 @@ export default {
       }
       return "Dinner";
     },
+    cookedObject() {
+      var cooked = {};
+      for (var day_plan of this.data) {
+        if (day_plan.day == this.$route.query.weekDay) {
+          for (var meal of day_plan.meals) {
+            cooked[meal.recipe.meal_type] = meal.cooked;
+          }
+        }
+      }
+      return cooked;
+    },
     async removeMeal() {
       let res = await DailyPlanService.deleteMeal(
         this.dailyPlanId,
         this.mealPlanId
       );
-      // tu treba maknut iz liste a ne refresht sve
+
       this.$router.go(0);
+    },
+    async cookMeal() {
+      this.disabled = true;
+      await DailyPlanService.cookMeal(this.dailyPlanId, this.meal._id);
+
+      ///////// RATING
     }
   },
   computed: {
-    recipe() {
+    meal() {
       for (var plan of this.data) {
         if (plan.day == this.$route.query.weekDay) {
           for (var meal of plan.meals) {
             if (meal.recipe.meal_type == this.defaultMeal) {
-              return meal.recipe;
+              return meal;
             }
           }
         }
@@ -178,8 +201,37 @@ export default {
     },
     directions() {
       var parser = new DOMParser();
-      var doc = parser.parseFromString(this.recipe.directions, "text/html");
+      var doc = parser.parseFromString(
+        this.meal.recipe.directions,
+        "text/html"
+      );
       return doc.body.firstChild.textContent;
+    }
+    // cooked: {
+    //   get() {
+    //     return this.meal.cooked;
+    //   },
+    //   set(val) {
+    //     return val;
+    //   }
+    // }
+
+    // disable: {
+    //   get() {
+    //     return this.meal.cooked;
+    //   },
+    //   set(a) {
+    //     console.log(a);
+    //   }
+    // }
+  },
+  watch: {
+    //   meal() {
+    //     this.cooked;
+    //   },
+    $route: function() {
+      this.cooked = this.cookedObject();
+      this.defaultMeal = this.startMeal();
     }
   },
   components: { ChooseMealPopup }

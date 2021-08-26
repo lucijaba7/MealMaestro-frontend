@@ -21,5 +21,8 @@ export default {
     return Service.patch(`/fridge/${fridgeId}/add`, { newItem: newItem }).then(
       response => response.data
     );
+  },
+  createFridge() {
+    return Service.post(`/fridge`).then(response => response.data);
   }
 };

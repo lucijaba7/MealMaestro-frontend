@@ -7,18 +7,18 @@ let Service = axios.create({
 
 export default {
   deleteMeal(dailyPlanId, mealPlanId) {
-    return Service.patch(`/dailyPlan/${dailyPlanId}/remove`, {
-      mealPlanId: mealPlanId
-    });
+    return Service.patch(
+      `/dailyPlan/${dailyPlanId}/remove?mealPlanId=${mealPlanId}`
+    );
   },
   addMeal(dailyPlanId, recipeId) {
-    return httpClient.patch(`/dailyPlan/${dailyPlanId}/add`, {
-      recipeId: recipeId
-    });
+    return httpClient.patch(
+      `/dailyPlan/${dailyPlanId}/add?recipeId=${recipeId}`
+    );
   },
-  cookMeal(dailyPlanId, recipeId) {
+  cookMeal(dailyPlanId, mealPlanId) {
     return Service.patch(
-      `/dailyPlan/${dailyPlanId}/cook?recipeId=${recipeId}`
+      `/dailyPlan/${dailyPlanId}/cook?mealPlanId=${mealPlanId}`
     ).then(response => response.data);
   }
 };
