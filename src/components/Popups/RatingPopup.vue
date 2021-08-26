@@ -2,7 +2,7 @@
   <v-row justify="center">
     <v-dialog v-model="show" max-width="500" @click:outside="show = false">
       <v-card>
-        <v-col align="right" class="pb-0">
+        <v-col align="right" class="pb-0 mb-3">
           <v-btn
             absolute
             right
@@ -25,18 +25,19 @@
           </v-col>
           <v-col cols="12" sm="7" class="pa-0" align-self="center">
             <v-card-title
-              class="font-weight-bold text-center pb-0"
+              class="font-weight-bold text-center pb-0 mr-2"
               :style="
                 this.$vuetify.breakpoint.name == 'xs' ? 'fontSize: 20px' : ''
               "
             >
-              Did you enjoy neki jako dugacak naziv recepta?
+              Did you enjoy {{ info.name }}?
             </v-card-title>
             <v-card-text class="text-center pb-2 pt-0">
-              Let {{ meal.username }} know!
+              Let {{ info.username }} know!
               <v-rating
                 hover
                 :value="0"
+                @input="addRating($event)"
                 background-color="accent "
                 color="accent"
                 dense
@@ -48,7 +49,10 @@
 
         <v-card-actions class="pa-0 mt-2">
           <v-row justify="center" class="ma-0">
-            <v-btn rounded class="py-3 px-15 mb-5 mr-2 primary elevation-0"
+            <v-btn
+              @click="saveRating"
+              rounded
+              class="py-3 px-15 mb-5 mr-2 primary elevation-0"
               >Submit</v-btn
             >
             <v-btn
@@ -66,18 +70,33 @@
 </template>
 
 <script>
+import moment from "moment";
+import RecipeService from "@/services/RecipeService.js";
+
 export default {
   props: {
-    value: Boolean
+    value: Boolean,
+    info: Object
   },
   data() {
     return {
-      meal: {
-        name: "Peanutty Edamame and Noodle Salad",
-        username: "@sarah_foster"
-      },
-      rating: 3.5
+      rating: null
     };
+  },
+  methods: {
+    addRating(value) {
+      this.rating = value;
+    },
+    async saveRating() {
+      let rating = {
+        rate: this.rating,
+        date: moment(new Date()).format("yyyy-MM-DD hh:mm a"),
+        username: this.$store.getters.getUser.username
+      };
+
+      let response = await RecipeService.rateRecipe(this.info._id, rating);
+      this.show = false;
+    }
   },
   computed: {
     show: {

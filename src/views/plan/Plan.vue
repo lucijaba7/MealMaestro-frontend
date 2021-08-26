@@ -8,7 +8,8 @@
         :align="device == 'xs' ? 'center' : 'start'"
       >
         <v-img
-          src="https://cdn.image4.io/mealmaestro/f_auto/avatars/24402cdd-ffcd-448b-bddd-d2f96b82413f.png"
+          v-if="!(Object.keys(user).length === 0)"
+          :src="user.avatar.url"
           alt="Avatar"
           lazy-src
           contain
@@ -25,9 +26,9 @@
         align-self="center"
         :align="device == 'xs' ? 'center' : 'start'"
       >
-        <div class="text-h5 font-weight-bold">Ciao Lucija!</div>
+        <div class="text-h5 font-weight-bold">Ciao {{ user.username }}!</div>
         <div>
-          People who love to eat are always the best people
+          {{ user.description }}
         </div>
       </v-col>
     </v-row>
@@ -151,6 +152,7 @@ const { weekdayName, monthName } = require("@/assets/date/date_handling.js");
 export default {
   data() {
     return {
+      user: this.$store.getters.getUser,
       plan: false,
       groceries: false,
       confirmed: false,

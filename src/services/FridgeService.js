@@ -1,9 +1,5 @@
 import httpClient from "@/utils/httpClient";
-import axios from "axios";
-
-let Service = axios.create({
-  baseURL: "http://localhost:4000"
-});
+import service from "@/utils/service";
 
 export default {
   getFridge(userId) {
@@ -12,17 +8,16 @@ export default {
       .then(response => response);
   },
   updateFridge(fridgeId, category, itemList) {
-    return Service.patch(
-      `/fridge/${fridgeId}?category=${category}`,
-      itemList
-    ).then(response => response.data);
+    return service
+      .patch(`/fridge/${fridgeId}?category=${category}`, itemList)
+      .then(response => response.data);
   },
   addIngredient(fridgeId, newItem) {
-    return Service.patch(`/fridge/${fridgeId}/add`, { newItem: newItem }).then(
-      response => response.data
-    );
+    return service
+      .patch(`/fridge/${fridgeId}/add`, { newItem: newItem })
+      .then(response => response.data);
   },
   createFridge() {
-    return Service.post(`/fridge`).then(response => response.data);
+    return service.post(`/fridge`).then(response => response.data);
   }
 };

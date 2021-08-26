@@ -1,14 +1,8 @@
-// import httpClient from "@/utils/httpClient";
-import axios from "axios";
-
-let client = axios.create({
-  baseURL: "http://localhost:4000" // adresa backenda
-  // timeout: 10000 // "1s da poziv prema backendu uspije, više od toga ne čeka"
-});
+import service from "@/utils/service";
 
 export default {
   getAllIngredients() {
-    return client.get("/ingredients").then(response => response.data);
+    return service.get("/ingredients").then(response => response.data);
   }
   // getBySlug(slug) {
   //     return axios

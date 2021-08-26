@@ -7,7 +7,8 @@
             v-if="
               this.$route.query.username ||
                 this.$route.path == '/recipes/savedRecipes' ||
-                this.$route.path == '/plan/weekly'
+                this.$route.path == '/plan/weekly' ||
+                this.$route.path == '/'
             "
             @click="editSavedRecipes()"
             small
@@ -44,6 +45,7 @@
             :class="this.$vuetify.breakpoint.name == 'xs' ? 'mr-10' : 'mr-2'"
           >
             <v-rating
+              v-if="this.ratings > 0"
               readonly
               :value="ratings"
               background-color="accent "
@@ -147,7 +149,6 @@ export default {
     };
   },
   created() {
-    // this.recipeId = this.$route.params.id;
     this.getRecipe();
     this.checkIfSaved();
   },
@@ -159,9 +160,14 @@ export default {
     async getRecipe() {
       let data = await RecipeService.getRecipeById(this.recipeId);
       this.recipe = data;
+      this.getRating();
+    },
+    async getRating() {
+      let data = await RecipeService.getRating(this.recipeId);
+      if (data.length) this.ratings = data[0].rating;
     },
     async checkIfSaved() {
-      let savedRecipes = await UserService.getSavedRecipes();
+      let savedRecipes = await UserService.getSavedRecipes("", "");
       if (savedRecipes.some(recipe => recipe._id === this.recipeId))
         this.saved = true;
       else this.saved = false;

@@ -1,4 +1,5 @@
 import httpClient from "@/utils/httpClient";
+import service from "@/utils/service";
 
 export default {
   getRecipeImage(data) {
@@ -14,12 +15,20 @@ export default {
       .get(`/recipes?mealType=${mealType}`)
       .then(response => response);
   },
-  recommendRecipesByMealType(userId, mealType) {
+  recommendRecipesByMealType(mealType, offset) {
     return httpClient
-      .get(`/recipes/recommend?userId=${userId}&mealType=${mealType}`)
+      .get(`/recipes/recommend?mealType=${mealType}&offset=${offset}`)
       .then(response => response);
   },
   getRecipeById(id) {
     return httpClient.get(`/recipes/${id}`).then(response => response);
+  },
+  rateRecipe(id, data) {
+    return service
+      .patch(`/recipes/${id}/rating`, data)
+      .then(response => response.data);
+  },
+  getRating(id) {
+    return service.get(`/recipes/${id}/rating`).then(response => response.data);
   }
 };

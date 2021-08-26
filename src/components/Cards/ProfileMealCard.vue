@@ -43,6 +43,7 @@
           </v-col>
           <v-col align="end" cols="7" class="pr-0 pb-0 pt-1">
             <v-rating
+              v-if="this.ratings > 0"
               readonly
               :value="this.ratings"
               background-color="accent"
@@ -88,21 +89,28 @@
 
 <script>
 import ExpandedMealPopup from "../Popups/ExpandedMealPopup.vue";
+import RecipeService from "@/services/RecipeService";
 import moment from "moment";
 
 export default {
   data() {
     return {
       saved: false,
-      dialogcard: false
+      dialogcard: false,
+      ratings: 0
     };
   },
   props: ["info"],
+  created() {
+    this.getRating();
+  },
+  methods: {
+    async getRating() {
+      let data = await RecipeService.getRating(this.info._id);
+      if (data.length) this.ratings = data[0].rating;
+    }
+  },
   computed: {
-    ratings() {
-      ///ako ima rating superr tu nes agregirano bo, za sad:
-      return 4.5;
-    },
     date() {
       return moment(this.info.date_created, "yyyy-MM-DD hh:mm a").format(
         "DD/MM/yyyy"

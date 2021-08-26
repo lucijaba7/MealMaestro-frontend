@@ -1,5 +1,5 @@
 <template>
-  <v-container :fluid="device != 'lg' || device != 'xl'">
+  <v-container fluid class="pt-8">
     <v-row>
       <v-col cols="12" class="pb-0">
         <p class="text-h3 mt-5 mb-1">BROWSE RECIPES</p>
@@ -15,7 +15,7 @@
     <v-col cols="12">
       <v-autocomplete
         :disabled="isUpdating"
-        :items="recipes"
+        :items="allRecipes"
         color="seondary lighten-2"
         label="Search"
         item-text="name"
@@ -27,16 +27,10 @@
             <img :src="data.item.image" />
           </v-list-item-avatar>
           <v-list-item-content>
-            <!-- <router-link
-              :to="`/${data.item._id}`"
-              :key="data.item._id"
-              style="text-decoration:none"
-            > -->
             <v-list-item-title
               @click="popup(data.item._id)"
               v-html="data.item.name"
             ></v-list-item-title>
-            <!-- </router-link> -->
           </v-list-item-content>
         </template>
       </v-autocomplete>
@@ -47,11 +41,39 @@
       />
     </v-col>
 
-    <!-- <router-view></router-view> -->
+    <v-container>
+      <v-row
+        v-if="this.recommendedRecipes.length"
+        class="my-10"
+        justify="center"
+      >
+        <v-col
+          cols="12"
+          md="6"
+          align="left"
+          class="pa-8"
+          v-for="recipe in recommendedRecipes"
+          :key="recipe.id"
+        >
+          <ProfileMealCard :info="recipe" />
+        </v-col>
+        <v-spacer cols="12" md="6"></v-spacer>
+      </v-row>
+      <v-row
+        v-if="this.recommendedRecipes.length < this.numOfRecipes"
+        justify="center"
+        class="mb-5"
+        ><v-btn @click="loadMore" plain>Load more...</v-btn></v-row
+      >
+      <v-row v-else justify="center" class="caption my-8 text-center"
+        >No more recipes to show.</v-row
+      >
+    </v-container>
   </v-container>
 </template>
 
 <script>
+import ProfileMealCard from "@/components/Cards/ProfileMealCard.vue";
 import ExpandedMealPopup from "../components/Popups/ExpandedMealPopup.vue";
 import RecipeService from "../services/RecipeService";
 
@@ -60,31 +82,43 @@ export default {
   data() {
     return {
       dialogcard: false,
-      recipes: [],
+      allRecipes: [],
+      recommendedRecipes: [],
+      numOfRecipes: 200,
       recipeId: "",
       autoUpdate: true,
       isUpdating: false
     };
   },
   components: {
-    ExpandedMealPopup
+    ExpandedMealPopup,
+    ProfileMealCard
   },
   created() {
     this.getAllRecipes();
+    this.getRecommendedRecipes(0);
   },
   methods: {
     async getAllRecipes() {
       let data = await RecipeService.getAllRecipes("");
-      this.recipes = data;
+      this.allRecipes = data;
+    },
+    async getRecommendedRecipes(offset) {
+      const newRecipes = await RecipeService.recommendRecipesByMealType(
+        "",
+        offset
+      );
+
+      if (this.recommendedRecipes.length == 0)
+        this.recommendedRecipes = newRecipes;
+      else this.recommendedRecipes = this.recommendedRecipes.concat(newRecipes);
+    },
+    loadMore() {
+      this.getRecommendedRecipes(this.recommendedRecipes.length + 10);
     },
     popup(id) {
       this.recipeId = id;
       this.dialogcard = !this.dialogcard;
-    }
-  },
-  computed: {
-    device() {
-      return this.$vuetify.breakpoint.name;
     }
   },
   watch: {
