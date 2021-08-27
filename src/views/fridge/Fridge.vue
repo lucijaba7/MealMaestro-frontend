@@ -61,7 +61,7 @@ export default {
   },
   methods: {
     async fetchFridgeItems() {
-      const data = await FridgeService.getFridge(this.userId);
+      const data = await FridgeService.getFridge();
       if (data.length) {
         this.fridgeId = data[0]._id;
         this.fridgeItems = data[0].fridge_items;

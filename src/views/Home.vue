@@ -100,7 +100,7 @@ export default {
   },
   methods: {
     async getAllRecipes() {
-      let data = await RecipeService.getAllRecipes("");
+      let data = await RecipeService.getAllRecipes();
       this.allRecipes = data;
     },
     async getRecommendedRecipes(offset) {

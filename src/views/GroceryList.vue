@@ -126,7 +126,7 @@ export default {
 
   methods: {
     async fetchGroceryList() {
-      let response = await GroceryListService.getGroceryList(this.userId);
+      let response = await GroceryListService.getGroceryList();
       if (response.length) {
         if (!response[0].finished_shopping) {
           this.active = true;

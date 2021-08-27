@@ -176,10 +176,7 @@ export default {
 
   methods: {
     async fetchWeeklyPlan() {
-      const data = await WeeklyPlanService.getWeeklyPlan(
-        this.userId,
-        this.startDay
-      );
+      const data = await WeeklyPlanService.getWeeklyPlan(this.startDay);
       if (data != null) {
         this.plan = true;
         this.data = data;
@@ -192,10 +189,7 @@ export default {
       }
     },
     async createPlan() {
-      const data = await WeeklyPlanService.createWeeklyPlan(
-        this.userId,
-        this.startDay
-      );
+      const data = await WeeklyPlanService.createWeeklyPlan(this.startDay);
       this.fetchWeeklyPlan();
     },
     getActiveDay() {

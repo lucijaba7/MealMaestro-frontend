@@ -1,14 +1,14 @@
 import httpClient from "@/utils/httpClient";
 
 export default {
-  getWeeklyPlan(user, startDay) {
+  getWeeklyPlan(startDay) {
     return httpClient
-      .get(`/weeklyPlan?userId=${user}&startDay=${startDay}`)
+      .get(`/weeklyPlan?startDay=${startDay}`)
       .then(response => response);
   },
-  createWeeklyPlan(user, startDay) {
+  createWeeklyPlan(startDay) {
     return httpClient
-      .post(`/weeklyPlan?userId=${user}&startDay=${startDay}`)
+      .post(`/weeklyPlan?startDay=${startDay}`)
       .then(response => response);
   },
   createGroceryList(planId) {

@@ -2,10 +2,8 @@ import httpClient from "@/utils/httpClient";
 import service from "@/utils/service";
 
 export default {
-  getGroceryList(userId) {
-    return httpClient
-      .get(`/groceryList?userId=${userId}`)
-      .then(response => response);
+  getGroceryList() {
+    return httpClient.get(`/groceryList`).then(response => response);
   },
   updateGroceryList(listId, items) {
     return service

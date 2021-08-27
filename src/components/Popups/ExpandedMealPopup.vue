@@ -111,7 +111,7 @@
             <v-col cols="12" sm="6">
               <p class="font-weight-bold primaryText--text mb-0">Directions:</p>
               <p>
-                {{ recipe.directions }}
+                {{ directions }}
               </p>
             </v-col>
           </v-row>
@@ -207,6 +207,11 @@ export default {
         case "xl":
           return 160;
       }
+    },
+    directions() {
+      var parser = new DOMParser();
+      var doc = parser.parseFromString(this.recipe.directions, "text/html");
+      return doc.body.firstChild.textContent;
     }
   }
 };
