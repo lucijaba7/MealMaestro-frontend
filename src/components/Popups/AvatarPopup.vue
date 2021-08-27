@@ -63,7 +63,8 @@
           ><v-img
             :src="avatar.url"
             :lazy-src="avatar.url"
-            max-height="100px"
+            :height="max"
+            :width="max"
             aspect-ratio="1"
             @click="selectedAvatar(avatar.url)"
             class="avatar transform"
@@ -111,7 +112,6 @@ export default {
       this.saved = true;
     } else {
       this.tempAvatar = this.avatars[0].url;
-      console.log(this.tempAvatar);
     }
   },
   methods: {
@@ -129,6 +129,21 @@ export default {
   watch: {
     dialog: function() {
       if (!this.dialog) this.tempAvatar = this.avatarUrl;
+    }
+  },
+  computed: {
+    max() {
+      switch (this.$vuetify.breakpoint.name) {
+        case "xs":
+          return 40;
+        case "sm":
+          return 60;
+        case "md":
+          return 80;
+        case "lg":
+        case "xl":
+          return 90;
+      }
     }
   }
 };

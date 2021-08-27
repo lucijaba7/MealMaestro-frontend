@@ -26,9 +26,7 @@
           <v-col cols="12" sm="7" class="pa-0" align-self="center">
             <v-card-title
               class="font-weight-bold text-center pb-0 mr-2"
-              :style="
-                this.$vuetify.breakpoint.name == 'xs' ? 'fontSize: 20px' : ''
-              "
+              style="word-break: normal"
             >
               Did you enjoy {{ info.name }}?
             </v-card-title>
