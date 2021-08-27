@@ -126,7 +126,6 @@ export default {
   },
   created() {
     this.getUser();
-    this.numOfRecipes = this.user.custom_recipes.length;
   },
   methods: {
     async getUser() {
@@ -143,6 +142,7 @@ export default {
 
       this.getRecipes(0, 10);
       this.countFollowers();
+      this.numOfRecipes = this.user.custom_recipes.length;
     },
     async getRecipes(start, end) {
       if (this.$route.query.username) {

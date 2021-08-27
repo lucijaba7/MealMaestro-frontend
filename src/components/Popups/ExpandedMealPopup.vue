@@ -1,5 +1,5 @@
 <template>
-  <v-row justify="center">
+  <v-row justify="center" v-if="loaded">
     <v-dialog v-model="show" max-width="600" @click:outside="show = false">
       <v-card>
         <v-img :src="recipe.image" height="300" class="justify-end" align="end">
@@ -145,7 +145,8 @@ export default {
     return {
       saved: false,
       recipe: {},
-      ratings: 0
+      ratings: 0,
+      loaded: false
     };
   },
   created() {
@@ -161,6 +162,7 @@ export default {
       let data = await RecipeService.getRecipeById(this.recipeId);
       this.recipe = data;
       this.getRating();
+      this.loaded = true;
     },
     async getRating() {
       let data = await RecipeService.getRating(this.recipeId);
