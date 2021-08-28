@@ -1,30 +1,14 @@
 <template>
-  <v-card class="rounded-xl white ma-4" height="260" max-width="230px">
+  <v-card
+    class="rounded-xl white ma-4"
+    height="260"
+    max-width="230px"
+    align="left"
+  >
     <div class="text-truncate text-body-1 font-weight-bold px-4 pt-3">
       {{ info.name }}
     </div>
-    <v-row>
-      <v-col cols="6" class="pb-0 pt-2">
-        <v-card-text
-          style="font-size: 15px"
-          class="py-1 pl-4 font-weight-bold"
-          >{{ info.meal_type }}</v-card-text
-        >
-      </v-col>
-      <v-rating
-        v-if="this.ratings > 0"
-        readonly
-        :value="ratings"
-        background-color="accent"
-        color="accent"
-        class="mt-2 mr-4"
-        dense
-        small
-        size="20"
-        half-increments
-      ></v-rating>
-    </v-row>
-    <v-row class="pl-3 mt-2">
+    <v-row class="pl-3 mt-1">
       <router-link
         :to="{
           name: 'Profile',
@@ -35,6 +19,30 @@
         >By @{{ info.username }}</router-link
       >
     </v-row>
+    <v-row>
+      <v-col cols="6" class="pb-0 pt-0" align="left">
+        <v-card-text
+          style="font-size: 15px"
+          class="py-1 pl-4 font-weight-bold"
+          >{{ info.meal_type }}</v-card-text
+        >
+      </v-col>
+      <v-col cols="6" class="pb-0 pt-0 px-0" align="right">
+        <v-rating
+          v-if="this.ratings > 0"
+          readonly
+          :value="ratings"
+          background-color="accent"
+          color="accent"
+          class="pr-6"
+          dense
+          small
+          size="20"
+          half-increments
+        ></v-rating>
+      </v-col>
+    </v-row>
+
     <v-img
       :src="info.image"
       @click="dialogcard = !dialogcard"
@@ -67,7 +75,7 @@ export default {
       ratings: 0
     };
   },
-  computed() {
+  created() {
     this.getRating();
   },
   methods: {

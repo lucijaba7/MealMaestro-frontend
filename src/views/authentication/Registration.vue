@@ -57,13 +57,6 @@
                 required
               >
               </v-select>
-              <v-text-field
-                v-model="servings"
-                label="Servings"
-                type="number"
-                :rules="servingsRules"
-                required
-              ></v-text-field>
             </v-form>
             <v-card-actions xs3 md4 class="justify-center">
               <div class="text-center pb-4">
@@ -122,15 +115,13 @@ export default {
       ],
       servingsRules: [
         v => !!v || "Servings are required",
-        v => (v && v > 0) || "Servings must be bigger than 0" // whyyy v > 1 ?????
+        v => (v && v > 0) || "Servings must be bigger than 0"
       ],
       passwordRules: [
         v => !!v || "Password is required",
         v => v.length >= 8 || "Minimum length is 8 characters"
       ],
-      passwordRepeatRules: [
-        v => !!v || "Please repeat your password." //  v => v != this.repeatPassword || "Passwords don’t match. Please try again."
-      ],
+      passwordRepeatRules: [v => !!v || "Please repeat your password."],
       allTags: [
         { text: "vegetarian" },
         { text: "vegan" },
@@ -156,7 +147,7 @@ export default {
     },
     async signup() {
       try {
-        let validation = await this.validate();
+        await this.validate();
         if (this.valid) {
           let user = {
             username: this.userName,
@@ -164,13 +155,13 @@ export default {
             password: this.password,
             password_confirm: this.repeatPassword,
             preferences: this.selectedTags,
-            servings: this.servings,
             avatar: this.avatarUrl
           };
 
-          let result = await AuthService.signup(user);
-          this.$router.push({ name: "Home" });
-        } else console.log("NE VALJAAA");
+          await AuthService.signup(user);
+
+          this.$router.push({ name: "Login" });
+        }
       } catch (error) {
         console.log(error);
       }

@@ -79,6 +79,7 @@
       v-model="editProfileOpen"
       v-if="editProfileOpen"
       :info="user"
+      @getData="updateUser()"
     />
     <v-container>
       <v-row v-if="this.recipes.length" class="my-10" justify="center">
@@ -144,6 +145,9 @@ export default {
       this.countFollowers();
       this.numOfRecipes = this.user.custom_recipes.length;
     },
+    updateUser() {
+      this.user = this.$store.getters.getUser;
+    },
     async getRecipes(start, end) {
       if (this.$route.query.username) {
         const newRecipes = await UserService.getUserRecipes(
@@ -193,6 +197,11 @@ export default {
   computed: {
     device() {
       return this.$vuetify.breakpoint.name;
+    }
+  },
+  watch: {
+    $route: function() {
+      this.getUser();
     }
   }
 };

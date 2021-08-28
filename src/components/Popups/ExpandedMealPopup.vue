@@ -154,10 +154,6 @@ export default {
     this.checkIfSaved();
   },
   methods: {
-    hidePopup() {
-      console.log(this.$router);
-      this.$router.go(-1);
-    },
     async getRecipe() {
       let data = await RecipeService.getRecipeById(this.recipeId);
       this.recipe = data;

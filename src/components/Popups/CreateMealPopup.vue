@@ -24,7 +24,6 @@
             Let's create a new meal!
           </v-card-title></v-row
         >
-        <!-- makla sam lazy-validation paa ako bude bilo gluposti mozda je to -->
         <v-form ref="formCreateMeal" v-model="valid">
           <v-col class="pb-0 px-8" cols="12" align="start">
             <v-text-field
@@ -164,8 +163,8 @@
           </v-row>
 
           <v-item-group v-for="(item, i) in ingredientsList" :key="i">
-            <v-row class="mx-5">
-              <v-col cols="5" class="pb-0">
+            <v-row class="mx-5 ">
+              <v-col cols="5" class="py-0">
                 <v-autocomplete
                   class="mt-5"
                   v-model="ingredientsList[i].ingredientName"
@@ -175,14 +174,15 @@
                   :rules="inputRules"
                 ></v-autocomplete>
               </v-col>
-              <v-col cols="2" class="pb-0">
+              <v-col cols="2" class="py-0">
                 <v-text-field
                   class="mb-5"
                   v-model="item.quantity"
-                  :rules="inputRules"
+                  type="number"
+                  :rules="smallInputRules"
                 ></v-text-field>
               </v-col>
-              <v-col cols="4" class="pb-0"
+              <v-col cols="4" class="py-0"
                 ><v-select
                   :items="
                     ingredientsList[i].ingredientName == ''
@@ -305,7 +305,9 @@ export default {
       valid: false,
       //RULES
       inputRules: [v => v.length > 0 || "Field must not be empty"],
+      smallInputRules: [v => v.length > 0 || "Input required"],
       fileRules: [v => !!v || "1 image required"],
+      numberInputRules: [v => typeof v == Number || "Must be a number"],
 
       meals: ["Breakfast", "Lunch", "Dinner", "Snack", "Dessert"],
       ingredientName: "",
@@ -411,7 +413,6 @@ export default {
       const index = this.uploadedFiles.findIndex(
         file => file.name === fileName
       );
-      // If file is in uploaded files remove it
       if (index > -1) this.uploadedFiles.splice(index, 1);
     },
     onDrop(e) {
@@ -432,7 +433,6 @@ export default {
         fileData.append("image", this.uploadedFiles[0]);
 
         let url = await RecipeService.getRecipeImage(fileData);
-        console.log(url.url);
 
         let data = {
           mealName: this.mealName,
@@ -447,8 +447,6 @@ export default {
           date: moment(new Date()).format("yyyy-MM-DD hh:mm a")
         };
 
-        // this.$emit("rerender", true);
-        console.log("sad cu");
         this.$router.go(0);
         await RecipeService.saveRecipeData(data);
       }
@@ -476,8 +474,4 @@ export default {
 .dragDrop {
   border: 1px solid gray !important;
 }
-/* 
-.v-dialog {
-  z-index: 0; */
-/* } */
 </style>

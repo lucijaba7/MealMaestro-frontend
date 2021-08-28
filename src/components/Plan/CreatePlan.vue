@@ -46,7 +46,7 @@ export default {
     maxWidth() {
       switch (this.$vuetify.breakpoint.name) {
         case "xs":
-          return 100; //241;
+          return 100;
         case "sm":
           return 190;
         case "md":
@@ -66,9 +66,3 @@ export default {
   }
 };
 </script>
-
-<style scoped>
-/* .card {
-  align-self: center;
-} */
-</style>

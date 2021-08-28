@@ -67,7 +67,6 @@ export default {
     logout() {
       this.$store.dispatch("logout");
       this.$router.push("/login");
-      //this.$router.go(); //osvježi stranicu
     }
   }
 };

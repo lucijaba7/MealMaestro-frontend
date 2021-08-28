@@ -117,11 +117,10 @@ export default {
   methods: {
     async getIngredients() {
       this.ingredientsList = await IngredientService.getAllIngredients();
-      console.log("done");
     },
     saveIngredient() {
       this.$refs.formAddIngredient.validate();
-      console.log(this.valid);
+
       if (this.valid) {
         var data = {
           ingredient: this.ingredient,

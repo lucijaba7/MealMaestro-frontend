@@ -61,7 +61,7 @@ export default {
     minWidth() {
       switch (this.$vuetify.breakpoint.name) {
         case "xs":
-          return 5; //241;
+          return 5;
         case "sm":
           return 28;
         case "md":

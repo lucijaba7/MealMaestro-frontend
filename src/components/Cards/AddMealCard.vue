@@ -47,7 +47,6 @@ export default {
   },
   methods: {
     async addMeal(id) {
-      // console.log(id);
       await DailyPlanService.addMeal(this.dailyPlanId, id);
       this.$router.go(0);
     }

@@ -44,9 +44,9 @@ export default {
   getUserData(username) {
     return httpClient.get(`/users/${username}`).then(response => response);
   },
-  getUserRecipes(username) {
+  getUserRecipes(username, start, end) {
     return httpClient
-      .get(`/users/${username}/customRecipes`)
+      .get(`/users/${username}/customRecipes?start=${start}&end=${end}`)
       .then(response => response);
   },
   followUser(id) {

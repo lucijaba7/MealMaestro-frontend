@@ -21,12 +21,7 @@
     <CreateMealPopup v-model="show" v-if="this.show" />
 
     <v-row justify="center">
-      <v-col
-        class="pr-2"
-        cols="5"
-        sm="4"
-        :align="device == 'xs' ? 'center' : 'right'"
-      >
+      <v-col class="pr-2" cols="5" sm="4" align="right">
         <router-link
           :to="{
             name: 'YourRecipes'
@@ -40,12 +35,7 @@
         /
       </span>
 
-      <v-col
-        class="pl-2"
-        cols="5"
-        sm="4"
-        :align="device == 'xs' ? 'center' : 'left'"
-      >
+      <v-col class="pl-2" cols="5" sm="4" align="left">
         <router-link
           :to="{
             name: 'SavedRecipes'
@@ -71,11 +61,6 @@ export default {
   },
   components: {
     CreateMealPopup
-  },
-  computed: {
-    device() {
-      return this.$vuetify.breakpoint.name;
-    }
   }
 };
 </script>

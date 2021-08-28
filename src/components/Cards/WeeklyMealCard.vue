@@ -17,7 +17,7 @@
         v-if="this.finishedShopping"
         class="float-right mt-2 mr-1"
         v-model="meal.cooked"
-        :disabled="this.disabled"
+        :disabled="meal.cooked"
         @click="cookMeal(meal)"
       ></v-checkbox>
     </span>
@@ -53,7 +53,6 @@
 
 <script>
 import AddMealCard from "@/components/Cards/AddMealCard";
-import WeeklyPlanService from "@/services/WeeklyPlanService";
 import DailyPlanService from "@/services/DailyPlanService";
 import ExpandedMealPopup from "../Popups/ExpandedMealPopup.vue";
 import RatingPopup from "../Popups/RatingPopup.vue";
@@ -63,7 +62,6 @@ export default {
   props: ["meal", "confirmed", "dailyPlanId", "finishedShopping"],
   data() {
     return {
-      disabled: this.meal.cooked,
       mealExists: typeof this.meal == "object",
       userId: this.$store.getters.getUser._id,
       username: this.$store.getters.getUser.username,
@@ -76,14 +74,11 @@ export default {
 
   methods: {
     async removeMeal() {
-      let res = await DailyPlanService.deleteMeal(
-        this.dailyPlanId,
-        this.meal._id
-      );
+      await DailyPlanService.deleteMeal(this.dailyPlanId, this.meal._id);
 
       this.mealExists = false;
     },
-    async cookMeal(meal) {
+    async cookMeal() {
       this.disabled = true;
       await DailyPlanService.cookMeal(this.dailyPlanId, this.meal._id);
 

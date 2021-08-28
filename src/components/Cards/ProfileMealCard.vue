@@ -7,18 +7,6 @@
     <v-row>
       <v-col cols="12" sm="5" class="py-0">
         <v-img :src="info.image" width="100%" height="200px" class="rounded-xl">
-          <!-- <v-btn
-            small
-            fab
-            absolute
-            right
-            class="elevation-0 mt-3"
-            color="grey lighten-1"
-            @click.stop.prevent=""
-            ><v-icon color="white">{{
-              this.saved ? "mdi-bookmark" : "mdi-bookmark-outline"
-            }}</v-icon></v-btn
-          > -->
         </v-img>
       </v-col>
 
@@ -126,9 +114,7 @@ export default {
 
 <style scoped>
 .title {
-  /* height: 80px; */
   overflow: hidden;
-  /* white-space: nowrap; */
   text-overflow: ellipsis;
 }
 .tags {

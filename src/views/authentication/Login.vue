@@ -80,7 +80,7 @@ export default {
     },
     async login() {
       try {
-        let validation = await this.validate();
+        await this.validate();
 
         if (this.valid) {
           let credentials = {

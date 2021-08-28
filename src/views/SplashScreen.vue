@@ -1,5 +1,4 @@
 <template>
-  <!-- trenutno je gore bijeli dio zbog floating nav, ali kad stavimo da se on vidi samo kad se ulogiras nece ga bit -->
   <v-container fluid fill-height justify-center class="secondary">
     <v-col align="center" xs="12" sm="6" md="4">
       <v-img

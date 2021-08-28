@@ -92,7 +92,7 @@ export default {
         username: this.$store.getters.getUser.username
       };
 
-      let response = await RecipeService.rateRecipe(this.info._id, rating);
+      await RecipeService.rateRecipe(this.info._id, rating);
       this.show = false;
     }
   },

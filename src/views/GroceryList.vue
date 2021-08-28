@@ -75,15 +75,11 @@
                 </td>
                 <td>
                   <v-checkbox v-model="item.bought"></v-checkbox>
-                  <!-- ovo ce trebat dinamicki, sad javlja error neki pa zanemarite -->
                 </td>
               </tr>
             </tbody>
           </template>
         </v-simple-table>
-        <!-- <v-btn rounded small class="primary elevation-0 mt-8"
-          >Add <v-icon small>mdi-plus</v-icon></v-btn
-        > -->
       </v-col>
     </v-row>
     <v-row
@@ -134,9 +130,6 @@ export default {
           this.items = response[0].list_items;
         } else this.active = false;
       }
-      // var sorted_items = this.items.sort(function(a, b) {
-      //   return a.ingredient.ingredient_name - b.ingredient.ingredient_name;
-      // });
     },
     selectAll() {
       for (var item of this.items) {
@@ -156,9 +149,8 @@ export default {
         }
       }
       if (this.warning2 != true) {
-        var data = await GroceryListService.confirmGroceryList(this.listId);
+        await GroceryListService.confirmGroceryList(this.listId);
         this.active = false;
-        // this.items = [];
       }
     }
   },

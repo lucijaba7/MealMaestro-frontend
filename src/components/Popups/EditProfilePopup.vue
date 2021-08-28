@@ -34,7 +34,7 @@
             <AvatarPopup @avatar="setAvatar" />
           </v-col>
         </v-row>
-        <v-form ref="form_1" v-model="valid_1" lazy-validation>
+        <v-form ref="form_1" v-model="valid_1">
           <v-row class="my-4 mx-0">
             <v-col cols="12" class="pt-0">
               <h4 class="pl-5">- About you -</h4>
@@ -90,7 +90,7 @@
             <h4 class="ml-5 ">- Change password -</h4>
           </v-col>
           <v-col cols="8" class="px-6">
-            <v-form ref="form_2" v-model="valid_2" lazy-validation>
+            <v-form ref="form_2" v-model="valid_2">
               <v-text-field
                 id="password"
                 v-model="currentPassword"
@@ -132,7 +132,6 @@
             class="ma-3 px-8 primary elevation-0"
             >Done</v-btn
           >
-          <!-- <v-btn outlined rounded  @click="closeDialog" class="py-3 my-5 mr-2 elevation-0">Close</v-btn> -->
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -158,7 +157,7 @@ export default {
       username: this.info.username,
       email: this.info.email,
       avatarUrl: this.info.avatarUrl,
-      about_you: this.info.about_you,
+      about_you: this.info.about_you ? this.info.about_you : "",
       currentPassword: "",
       newPassword: "",
       confirmPassword: ""
@@ -170,7 +169,7 @@ export default {
     },
     async updateData() {
       try {
-        let validation = await this.$refs.form_1.validate();
+        await this.$refs.form_1.validate();
 
         if (this.valid_1) {
           let data = {};
@@ -187,6 +186,7 @@ export default {
           const updatedUser = response.data.user;
           this.$store.dispatch("updateUser", updatedUser);
           this.forceRerender();
+          this.$emit("getData");
         }
       } catch (error) {
         console.log(error);
@@ -194,7 +194,7 @@ export default {
     },
     async changePassword() {
       try {
-        let validation = await this.$refs.form_2.validate();
+        await this.$refs.form_2.validate();
 
         if (this.valid_2) {
           const credentials = {

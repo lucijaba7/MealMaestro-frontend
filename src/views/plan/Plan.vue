@@ -129,7 +129,6 @@
           :data="this.data.daily_plans"
           :confirmed="this.confirmed"
           :finishedShopping="this.finishedShopping"
-          @getData="this.fetchWeeklyPlan"
         ></router-view
       ></v-fade-transition>
     </span>
@@ -143,7 +142,6 @@ import ConfirmPlan from "@/components/Plan/ConfirmPlan";
 import CreatePlan from "@/components/Plan/CreatePlan";
 import NoPlan from "@/components/Plan/NoPlan";
 import WeeklyPlanService from "@/services/WeeklyPlanService";
-import router from "@/router";
 import moment from "moment";
 const { thisWeeksMonday } = require("@/assets/date/date_handling.js");
 
@@ -152,6 +150,7 @@ const { weekdayName, monthName } = require("@/assets/date/date_handling.js");
 export default {
   data() {
     return {
+      data: [],
       user: this.$store.getters.getUser,
       plan: false,
       groceries: false,
@@ -165,10 +164,6 @@ export default {
       month: monthName,
       activeDay: this.getActiveDay()
     };
-  },
-
-  mounted() {
-    console.log(this.isItSunday);
   },
   created() {
     this.fetchWeeklyPlan();
@@ -189,7 +184,7 @@ export default {
       }
     },
     async createPlan() {
-      const data = await WeeklyPlanService.createWeeklyPlan(this.startDay);
+      await WeeklyPlanService.createWeeklyPlan(this.startDay);
       this.fetchWeeklyPlan();
     },
     getActiveDay() {
@@ -211,15 +206,6 @@ export default {
       this.groceries = true;
       this.confirmed = true;
     }
-    // // cookMeal(mealPlanId) {
-    // //   for (var plan of this.data.daily_plans) {
-    // //     for (var meal of plan.meals) {
-    // //       if (meal._id == mealPlanId) {
-    // //         meal.cooked = true;
-    // //       }
-    // //     }
-    // //   }
-    // }
   },
   components: { CalendarButton, FloatingNav, CreatePlan, ConfirmPlan, NoPlan },
   computed: {
@@ -259,6 +245,7 @@ export default {
     },
     $route: function() {
       this.activeDay = this.getActiveDay();
+      this.fetchWeeklyPlan();
     }
   }
 };

@@ -14,15 +14,15 @@
         sm="6"
         md="4"
         lg="3"
-        align="left"
+        align="center"
         class="pa-6"
-        v-for="recipe in recipes"
+        v-for="recipe in this.recipes"
         :key="recipe._id"
       >
         <v-btn
           absolute
           fab
-          class="accent elevation-0 "
+          class="accent elevation-0 x-button"
           @click="removeFromSaved(recipe._id)"
           width="22.5"
           height="22.5"
@@ -36,8 +36,9 @@
       v-if="this.recipes.length != 0 && this.recipes.length < this.numOfRecipes"
       justify="center"
       class="mb-5"
-      ><v-btn @click="loadMore" plain>Load more...</v-btn></v-row
     >
+      <v-btn @click="loadMore()" plain>Load more...</v-btn>
+    </v-row>
   </v-row>
 </template>
 
@@ -50,18 +51,14 @@ export default {
   data() {
     return {
       recipes: [],
-      numOfRecipes: 0
+      numOfRecipes: this.$store.getters.getUser.saved_recipes.length
     };
   },
   created() {
     this.getSavedRecipes(0, 10);
-    this.numOfRecipes = this.$store.getters.getUser.custom_recipes.length;
   },
   methods: {
     async getSavedRecipes(start, end) {
-      // let data = await UserService.getSavedRecipes();
-      // if (data.length) this.recipes = data;
-
       const newRecipes = await UserService.getSavedRecipes(start, end);
 
       if (this.recipes.length == 0) {
@@ -76,7 +73,15 @@ export default {
         return item._id !== id;
       });
 
-      let response = await UserService.removeFromSavedRecipes(id);
+      var recipeIds = this.recipes.map(x => x._id);
+      this.numOfRecipes = this.numOfRecipes - 1;
+
+      var userData = this.$store.getters.getUser;
+      userData.saved_recipes = recipeIds;
+
+      this.$store.dispatch("updateUser", userData);
+
+      await UserService.removeFromSavedRecipes(id);
     }
   },
   components: {
@@ -84,3 +89,9 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+.x-button {
+  margin-left: 115px;
+}
+</style>

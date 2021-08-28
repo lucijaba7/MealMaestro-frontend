@@ -20,6 +20,7 @@
             v-model="dialog"
             v-if="dialog"
             :meal="defaultMeal"
+            @mealId="addMeal"
           />
         </div>
       </v-col>
@@ -101,28 +102,26 @@
         </p>
       </v-col>
     </v-row>
+    <RatingPopup :info="meal.recipe" v-model="rating" v-if="rating" />
   </v-container>
 </template>
 
 <script>
 import ChooseMealPopup from "@/components/Popups/ChooseMealPopup";
 import DailyPlanService from "@/services/DailyPlanService";
+import RatingPopup from "@/components/Popups/RatingPopup.vue";
 
 export default {
   name: "DailyPlan",
   props: ["data", "confirmed", "finishedShopping"],
   data() {
     return {
-      // defaultMeal: "Breakfast",
       meals: ["Breakfast", "Lunch", "Dinner", "Snack", "Dessert"],
       dialog: false,
       defaultMeal: this.startMeal(),
-      cooked: this.cookedObject()
+      cooked: this.cookedObject(),
+      rating: false
     };
-  },
-  created() {},
-  mounted() {
-    console.log(this.cooked);
   },
   methods: {
     quantity(num) {
@@ -152,10 +151,12 @@ export default {
       return cooked;
     },
     async removeMeal() {
-      let res = await DailyPlanService.deleteMeal(
-        this.dailyPlanId,
-        this.mealPlanId
-      );
+      await DailyPlanService.deleteMeal(this.dailyPlanId, this.mealPlanId);
+
+      this.$router.go(0);
+    },
+    async addMeal(id) {
+      await DailyPlanService.addMeal(this.dailyPlanId, id);
 
       this.$router.go(0);
     },
@@ -163,7 +164,13 @@ export default {
       this.disabled = true;
       await DailyPlanService.cookMeal(this.dailyPlanId, this.meal._id);
 
-      ///////// RATING
+      if (!this.meal.recipe.ratings) this.rating = true;
+      else if (
+        this.meal.recipe.ratings.find(
+          rating => rating.username == this.username
+        ) == undefined
+      )
+        this.rating = true;
     }
   },
   computed: {
@@ -207,34 +214,14 @@ export default {
       );
       return doc.body.firstChild.textContent;
     }
-    // cooked: {
-    //   get() {
-    //     return this.meal.cooked;
-    //   },
-    //   set(val) {
-    //     return val;
-    //   }
-    // }
-
-    // disable: {
-    //   get() {
-    //     return this.meal.cooked;
-    //   },
-    //   set(a) {
-    //     console.log(a);
-    //   }
-    // }
   },
   watch: {
-    //   meal() {
-    //     this.cooked;
-    //   },
     $route: function() {
       this.cooked = this.cookedObject();
       this.defaultMeal = this.startMeal();
     }
   },
-  components: { ChooseMealPopup }
+  components: { ChooseMealPopup, RatingPopup }
 };
 </script>
 

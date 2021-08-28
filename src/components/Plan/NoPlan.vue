@@ -22,13 +22,6 @@
           </div>
         </v-row>
       </v-col>
-      <!-- <v-col cols="12" align-self="center">
-        <v-row justify="center">
-          <v-btn rounded class="py-3 my-3 primary elevation-0">
-            confirm plan</v-btn
-          ></v-row
-        >
-      </v-col> -->
     </v-row>
   </v-card>
 </template>
@@ -40,7 +33,7 @@ export default {
     maxWidth() {
       switch (this.$vuetify.breakpoint.name) {
         case "xs":
-          return 100; //241;
+          return 100;
         case "sm":
           return 170;
         case "md":
@@ -55,9 +48,3 @@ export default {
   }
 };
 </script>
-
-<style scoped>
-/* .card {
-  align-self: center;
-} */
-</style>

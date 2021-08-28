@@ -14,7 +14,7 @@
         sm="6"
         md="4"
         lg="3"
-        align="left"
+        align="center"
         class="pa-6"
         v-for="recipe in recipes"
         :key="recipe._id"
@@ -22,7 +22,7 @@
         <v-btn
           absolute
           fab
-          class="accent elevation-0 "
+          class="accent elevation-0 x-button"
           @click="removeRecipe(recipe._id)"
           width="22.5"
           height="22.5"
@@ -61,9 +61,6 @@ export default {
   },
   methods: {
     async getYourRecipes(start, end) {
-      // let data = await UserService.getCustomRecipes(start, end);
-      // if (data.length) this.recipes = data;
-
       const newRecipes = await UserService.getCustomRecipes(start, end);
 
       if (this.recipes.length == 0) {
@@ -78,7 +75,15 @@ export default {
         return item._id !== id;
       });
 
-      let response = await UserService.removeFromYourRecipes(id);
+      var recipeIds = this.recipes.map(x => x._id);
+      this.numOfRecipes = this.numOfRecipes - 1;
+
+      var userData = this.$store.getters.getUser;
+      userData.custom_recipes = recipeIds;
+
+      this.$store.dispatch("updateUser", userData);
+
+      await UserService.removeFromYourRecipes(id);
     }
   },
   components: {
@@ -86,3 +91,9 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+.x-button {
+  margin-left: 115px;
+}
+</style>

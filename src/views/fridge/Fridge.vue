@@ -25,13 +25,12 @@
       v-if="openPopup"
       @addIngredient="addIngredient"
     />
-    <v-slide-x-transition>
-      <router-view
-        :items="this.fridgeItems"
-        :fridgeId="this.fridgeId"
-        :groceryListItems="this.groceryListItems"
-      ></router-view>
-    </v-slide-x-transition>
+
+    <router-view
+      :items="this.fridgeItems"
+      :fridgeId="this.fridgeId"
+      :groceryListItems="this.groceryListItems"
+    ></router-view>
   </v-container>
 </template>
 
@@ -72,16 +71,12 @@ export default {
       if (response.length) {
         this.groceryListItems = response[0].list_items;
       }
-      // var sorted_items = this.items.sort(function(a, b) {
-      //   return a.ingredient.ingredient_name - b.ingredient.ingredient_name;
-      // });
     },
     async addIngredient(obj) {
       var addNew = true;
       for (var category of this.fridgeItems) {
         for (var item of category.ingredients_list) {
           if (item.ingredient._id == obj.ingredient) {
-            console.log(item.ingredient);
             addNew = false;
             item.quantity += Number(obj.quantity);
           }
@@ -90,7 +85,7 @@ export default {
 
       if (!this.fridgeId) {
         const fridge = await FridgeService.createFridge();
-        console.log(fridge);
+
         this.fridgeId = fridge._id;
       }
       if (addNew) {

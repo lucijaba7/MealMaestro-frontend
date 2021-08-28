@@ -44,7 +44,12 @@
                         >
                       </td>
                       <td width="70%" class="text-center">
-                        {{ item.quantity }} g
+                        {{
+                          item.quantity % 1 != 0
+                            ? item.quantity.toFixed(1)
+                            : item.quantity
+                        }}
+                        g
                       </td>
                       <td width="15%">
                         <v-btn
@@ -71,8 +76,6 @@
                       >mdi-close-circle-outline</v-icon
                     ></v-btn
                   >
-                  <!-- <v-icon style="cursor: pointer">mdi-close-circle-outline</v-icon> -->
-                  <!-- ILI PLAVOO <v-btn fab class="elevation-0" max-width="18" max-height="18" color="primary"><v-icon>mdi-close-circle-outline</v-icon></v-btn> -->
                 </td>
               </tr>
             </tbody>
@@ -143,9 +146,6 @@ export default {
         if (item.category == this.$route.params.name)
           return item.ingredients_list;
       }
-      // return this.items.filter(
-      //   x => String(x.category) == this.$route.params.name
-      // )[0].ingredients_list;
     }
   },
   watch: {

@@ -12,9 +12,6 @@
         name: 'Profile'
       }"
     >
-      <!-- query: {
-          username: this.username
-        } -->
       <v-icon color="secondary">mdi-account-circle</v-icon></v-btn
     >
     <v-btn
@@ -61,9 +58,7 @@
       :to="{
         name: 'Profile'
       }"
-      ><!-- query: {
-          username: this.username
-        } -->
+    >
       <v-icon color="secondary">mdi-account-circle</v-icon></v-btn
     >
     <v-btn
@@ -109,5 +104,13 @@ export default {
 <style scoped>
 .v-item-group {
   z-index: 101;
+}
+/* a.v-btn--active {
+  background: yellow;
+  z-index: 100000;
+} */
+
+.theme--light.v-btn.v-btn--icon {
+  color: #fffefb;
 }
 </style>

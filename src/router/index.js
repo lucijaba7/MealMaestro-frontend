@@ -15,9 +15,7 @@ import Recipes from "../views/recipes/Recipes.vue";
 import YourRecipes from "../views/recipes/YourRecipes.vue";
 import SavedRecipes from "../views/recipes/SavedRecipes.vue";
 import Profile from "../views/Profile.vue";
-import Settings from "../views/Settings.vue";
 import NotFound from "../views/NotFound.vue";
-import ExpandedMealPopup from "../components/Popups/ExpandedMealPopup.vue";
 import { store } from "../store/index.js";
 
 Vue.use(VueRouter);
@@ -76,25 +74,11 @@ const routes = [
         path: "yourRecipes",
         name: "YourRecipes",
         component: YourRecipes
-        // children: [
-        //   {
-        //     path: ":id",
-        //     component: ExpandedMealPopup,
-        //     props: true
-        //   }
-        // ]
       },
       {
         path: "savedRecipes",
         name: "SavedRecipes",
         component: SavedRecipes
-        // children: [
-        //   {
-        //     path: ":id",
-        //     component: ExpandedMealPopup,
-        //     props: true
-        //   }
-        // ]
       }
     ],
     meta: {
@@ -128,14 +112,7 @@ const routes = [
       requiresAuth: true
     }
   },
-  {
-    path: "/settings",
-    name: "Settings",
-    component: Settings,
-    meta: {
-      requiresAuth: true
-    }
-  },
+
   {
     path: "/profile",
     name: "Profile",
@@ -144,7 +121,7 @@ const routes = [
       requiresAuth: true
     }
   },
-  //catchall 404
+
   {
     path: "/:catchAll(.*)",
     name: "NotFound",
