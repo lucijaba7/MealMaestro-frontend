@@ -27,6 +27,6 @@ export default {
       .then(response => response.data);
   },
   getRating(id) {
-    return service.get(`/recipes/${id}/rating`).then(response => response.data);
+    return service.get(`/recipes/${id}/rating/`).then(response => response.data);
   }
 };
