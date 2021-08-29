@@ -2,7 +2,7 @@ import axios from "axios";
 import { store } from "../store";
 
 export default axios.create({
-  baseURL: " https://meal-maestro-backend-lvaresko.vercel.app",
+  baseURL: "https://mealmaestro.herokuapp.com",
   headers: {
     Authorization: `Bearer ${store.getters.isAuthenticated}`
   }
