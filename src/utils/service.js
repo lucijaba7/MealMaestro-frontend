@@ -2,8 +2,5 @@ import axios from "axios";
 import { store } from "../store";
 
 export default axios.create({
-  baseURL: "https://mealmaestro.herokuapp.com",
-  headers: {
-    Authorization: `Bearer ${store.getters.isAuthenticated}`
-  }
+  baseURL: "https://mealmaestro.herokuapp.com"
 });
