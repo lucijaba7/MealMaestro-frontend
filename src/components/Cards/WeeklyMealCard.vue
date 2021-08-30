@@ -45,7 +45,7 @@
     <RatingPopup :info="meal.recipe" v-model="rating" v-if="rating" />
   </v-card>
   <AddMealCard
-    v-else
+    v-else-if="!this.mealExists && !this.confirmed"
     :mealType="this.meal_type"
     :dailyPlanId="this.dailyPlanId"
   />
