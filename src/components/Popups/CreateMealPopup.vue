@@ -72,7 +72,6 @@
                     height="10"
                     @change="onFileSelected"
                     hide-input
-                    :rules="fileRules"
                   ></v-file-input>
                 </v-col>
                 <v-col cols="11"
@@ -306,7 +305,6 @@ export default {
       //RULES
       inputRules: [v => v.length > 0 || "Field must not be empty"],
       smallInputRules: [v => v.length > 0 || "Input required"],
-      fileRules: [v => !!v || "1 image required"],
       numberInputRules: [v => typeof v == Number || "Must be a number"],
 
       meals: ["Breakfast", "Lunch", "Dinner", "Snack", "Dessert"],
