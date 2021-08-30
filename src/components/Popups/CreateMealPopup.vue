@@ -445,8 +445,8 @@ export default {
           date: moment(new Date()).format("yyyy-MM-DD hh:mm a")
         };
 
-        this.$router.go(0);
         await RecipeService.saveRecipeData(data);
+        this.$router.go(0);
       }
       if (!this.uploadedFiles.length) {
         this.noImage = true;
