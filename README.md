@@ -9,3 +9,6 @@ Mentori: [doc.dr.sc. Nikola Tanković](https://www.notion.so/Kontakt-stranica-87
 * [Vue.js](https://vuejs.org/) 
 * [Vuetify](https://vuetifyjs.com/en/)
 * [Vuex](https://vuex.vuejs.org/)
+
+### Aplikacija
+[MealMaestro](https://mealmaestro.vercel.app/)
